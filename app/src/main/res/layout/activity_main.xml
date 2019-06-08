@@ -16,11 +16,13 @@
         android:layout_marginEnd="152dp"
         android:layout_marginRight="152dp"
         android:layout_marginBottom="32dp"
-        android:text="Whiskey"
+        android:onClick="goToWhiskey"
+        android:text="@string/Whiskey_button_name"
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        app:layout_constraintTop_toBottomOf="@+id/button8"
+        tools:text="@string/Whiskey_button_name" />
 
     <Button
         android:id="@+id/button7"
@@ -32,12 +34,14 @@
         android:layout_marginEnd="152dp"
         android:layout_marginRight="152dp"
         android:layout_marginBottom="32dp"
-        android:text="Acid"
+        android:onClick="goToAcid"
+        android:text="@string/Acid_button_name"
         app:layout_constraintBottom_toTopOf="@+id/button9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/button6"
+        tools:text="@string/Acid_button_name" />
 
     <Button
         android:id="@+id/button6"
@@ -49,12 +53,14 @@
         android:layout_marginEnd="152dp"
         android:layout_marginRight="152dp"
         android:layout_marginBottom="32dp"
-        android:text="Cannabis"
+        android:onClick="goToCannabis"
+        android:text="@string/Cannabis_button_name"
         app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:text="@string/Cannabis_button_name" />
 
     <Button
         android:id="@+id/button9"
@@ -66,12 +72,14 @@
         android:layout_marginEnd="152dp"
         android:layout_marginRight="152dp"
         android:layout_marginBottom="250dp"
-        android:text="Coca Cola"
+        android:onClick="goToCocaCola"
+        android:text="@string/CocaCola_button_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/button7"
+        tools:text="@string/CocaCola_button_name" />
 
     <Button
         android:id="@+id/button8"
@@ -83,11 +91,13 @@
         android:layout_marginEnd="152dp"
         android:layout_marginRight="152dp"
         android:layout_marginBottom="32dp"
-        android:text="Heisenberg"
+        android:onClick="goToHeisenberg"
+        android:text="@string/Heisenberg_button_name"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/Heisenberg_button_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
