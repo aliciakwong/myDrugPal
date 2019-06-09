@@ -9,42 +9,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CocaCola"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".CocaColaInfoActivity"
+            android:parentActivityName=".DetailPageActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".DetailPageActivity" />
         </activity>
-        <activity android:name=".Acid"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".AcidInfoActivity"
+            android:parentActivityName=".DetailPageActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".DetailPageActivity" />
         </activity>
-        <activity android:name=".Cannabis"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".CannabisInfoActivity"
+            android:parentActivityName=".DetailPageActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".DetailPageActivity" />
         </activity>
-        <activity android:name=".Heisenberg"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".HeisenbergInfoActivity"
+            android:parentActivityName=".DetailPageActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".DetailPageActivity" />
         </activity>
-        <activity android:name=".Whiskey"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".WhiskeyInfoRefactor"
+            android:parentActivityName=".DetailPageActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".DetailPageActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".DetailPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

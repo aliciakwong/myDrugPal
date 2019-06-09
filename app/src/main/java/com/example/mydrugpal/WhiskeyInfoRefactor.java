@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Cannabis extends AppCompatActivity {
+public class WhiskeyInfoRefactor extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cannabis);
+        setContentView(R.layout.activity_whiskey);
     }
 }

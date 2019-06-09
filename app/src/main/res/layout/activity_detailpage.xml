@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".DetailPageActivity">
 
     <Button
         android:id="@+id/button"
@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8"
+        app:layout_constraintTop_toBottomOf="@+id/heisengberg_button"
         tools:text="@string/Whiskey_button_name" />
 
     <Button
@@ -82,7 +82,7 @@
         tools:text="@string/CocaCola_button_name" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/heisengberg_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
