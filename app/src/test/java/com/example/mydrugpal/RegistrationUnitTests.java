@@ -3,7 +3,7 @@ package com.example.mydrugpal;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class RegisterProfileUnitTests
+public class RegistrationUnitTests
 {
     @Test
     public void profile_NotEmpty()
