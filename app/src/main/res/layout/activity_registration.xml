@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.927" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/clear_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
@@ -67,13 +67,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView_fName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="First Name" />
 
             <EditText
-                android:id="@+id/editText8"
+                android:id="@+id/editText_fName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -85,13 +85,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textView_lName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Last Name" />
 
             <EditText
-                android:id="@+id/editText13"
+                android:id="@+id/editText_lName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -104,13 +104,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/textView_Email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email" />
 
             <EditText
-                android:id="@+id/editText10"
+                android:id="@+id/editText_Email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -122,13 +122,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textView_Password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Password" />
 
             <EditText
-                android:id="@+id/editText11"
+                android:id="@+id/editText_Password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
