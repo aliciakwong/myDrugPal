@@ -24,7 +24,9 @@ public class LoginInstrumentedTest {
     public void loginTranition() {
         onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
 
-        gotoLogin(findViewById(R.id.LoginSuccessView));
+        LoginActivity login = new LoginActivity();
+
+        login.gotoLogin(findViewById(R.id.LoginSuccessView));
 
         onView(withId(R.id.LoginSuccessView)).toString().equals("You Have Successfully Logged");
 
