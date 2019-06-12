@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">myDrugPal</string>
+    <string name="LoginSuccessMessage">You Have Successfully Logged</string>
 </resources>
