@@ -21,12 +21,11 @@ public class LoginInstrumentedTest {
     }
 
     @Test
-    public void loginTranition() {
+    public void loginTransition() {
         onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
 
         LoginActivity login = new LoginActivity();
-
-        login.gotoLogin(findViewById(R.id.LoginSuccessView));
+        login.gotoLogin();
 
         onView(withId(R.id.LoginSuccessView)).toString().equals("You Have Successfully Logged");
 

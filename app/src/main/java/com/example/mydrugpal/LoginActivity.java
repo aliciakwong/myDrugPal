@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if(validatePassword){
-                    gotoLogin(findViewById(R.id.LoginSuccessView));
+                    gotoLogin();
 
                 }
                 else{
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void gotoLogin(View view) {
+    public void gotoLogin() {
         Intent intent = new Intent(this, LoginSuccessActivity.class);
         startActivity(intent);
     }
