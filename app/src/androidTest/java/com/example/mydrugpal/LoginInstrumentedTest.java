@@ -16,7 +16,17 @@ public class LoginInstrumentedTest {
 
     @Test
     public void appOpensToLogin(){
-        onView(withId(R.id.appTitle)).toString().equals("MyDrugPal");
+        onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
+
+    }
+
+    @Test
+    public void loginTranition() {
+        onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
+
+        gotoLogin(findViewById(R.id.LoginSuccessView));
+
+        onView(withId(R.id.LoginSuccessView)).toString().equals("You Have Successfully Logged");
 
     }
 

@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if(validatePassword){
-                    gotoLogin(findViewById(R.id.textView));
+                    gotoLogin(findViewById(R.id.LoginSuccessView));
 
                 }
                 else{
