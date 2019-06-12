@@ -1,12 +1,31 @@
 package com.example.mydrugpal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -15,21 +34,52 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button validateButton = findViewById(R.id.button);
-        validateButton.setOnClickListener(new View.OnClickListener(){
+
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference loginCollection = database.collection("Users");
+        //DocumentReference currentUser = loginCollection.document(email);
+        //TODO: need to force UserList to be updated at initiation
+        loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<DocumentSnapshot> uList = task.getResult().getDocuments();
+
+                   //TODO: UserList.getInstance().updateUsers(uList);
+                    ((TextView) findViewById(R.id.appTitle)).setText("yes");
+
+
+                }
+            }
+        });
+
+        Button loginButton = findViewById(R.id.button);
+        loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                /*boolean validatePassword = Validator.validate(((EditText)findViewById(R.id.editText)).getText().toString());
-                String passwordStrengthText;
+                boolean validatePassword = VerifyLogin.validateUser(
+                       ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
+                        ((EditText)findViewById(R.id.enterPassword)).getText().toString());
 
-                if(validatePassword)
-                    passwordStrengthText = "Strong Enough Password";
-                else
-                    passwordStrengthText = "INVALID PASSWORD! (Not Strong Enough)";
 
-                ((TextView)findViewById(R.id.textView)).setText(passwordStrengthText);*/
+                if(validatePassword){
+                    //TODO: move to profile page
+                }
+                else{
+                    ((EditText) findViewById(R.id.enterEmail)).setText("");
+                    ((EditText) findViewById(R.id.enterPassword)).setText("");
+                }
+
+                //NEW STUFF:
+
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                //auth.
             }
 
         });
+
+
+
 
     }
 }
