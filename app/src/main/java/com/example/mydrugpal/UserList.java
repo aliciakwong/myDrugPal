@@ -27,7 +27,7 @@ public class UserList {
     }
 
     public void updateUsers(List<DocumentSnapshot> updatedList){
-        users = null;
+        users = new HashMap<>();
         for(DocumentSnapshot d: updatedList){
             String email = d.getId();
             String password = d.get("Password").toString();

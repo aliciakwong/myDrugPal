@@ -3,6 +3,7 @@ package com.example.mydrugpal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,10 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     List<DocumentSnapshot> uList = task.getResult().getDocuments();
 
-                   //TODO: UserList.getInstance().updateUsers(uList);
-                    ((TextView) findViewById(R.id.appTitle)).setText("yes");
-
-
+                    UserList.getInstance().updateUsers(uList);
                 }
             }
         });
@@ -63,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if(validatePassword){
-                    //TODO: move to profile page
+                    gotoLogin(findViewById(R.id.textView));
+
                 }
                 else{
                     ((EditText) findViewById(R.id.enterEmail)).setText("");
@@ -77,9 +76,10 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
+    }
 
-
-
-
+    public void gotoLogin(View view) {
+        Intent intent = new Intent(this, LoginSuccessActivity.class);
+        startActivity(intent);
     }
 }
