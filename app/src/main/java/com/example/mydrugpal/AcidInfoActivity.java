@@ -7,17 +7,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.mydrugpal.model.Substance;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+//import com.example.mydrugpal.model.Substances.Acid;
+import com.google.firebase.firestore.DocumentReference;
 
 public class AcidInfoActivity extends AppCompatActivity {
 
 
-    FireBaseFirestore database;
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    CollectionReference sub_collection = database.collection("Substances");
+
+    DocumentReference acid = sub_collection.document("Cannabis");
+
     private Intent intent;
-    private Substance substance;
 
     private TextView acidDesc;
 
@@ -27,15 +30,14 @@ public class AcidInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acid);
 
-
+        acidDesc = findViewById(R.id.textViewAcid);
         database = FirebaseFirestore.getInstance();
 
         intent = getIntent();
 
-        substance = (Substance)intent.getSerializableExtra("substance");
 
-        acidDesc = findViewByID(R.id.textViewAcid);
-        //acidDesc.setText(substance.cannabis.)
+        acidDesc.setText(acid.get().toString());
+
 
     }
 }
