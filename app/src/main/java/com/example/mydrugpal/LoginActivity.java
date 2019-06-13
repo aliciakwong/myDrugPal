@@ -68,11 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                     ((EditText) findViewById(R.id.enterEmail)).setText("");
                     ((EditText) findViewById(R.id.enterPassword)).setText("");
                 }
-
-                //NEW STUFF:
-
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                //auth.
             }
 
         });
@@ -82,4 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginSuccessActivity.class);
         startActivity(intent);
     }
+
+
 }
