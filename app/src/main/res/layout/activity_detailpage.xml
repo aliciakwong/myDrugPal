@@ -6,86 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".DetailPageActivity">
 
-    <Button
-        android:id="@+id/whiskey_button"
-        android:layout_width="134dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
 
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="32dp"
-        android:onClick="goToWhiskey"
-        android:text="@string/Whiskey_button_name"
+    <Button
+        android:id="@+id/addSubstance"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Add Substance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acid_button"
-        tools:text="@string/Whiskey_button_name" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/acid_button"
-        android:layout_width="160dp"
-        android:layout_height="51dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/substanceList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="goToAcid"
-        android:text="@string/Acid_button_name"
-        app:layout_constraintBottom_toTopOf="@+id/whiskey_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cocacola_button"
-        tools:text="@string/Acid_button_name" />
-
-    <Button
-        android:id="@+id/cannabis_button"
-        android:layout_width="107dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="goToCannabis"
-        android:text="@string/Cannabis_button_name"
-        app:layout_constraintBottom_toTopOf="@+id/heisengberg_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/Cannabis_button_name" />
-
-    <Button
-        android:id="@+id/cocacola_button"
-        android:layout_width="173dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-
-        android:onClick="goToCocaCola"
-        android:text="@string/CocaCola_button_name"
-        app:layout_constraintBottom_toTopOf="@+id/acid_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heisengberg_button"
-        tools:text="@string/CocaCola_button_name" />
-
-    <Button
-        android:id="@+id/heisengberg_button"
-        android:layout_width="144dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-
-        android:onClick="goToHeisenberg"
-        android:text="@string/Heisenberg_button_name"
-        app:layout_constraintBottom_toTopOf="@+id/cocacola_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cannabis_button"
-        tools:text="@string/Heisenberg_button_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

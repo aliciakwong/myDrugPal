@@ -32,7 +32,7 @@ import java.util.List;
 
 public class AcidInfoActivity extends AppCompatActivity {
 
-
+/*
 
     private Intent intent;
 
@@ -77,5 +77,5 @@ public class AcidInfoActivity extends AppCompatActivity {
         acidDesc.setText(field_text); //currently returns document id "cannabis"
 
 
-    }
+    } */
 }

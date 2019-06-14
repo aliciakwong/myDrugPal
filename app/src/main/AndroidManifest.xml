@@ -9,41 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CocaColaInfoActivity"
-            android:parentActivityName=".DetailPageActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailPageActivity" />
-        </activity>
-        <activity android:name=".AcidInfoActivity"
-            android:parentActivityName=".DetailPageActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailPageActivity" />
-        </activity>
-        <activity android:name=".CannabisInfoActivity"
-            android:parentActivityName=".DetailPageActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailPageActivity" />
-        </activity>
-        <activity android:name=".HeisenbergInfoActivity"
-            android:parentActivityName=".DetailPageActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailPageActivity" />
-        </activity>
-        <activity android:name=".WhiskeyInfoRefactor"
-            android:parentActivityName=".DetailPageActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailPageActivity" />
-        </activity>
         <activity android:name=".DetailPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SubstanceDetail"
+            android:parentActivityName=".DetailPageActivity" />
+        <activity android:name=".AddSubstance" android:parentActivityName=".DetailPageActivity"></activity>
     </application>
+
 
 </manifest>

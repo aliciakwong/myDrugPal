@@ -10,4 +10,6 @@
     <string name="Cannabis_button_name">Cannabis</string>
     <string name="Whiskey_button_name">Whiskey</string>
     <string name="Acid_button_name">Acid</string>
+    <string name="enter_substance_name"><font color="grey">enter substance name</font></string>
+    <string name="enter_substance_info"><font color="grey">enter substance info</font></string>
 </resources>
