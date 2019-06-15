@@ -1,37 +1,38 @@
 package com.example.mydrugpal;
+import java.io.Serializable;
 
-public class Profile
+public class Profile implements Serializable
 {
-    public String m_FirstName;
-    private String m_LastName;
-    private String m_Email;
-    private String m_Password;
+    public String firstName;
+    public String lastName;
+    public String email;
+    public String Password;
 
     public Profile (String firstName, String lastName, String email, String pass)
     {
-        m_FirstName = firstName;
-        m_LastName = lastName;
-        m_Email = email;
-        m_Password = pass;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        Password = pass;
     }
 
     public String GetFirstName()
     {
-        return m_FirstName;
+        return firstName;
     }
 
     public String GetLastName()
     {
-        return m_LastName;
+        return lastName;
     }
 
     public String GetEmail()
     {
-        return m_Email;
+        return email;
     }
 
     public String GetPassword()
     {
-        return m_Password;
+        return Password;
     }
 }

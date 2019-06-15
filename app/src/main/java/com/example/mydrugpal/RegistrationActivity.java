@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentReference;
 
 
 
@@ -40,7 +41,11 @@ public class RegistrationActivity extends AppCompatActivity
                                         editPass.getText().toString());
 
 
-                registerUser(p);
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                DocumentReference ref = database.collection("Users").document(p.GetEmail());
+                ref.set(p);
+
+
             }
         });
 
@@ -55,11 +60,5 @@ public class RegistrationActivity extends AppCompatActivity
             }
         });
     }
-    public void registerUser(Profile profile) {
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection("users")
-                .document(profile.GetEmail())
-                .set(profile.GetPassword());
 
-    }
 }
