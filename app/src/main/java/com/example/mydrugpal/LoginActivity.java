@@ -76,6 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * @author Ian Sifton, Alicia Wong
+     * Method sets up an intent that begins the new activity -- the LoginSuccessActivity class
+     */
     public void gotoLogin() {
         Intent intent = new Intent(this, LoginSuccessActivity.class);
         startActivity(intent);

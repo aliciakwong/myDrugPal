@@ -29,8 +29,7 @@ public class VerifyLogin {
      * if they match an existing key and its password.
      * Return true if this passes or return false otherwise
      *
-     * @param email String
-     * @param password final String
+     *
      *
      */
     public static boolean validateUser(String email, final String password){
