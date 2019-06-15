@@ -3,4 +3,6 @@
     <string name="LoginSuccessMessage">You Have Successfully Logged In</string>
     <string name="Title_MyDrugPal">MyDrugPal</string>
     <string name="label_login">LOGIN</string>
+    <string name="hint_email">Email:</string>
+    <string name="hint_password">Password:</string>
 </resources>
