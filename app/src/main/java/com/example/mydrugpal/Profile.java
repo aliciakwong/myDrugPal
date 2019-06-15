@@ -15,6 +15,8 @@ public class Profile implements Serializable
      * @param lastName The last name of the user
      * @param email The email used to register account
      * @param pass The user's password, stored in plain text
+     *
+     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public Profile (String firstName, String lastName, String email, String pass)
     {
@@ -28,6 +30,8 @@ public class Profile implements Serializable
      * Accesses the first name of the user
      *
      * @return The first name of the user
+     *
+     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetFirstName()
     {
@@ -38,6 +42,8 @@ public class Profile implements Serializable
      * Accesses the last name of the user
      *
      * @return The last name of the user
+     *
+     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetLastName()
     {
@@ -48,6 +54,8 @@ public class Profile implements Serializable
      * Accesses the email of the user
      *
      * @return The email of the user
+     *
+     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetEmail()
     {
@@ -58,6 +66,8 @@ public class Profile implements Serializable
      * Accesses the password of the user
      *
      * @return The password of the user
+     *
+     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetPassword()
     {

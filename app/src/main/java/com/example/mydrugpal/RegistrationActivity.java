@@ -24,6 +24,8 @@ public class RegistrationActivity extends AppCompatActivity
      * </p>
      *
      * @param savedInstanceState saved state of the app instance
+     *
+     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Override
     protected void onCreate(Bundle savedInstanceState)
