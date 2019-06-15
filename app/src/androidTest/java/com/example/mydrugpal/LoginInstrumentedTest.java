@@ -34,9 +34,9 @@ public class LoginInstrumentedTest {
 
         onView(withId(R.id.enterEmail)).perform(typeText("user@email.com"));
         onView(withId(R.id.enterPassword)).perform(typeText("password"));
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.button_login)).perform(click());
 
-        onView(withId(R.id.LoginSuccessView)).toString().equals("You Have Successfully Logged");
+        onView(withId(R.id.LoginSuccessView)).toString().equals("You Have Successfully Logged In");
 
     }
 
@@ -47,7 +47,7 @@ public class LoginInstrumentedTest {
 
         onView(withId(R.id.enterEmail)).perform(typeText("user"));
         onView(withId(R.id.enterPassword)).perform(typeText("pw"));
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.button_login)).perform(click());
 
         onView(withId(R.id.enterEmail)).toString().equals("");
         onView(withId(R.id.enterPassword)).toString().equals("");

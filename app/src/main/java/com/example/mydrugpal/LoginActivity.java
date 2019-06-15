@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");
         //DocumentReference currentUser = loginCollection.document(email);
-        //TODO: need to force UserList to be updated at initiation
         loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
             @Override
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button loginButton = findViewById(R.id.button);
+        Button loginButton = findViewById(R.id.button_login);
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 boolean validatePassword = VerifyLogin.validateUser(
