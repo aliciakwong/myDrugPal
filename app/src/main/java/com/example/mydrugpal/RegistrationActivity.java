@@ -2,18 +2,15 @@ package com.example.mydrugpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
-
-
-
-import java.io.*;
 
 public class RegistrationActivity extends AppCompatActivity
 {
@@ -31,6 +28,8 @@ public class RegistrationActivity extends AppCompatActivity
         final Button registerButton = findViewById(R.id.register_button);
         final Button clearButton = findViewById(R.id.clear_button);
 
+        final TextView messageText = findViewById(R.id.textView_Message);
+
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -40,12 +39,24 @@ public class RegistrationActivity extends AppCompatActivity
                                         editEmail.getText().toString(),
                                         editPass.getText().toString());
 
+                if (p.GetFirstName() != null && p.GetFirstName().length() > 0 &&
+                    p.GetLastName() != null && p.GetLastName().length() > 0 &&
+                    p.GetEmail() != null && p.GetEmail().length() > 0 &&
+                    p.GetEmail() != null && p.GetEmail().length() > 0)
+                {
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    DocumentReference ref = database.collection("Users").document(p.GetEmail());
+                    ref.set(p);
 
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
-                DocumentReference ref = database.collection("Users").document(p.GetEmail());
-                ref.set(p);
+                    messageText.setText("Profile successfully created!");
+                    messageText.setTextColor(Color.parseColor("#49af48"));
+                }
 
-
+                else
+                {
+                    messageText.setText("Profile could not be created!");
+                    messageText.setTextColor(Color.parseColor("#c44040"));
+                }
             }
         });
 
@@ -57,8 +68,9 @@ public class RegistrationActivity extends AppCompatActivity
                 editLName.setText("");
                 editEmail.setText("");
                 editPass.setText("");
+
+                messageText.setText("");
             }
         });
     }
-
 }

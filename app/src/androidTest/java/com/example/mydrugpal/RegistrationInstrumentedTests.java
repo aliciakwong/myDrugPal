@@ -1,8 +1,5 @@
 package com.example.mydrugpal;
 
-import android.preference.EditTextPreference;
-import android.widget.EditText;
-
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
@@ -26,8 +23,8 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.textView_lName)).toString().equals("Last name");
         onView(withId(R.id.textView_Email)).toString().equals("Email");
         onView(withId(R.id.textView_Password)).toString().equals("Password");
-
     }
+
     @Test
     public void testRegister() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
@@ -36,6 +33,7 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
         onView(withId(R.id.register_button)).perform(click());
     }
+
     @Test
     public void testClearButton() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
@@ -49,6 +47,27 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.textView_Password)).toString().equals("");
     }
 
+    @Test
+    public void testSuccessMessage() {
+        onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
+        onView(withId(R.id.editText_lName)).perform(typeText("lastname"), closeSoftKeyboard());
+        onView(withId(R.id.editText_Email)).perform(typeText("email"), closeSoftKeyboard());
+        onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
 
+        onView(withId(R.id.clear_button)).perform(click());
+        onView(withId(R.id.textView_Message)).toString().equals("Profile successfully created!");
 
+        // delete test profile from database
+    }
+
+    @Test
+    public void testFailMessage() {
+        onView(withId(R.id.editText_fName)).perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.editText_lName)).perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.editText_Email)).perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.editText_Password)).perform(typeText(""), closeSoftKeyboard());
+
+        onView(withId(R.id.clear_button)).perform(click());
+        onView(withId(R.id.textView_Message)).toString().equals("Profile could not be created!");
+    }
 }
