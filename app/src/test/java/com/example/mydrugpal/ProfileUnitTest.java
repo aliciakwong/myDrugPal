@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 
 public class ProfileUnitTest
 {
+    /**
+     * Tests that the profile members won't be null
+     */
     @Test
     public void profile_NotEmpty()
     {
@@ -16,6 +19,9 @@ public class ProfileUnitTest
         assertNotNull(p.GetPassword());
     }
 
+    /**
+     * Tests that the profile's first name is set correctly
+     */
     @Test
     public void firstName_Valid()
     {
@@ -24,6 +30,9 @@ public class ProfileUnitTest
         assertEquals(p.GetFirstName(), "A");
     }
 
+    /**
+     * Tests that the profile's last name is set correctly
+     */
     @Test
     public void lastName_Valid()
     {
@@ -32,6 +41,9 @@ public class ProfileUnitTest
         assertEquals(p.GetLastName(), "B");
     }
 
+    /**
+     * Tests that the profile's email is set correctly
+     */
     @Test
     public void email_Valid()
     {
@@ -40,6 +52,9 @@ public class ProfileUnitTest
         assertEquals(p.GetEmail(), "C");
     }
 
+    /**
+     * Tests that the profile's password is set correctly
+     */
     @Test
     public void password_Valid()
     {

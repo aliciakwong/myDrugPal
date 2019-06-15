@@ -12,11 +12,16 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 
 public class RegistrationInstrumentedTests {
+    /**
+     * Rule for the registration activity tests
+     */
     @Rule
     public ActivityTestRule<RegistrationActivity> activityRule
             = new ActivityTestRule<>(RegistrationActivity.class);
 
-
+    /**
+     * Tests that the registration action opens in the app with correct strings
+     */
     @Test
     public void appOpensRegistration(){
         onView(withId(R.id.textView_fName)).toString().equals("First name");
@@ -25,6 +30,9 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.textView_Password)).toString().equals("Password");
     }
 
+    /**
+     * Tests that the fields can be written to and the register button can be pressed
+     */
     @Test
     public void testRegister() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
@@ -34,6 +42,9 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.register_button)).perform(click());
     }
 
+    /**
+     * Tests that the fields are cleared when the clear button is pressed
+     */
     @Test
     public void testClearButton() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
@@ -47,6 +58,9 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.textView_Password)).toString().equals("");
     }
 
+    /**
+     * Tests that a success message is shown when account registration is successful
+     */
     @Test
     public void testSuccessMessage() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
@@ -60,6 +74,9 @@ public class RegistrationInstrumentedTests {
         // delete test profile from database
     }
 
+    /**
+     * Tests that the error message is shown when account registration fails
+     */
     @Test
     public void testFailMessage() {
         onView(withId(R.id.editText_fName)).perform(typeText(""), closeSoftKeyboard());

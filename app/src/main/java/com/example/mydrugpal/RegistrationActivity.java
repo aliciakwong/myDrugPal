@@ -14,6 +14,17 @@ import com.google.firebase.firestore.DocumentReference;
 
 public class RegistrationActivity extends AppCompatActivity
 {
+    /**
+     * Called when registration activity is created
+     *
+     * <p>
+     *  Finds references to text fields and buttons. Adds listener to register and clear buttons.
+     *  Clear button will empty all text fields. Register button will create a profile and add it
+     *  to the database if the fields are not empty. Displays a success or failure message.
+     * </p>
+     *
+     * @param savedInstanceState saved state of the app instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
