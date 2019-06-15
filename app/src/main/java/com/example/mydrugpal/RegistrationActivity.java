@@ -48,7 +48,7 @@ public class RegistrationActivity extends AppCompatActivity
 
             }
         });
-        //config
+        //config test
 
         clearButton.setOnClickListener(new View.OnClickListener()
         {
