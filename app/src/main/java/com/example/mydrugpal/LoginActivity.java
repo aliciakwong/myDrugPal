@@ -29,7 +29,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-
+    /**
+     *
+     * @author: Ian Sifton, Alicia Wong, Jocelyn MacDonald
+     * @
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
