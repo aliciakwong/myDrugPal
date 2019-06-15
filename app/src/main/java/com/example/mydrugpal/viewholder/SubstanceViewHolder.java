@@ -11,12 +11,26 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.example.mydrugpal.R;
 
+
+/**
+ * @author Emma Travers, Richard Purcell, Ian Sifton
+ *
+ * Class which populates the RecyclerView list susbtanceList
+ * in order to show the substances currently on the FireStore database
+ */
 public class SubstanceViewHolder extends RecyclerView.ViewHolder {
 
     public TextView substanceName;
     public Button detailsButton;
     //public RecyclerView.ViewHolder view;
 
+    /**
+     * @author Emma Travers, Richard Purcell, Ian Sifton
+     * @param itemView
+     *
+     * Method which takes each FireStore database entry in the susbtances collection
+     * and sets the name and where the details button goes to for each item
+     */
     public SubstanceViewHolder (View itemView)
     {
         super(itemView);

@@ -16,6 +16,12 @@ import com.example.mydrugpal.model.InfoPage;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * @author Emma Travers, Richard Purcell, Ian Sifton
+ *
+ * Class which takes in User input to create and add a substance to the FireStore database
+ * under the substances collection
+ */
 public class AddSubstance extends AppCompatActivity {
 
     private TextView substanceName;
@@ -24,6 +30,14 @@ public class AddSubstance extends AppCompatActivity {
     private FirebaseFirestore database;
     private Button addSubstance;
 
+    /**
+     * @author Emma Travers, Richard Purcell, Ian Sifton
+     * @param savedInstanceState
+     *
+     * Method which sets the content view to the activity_add_substance xml page,
+     * takes the name and main info of the created substance from the textview items,
+     * and creates an onClick method which determines what to do with that data
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,22 +49,24 @@ public class AddSubstance extends AppCompatActivity {
 
         database = FirebaseFirestore.getInstance();
 
+        /**
+         * @author Emma Travers, Richard Purcell, Ian Sifton
+         *
+         * nested method which creates an onClickListener button where once the add substance
+         * button is clicked, an InfoPage object for this substance is created and then
+         * creates a document in the FireStore substances collection using the InfoPage object
+         * (which has the inputted name and main details from the User)
+         */
         addSubstance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 InfoPage c = new InfoPage(substanceName.getText().toString(),
                         substanceMainInfo.getText().toString());
 
-                //Here instead of adding directly we are first getting a reference so we save the ID;
-                // this is not necessary but it will make life easier latter when editing/deleting.
                 DocumentReference ref = database.collection("substances").document();
                 c.id = ref.getId();
                 ref.set(c);
 
-                //Finishes the acitivy and return to the parent one.
                 finish();
             }
         });

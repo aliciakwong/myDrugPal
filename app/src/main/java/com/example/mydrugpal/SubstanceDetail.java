@@ -16,6 +16,12 @@ import com.example.mydrugpal.model.InfoPage;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * @author Emma Travers, Richard Purcell, Ian Sifton
+ *
+ * Class which displays the details for a particular substance (which the user would have determined
+ * in the DetailPageActivity page)
+ */
 public class SubstanceDetail extends AppCompatActivity {
     private TextView substanceName;
     private TextView substanceMainInfo;
@@ -24,6 +30,14 @@ public class SubstanceDetail extends AppCompatActivity {
     private Intent intent;
     private InfoPage infoPage;
 
+    /**
+     * @author Emma Travers, Richard Purcell, Ian Sifton
+     * @param savedInstanceState (Bundle)
+     *
+     * Method which sets the content view for this page (from the substance_detail xml file),
+     * gets the instance of the FireStire database, and creates an InfoPage object to get the
+     * details of the substance, and uses that data to set the text on the page
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
