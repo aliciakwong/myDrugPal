@@ -12,20 +12,21 @@ import android.widget.TextView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
 
+/**
+ * The controller class for the registration page
+ *
+ * @author Jocelyn MacDonald, Megan Brock, Emma Travers
+ */
 public class RegistrationActivity extends AppCompatActivity
 {
     /**
      * Called when registration activity is created
      *
-     * <p>
      *  Finds references to text fields and buttons. Adds listener to register and clear buttons.
      *  Clear button will empty all text fields. Register button will create a profile and add it
      *  to the database if the fields are not empty. Displays a success or failure message.
-     * </p>
      *
      * @param savedInstanceState saved state of the app instance
-     *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +46,13 @@ public class RegistrationActivity extends AppCompatActivity
 
         registerButton.setOnClickListener(new View.OnClickListener()
         {
+            /**
+             * on the click of the register button a new profile is created using the text inputted
+             * to the text fields on the registration screen and the information is added to the Users
+             * collection contained on firestore. The outcome of the addition to firestore outputs an
+             * appropriate message telling the user if registration was succeessful or not
+             * @param v the registrationActivity page
+             */
             public void onClick(View v)
             {
                 Profile p = new Profile(editFName.getText().toString(),
@@ -76,6 +84,10 @@ public class RegistrationActivity extends AppCompatActivity
 
         clearButton.setOnClickListener(new View.OnClickListener()
         {
+            /**
+             *
+             * @param v
+             */
             public void onClick(View v)
             {
                 editFName.setText("");

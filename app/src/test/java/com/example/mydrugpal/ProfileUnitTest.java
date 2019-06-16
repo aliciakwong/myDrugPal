@@ -3,6 +3,11 @@ package com.example.mydrugpal;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Tests the creation of a profile
+ *
+ * @author Megan Brock, Jocelyn MacDonald, Emma Travers
+ */
 public class ProfileUnitTest
 {
     /**
@@ -11,12 +16,12 @@ public class ProfileUnitTest
     @Test
     public void profile_NotEmpty()
     {
-        Profile p = new Profile("A", "B", "C", "D");
+        Profile profile = new Profile("A", "B", "C", "D");
 
-        assertNotNull(p.GetFirstName());
-        assertNotNull(p.GetLastName());
-        assertNotNull(p.GetEmail());
-        assertNotNull(p.GetPassword());
+        assertNotNull(profile.GetFirstName());
+        assertNotNull(profile.GetLastName());
+        assertNotNull(profile.GetEmail());
+        assertNotNull(profile.GetPassword());
     }
 
     /**
@@ -25,9 +30,9 @@ public class ProfileUnitTest
     @Test
     public void firstName_Valid()
     {
-        Profile p = new Profile("A", "B", "C", "D");
+        Profile profile = new Profile("A", "B", "C", "D");
 
-        assertEquals(p.GetFirstName(), "A");
+        assertEquals(profile.GetFirstName(), "A");
     }
 
     /**
@@ -36,9 +41,9 @@ public class ProfileUnitTest
     @Test
     public void lastName_Valid()
     {
-        Profile p = new Profile("A", "B", "C", "D");
+        Profile profile = new Profile("A", "B", "C", "D");
 
-        assertEquals(p.GetLastName(), "B");
+        assertEquals(profile.GetLastName(), "B");
     }
 
     /**
@@ -47,9 +52,9 @@ public class ProfileUnitTest
     @Test
     public void email_Valid()
     {
-        Profile p = new Profile("A", "B", "C", "D");
+        Profile profile = new Profile("A", "B", "C", "D");
 
-        assertEquals(p.GetEmail(), "C");
+        assertEquals(profile.GetEmail(), "C");
     }
 
     /**
@@ -58,9 +63,9 @@ public class ProfileUnitTest
     @Test
     public void password_Valid()
     {
-        Profile p = new Profile("A", "B", "C", "D");
+        Profile profile = new Profile("A", "B", "C", "D");
 
-        assertEquals(p.GetPassword(), "D");
+        assertEquals(profile.GetPassword(), "D");
     }
 }
 

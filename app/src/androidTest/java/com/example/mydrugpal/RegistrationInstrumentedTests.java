@@ -11,11 +11,15 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 
+/**
+ * Tests the registration UI/functionality
+ *
+ * @author Jocelyn Macdonald, Megan Brock, Emma Travers
+ */
 public class RegistrationInstrumentedTests {
     /**
      * Rule for the registration activity tests
      *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Rule
     public ActivityTestRule<RegistrationActivity> activityRule
@@ -24,7 +28,6 @@ public class RegistrationInstrumentedTests {
     /**
      * Tests that the registration action opens in the app with correct strings
      *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Test
     public void appOpensRegistration(){
@@ -37,7 +40,6 @@ public class RegistrationInstrumentedTests {
     /**
      * Tests that the fields can be written to and the register button can be pressed
      *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Test
     public void testRegister() {
@@ -51,7 +53,6 @@ public class RegistrationInstrumentedTests {
     /**
      * Tests that the fields are cleared when the clear button is pressed
      *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Test
     public void testClearButton() {
@@ -69,7 +70,6 @@ public class RegistrationInstrumentedTests {
     /**
      * Tests that a success message is shown when account registration is successful
      *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Test
     public void testSuccessMessage() {
@@ -87,7 +87,6 @@ public class RegistrationInstrumentedTests {
     /**
      * Tests that the error message is shown when account registration fails
      *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     @Test
     public void testFailMessage() {
