@@ -1,38 +1,33 @@
 package com.example.mydrugpal;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Controller for first page display
+ * @author Ian Sifton, Alicia Wong, Jocelyn MacDonald
+ *
+ */
 public class LoginActivity extends AppCompatActivity {
+
     /**
-     *
-     * @author: Ian Sifton, Alicia Wong, Jocelyn MacDonald
-     * @
+     * creates main display activity when called
+     * @param savedInstanceState current app instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +37,12 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");
-        //DocumentReference currentUser = loginCollection.document(email);
         loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
+            /**
+             * method called to retrieve users from database and update UserList instance with users
+             * @param task task to ensure database is properly accessed and data retrieved
+             */
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -76,11 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * @author Ian Sifton, Alicia Wong
-     * Method sets up an intent that begins the new activity -- the LoginSuccessActivity class
-     */
-    public void gotoLogin() {
+    private void gotoLogin() {
         Intent intent = new Intent(this, LoginSuccessActivity.class);
         startActivity(intent);
     }

@@ -2,13 +2,11 @@ package com.example.mydrugpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 /**
- * @author Ian Sifton, Alicia Wong
  * Create/launch the activity that indicates the login succeeded
+ * @author Ian Sifton, Alicia Wong
  */
 public class LoginSuccessActivity extends AppCompatActivity {
     @Override
