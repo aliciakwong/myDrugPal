@@ -2,6 +2,7 @@ package com.example.mydrugpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -84,10 +85,6 @@ public class RegistrationActivity extends AppCompatActivity
 
         clearButton.setOnClickListener(new View.OnClickListener()
         {
-            /**
-             *
-             * @param v
-             */
             public void onClick(View v)
             {
                 editFName.setText("");
@@ -96,7 +93,14 @@ public class RegistrationActivity extends AppCompatActivity
                 editPass.setText("");
 
                 messageText.setText("");
+
+                gotoLogin();
             }
         });
+    }
+
+    private void gotoLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
