@@ -3,9 +3,9 @@ import java.io.Serializable;
 
 public class Profile implements Serializable
 {
-    public String firstName;
-    public String lastName;
-    public String email;
+    public String FirstName;
+    public String LastName;
+    public String Email;
     public String Password;
 
     /**
@@ -13,16 +13,16 @@ public class Profile implements Serializable
      *
      * @param firstName The first name of the user
      * @param lastName The last name of the user
-     * @param email The email used to register account
+     * @param email The Email used to register account
      * @param pass The user's password, stored in plain text
      *
      * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public Profile (String firstName, String lastName, String email, String pass)
     {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
         Password = pass;
     }
 
@@ -35,7 +35,7 @@ public class Profile implements Serializable
      */
     public String GetFirstName()
     {
-        return firstName;
+        return FirstName;
     }
 
     /**
@@ -47,19 +47,19 @@ public class Profile implements Serializable
      */
     public String GetLastName()
     {
-        return lastName;
+        return LastName;
     }
 
     /**
-     * Accesses the email of the user
+     * Accesses the Email of the user
      *
-     * @return The email of the user
+     * @return The Email of the user
      *
      * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetEmail()
     {
-        return email;
+        return Email;
     }
 
     /**
@@ -72,5 +72,13 @@ public class Profile implements Serializable
     public String GetPassword()
     {
         return Password;
+    }
+
+    public boolean NoNullOrEmptyFields()
+    {
+        return (FirstName != null && FirstName.length() > 0 &&
+                LastName != null && LastName.length() > 0 &&
+                Email != null && Email.length() > 0 &&
+                Password != null && Password.length() > 0);
     }
 }

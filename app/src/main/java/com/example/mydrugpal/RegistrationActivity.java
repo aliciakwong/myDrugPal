@@ -20,6 +20,16 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class RegistrationActivity extends AppCompatActivity
 {
+    private EditText editFName;
+    private EditText editLName;
+    private EditText editEmail;
+    private EditText editPass;
+
+    private Button registerButton;
+    private Button clearButton;
+
+    private TextView messageText;
+
     /**
      * Called when registration activity is created
      *
@@ -35,15 +45,15 @@ public class RegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        final EditText editFName = findViewById((R.id.editText_fName));
-        final EditText editLName = findViewById((R.id.editText_lName));
-        final EditText editEmail = findViewById((R.id.editText_Email));
-        final EditText editPass = findViewById((R.id.editText_Password));
+        editFName = findViewById((R.id.editText_fName));
+        editLName = findViewById((R.id.editText_lName));
+        editEmail = findViewById((R.id.editText_Email));
+        editPass = findViewById((R.id.editText_Password));
 
-        final Button registerButton = findViewById(R.id.register_button);
-        final Button clearButton = findViewById(R.id.clear_button);
+        registerButton = findViewById(R.id.register_button);
+        clearButton = findViewById(R.id.clear_button);
 
-        final TextView messageText = findViewById(R.id.textView_Message);
+        messageText = findViewById(R.id.textView_Message);
 
         registerButton.setOnClickListener(new View.OnClickListener()
         {
@@ -61,10 +71,7 @@ public class RegistrationActivity extends AppCompatActivity
                                         editEmail.getText().toString(),
                                         editPass.getText().toString());
 
-                if (p.GetFirstName() != null && p.GetFirstName().length() > 0 &&
-                    p.GetLastName() != null && p.GetLastName().length() > 0 &&
-                    p.GetEmail() != null && p.GetEmail().length() > 0 &&
-                    p.GetEmail() != null && p.GetEmail().length() > 0)
+                if (p.NoNullOrEmptyFields())
                 {
                     FirebaseFirestore database = FirebaseFirestore.getInstance();
                     DocumentReference ref = database.collection("Users").document(p.GetEmail());
@@ -81,22 +88,25 @@ public class RegistrationActivity extends AppCompatActivity
                 }
             }
         });
-        //config test 3
 
         clearButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                editFName.setText("");
-                editLName.setText("");
-                editEmail.setText("");
-                editPass.setText("");
-
-                messageText.setText("");
-
+                clearFields();
                 gotoLogin();
             }
         });
+    }
+
+    private void clearFields()
+    {
+        editFName.setText("");
+        editLName.setText("");
+        editEmail.setText("");
+        editPass.setText("");
+
+        messageText.setText("");
     }
 
     private void gotoLogin() {

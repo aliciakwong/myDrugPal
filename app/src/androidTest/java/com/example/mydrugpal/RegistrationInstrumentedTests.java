@@ -45,7 +45,7 @@ public class RegistrationInstrumentedTests {
     public void testRegister() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
         onView(withId(R.id.editText_lName)).perform(typeText("lastname"), closeSoftKeyboard());
-        onView(withId(R.id.editText_Email)).perform(typeText("email"), closeSoftKeyboard());
+        onView(withId(R.id.editText_Email)).perform(typeText("Email"), closeSoftKeyboard());
         onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
         onView(withId(R.id.register_button)).perform(click());
     }
@@ -58,7 +58,7 @@ public class RegistrationInstrumentedTests {
     public void testClearButton() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
         onView(withId(R.id.editText_lName)).perform(typeText("lastname"), closeSoftKeyboard());
-        onView(withId(R.id.editText_Email)).perform(typeText("email"), closeSoftKeyboard());
+        onView(withId(R.id.editText_Email)).perform(typeText("Email"), closeSoftKeyboard());
         onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
         onView(withId(R.id.clear_button)).perform(click());
         onView(withId(R.id.textView_fName)).toString().equals("");
@@ -75,7 +75,7 @@ public class RegistrationInstrumentedTests {
     public void testSuccessMessage() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
         onView(withId(R.id.editText_lName)).perform(typeText("lastname"), closeSoftKeyboard());
-        onView(withId(R.id.editText_Email)).perform(typeText("email"), closeSoftKeyboard());
+        onView(withId(R.id.editText_Email)).perform(typeText("Email"), closeSoftKeyboard());
         onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
 
         onView(withId(R.id.clear_button)).perform(click());

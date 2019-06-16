@@ -8,7 +8,7 @@ package com.example.mydrugpal;
 public class VerifyLogin {
 
     /**
-     * The method checks the email and password parameters to see
+     * The method checks the Email and password parameters to see
      * if they match an existing key and its password
      *
      * @return whether user is valid or not

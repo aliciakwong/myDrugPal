@@ -47,7 +47,7 @@ public class ProfileUnitTest
     }
 
     /**
-     * Tests that the profile's email is set correctly
+     * Tests that the profile's Email is set correctly
      */
     @Test
     public void email_Valid()

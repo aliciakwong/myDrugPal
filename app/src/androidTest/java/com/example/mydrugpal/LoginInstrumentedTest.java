@@ -37,7 +37,7 @@ public class LoginInstrumentedTest {
 
         onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
 
-        onView(withId(R.id.enterEmail)).perform(typeText("user@email.com"));
+        onView(withId(R.id.enterEmail)).perform(typeText("user@Email.com"));
         onView(withId(R.id.enterPassword)).perform(typeText("password"));
         onView(withId(R.id.button_login)).perform(click());
 
