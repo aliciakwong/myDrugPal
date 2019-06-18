@@ -81,7 +81,6 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.clear_button)).perform(click());
         onView(withId(R.id.textView_Message)).toString().equals("Profile successfully created!");
 
-        // delete test profile from database
     }
 
     /**
