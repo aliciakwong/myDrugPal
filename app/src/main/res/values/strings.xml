@@ -12,4 +12,10 @@
     <string name="Acid_button_name">Acid</string>
     <string name="enter_substance_name"><font color="grey">enter substance name</font></string>
     <string name="enter_substance_info"><font color="grey">enter substance info</font></string>
+    <string name="LoginSuccessMessage">You Have Successfully Logged In</string>
+    <string name="Title_MyDrugPal">MyDrugPal</string>
+    <string name="label_login">LOGIN</string>
+    <string name="hint_email">Email:</string>
+    <string name="hint_password">Password:</string>
 </resources>
+
