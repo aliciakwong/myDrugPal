@@ -1,34 +1,79 @@
 {
   "project_info": {
-    "project_number": "819235057856",
-    "firebase_url": "https://mydrugpal.firebaseio.com",
-    "project_id": "mydrugpal",
-    "storage_bucket": "mydrugpal.appspot.com"
+    "project_number": "149512349145",
+    "firebase_url": "https://assignment3-77fbe.firebaseio.com",
+    "project_id": "assignment3-77fbe",
+    "storage_bucket": "assignment3-77fbe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:819235057856:android:c8016f9c282c1293",
+        "mobilesdk_app_id": "1:149512349145:android:6dc91e9b8cd0e7d1",
         "android_client_info": {
-          "package_name": "com.example.mydrugpal"
+          "package_name": "com.example.acme.a3130assignment3"
         }
       },
       "oauth_client": [
         {
-          "client_id": "819235057856-htaaqjm0ujk08obloksv47gdroa3qn0l.apps.googleusercontent.com",
+          "client_id": "149512349145-ps0286dmmnv63l7p8kteqaqjhe5ve94v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acme.a3130assignment3",
+            "certificate_hash": "ed93b8184cefca472565113c7e77389877e3ec1e"
+          }
+        },
+        {
+          "client_id": "149512349145-jk4n6nva70ad99jkfi2d759lbtpa7cu7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhiXXYPHMXFVSMedqPJ4IB-ALLT9fweFQ"
+          "current_key": "AIzaSyDQ-3GKeqOnK0rCBAVKW1Gk7RpzfB6KhZs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "819235057856-htaaqjm0ujk08obloksv47gdroa3qn0l.apps.googleusercontent.com",
+              "client_id": "149512349145-jk4n6nva70ad99jkfi2d759lbtpa7cu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149512349145:android:c8016f9c282c1293",
+        "android_client_info": {
+          "package_name": "com.example.mydrugpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149512349145-qlco6ajfumgi9n2ctg66bdh6pjjlll0q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mydrugpal",
+            "certificate_hash": "ed93b8184cefca472565113c7e77389877e3ec1e"
+          }
+        },
+        {
+          "client_id": "149512349145-jk4n6nva70ad99jkfi2d759lbtpa7cu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ-3GKeqOnK0rCBAVKW1Gk7RpzfB6KhZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149512349145-jk4n6nva70ad99jkfi2d759lbtpa7cu7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
