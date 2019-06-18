@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if(validatePassword){
-                    gotoLogin();
+                    gotoDetailPage();
 
                 }
                 else{
@@ -81,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void gotoLogin() {
-        Intent intent = new Intent(this, LoginSuccessActivity.class);
+    private void gotoDetailPage() {
+        Intent intent = new Intent(this, DetailPageActivity.class);
         startActivity(intent);
     }
 
