@@ -17,9 +17,6 @@ package="com.example.mydrugpal">
         </intent-filter>
     </activity>
     <activity android:name=".RegistrationActivity" >
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
     </activity>
 </application>
 </manifest>
