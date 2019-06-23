@@ -22,4 +22,10 @@
         android:text="TextView"
         app:layout_constraintTop_toBottomOf="@+id/substanceName" />
 
+    <Button
+        android:id="@+id/addToDiarybutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="add to diary" />
+
 </LinearLayout>
