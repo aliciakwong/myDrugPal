@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Class which takes in User input to create and add a substance to the FireStore database
  * under the substances collection
  */
-public class AddSubstance extends AppCompatActivity {
+public class AddSubstance extends LogoutActivity {
 
     private TextView substanceName;
     private TextView substanceMainInfo;
@@ -41,7 +42,11 @@ public class AddSubstance extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_substance);
+        //setContentView(R.layout.activity_add_substance);
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+
+        getLayoutInflater().inflate(R.layout.activity_detailpage, contentFrameLayout);
 
         substanceName = findViewById(R.id.substanceName);
         substanceMainInfo = findViewById(R.id.substanceMainInfo);
@@ -70,6 +75,12 @@ public class AddSubstance extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_add_substance;
 
     }
 

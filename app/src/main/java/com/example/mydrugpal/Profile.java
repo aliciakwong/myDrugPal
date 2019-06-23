@@ -81,4 +81,6 @@ public class Profile implements Serializable
                 Email != null && Email.length() > 0 &&
                 Password != null && Password.length() > 0);
     }
+
+
 }

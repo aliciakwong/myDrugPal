@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,6 +44,10 @@ public class SubstanceDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.substance_detail);
 
+        //FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+
+        //getLayoutInflater().inflate(R.layout.activity_detailpage, contentFrameLayout);
+
         substanceName = findViewById(R.id.substanceName);
         substanceMainInfo = findViewById(R.id.substanceMainInfo);
 
@@ -55,4 +60,10 @@ public class SubstanceDetail extends AppCompatActivity {
         substanceMainInfo.setText(infoPage.substanceMainInfo);
 
     }
+
+    //@Override
+    //protected int getLayoutResourceId() {
+     //   return R.layout.substance_detail;
+
+   // }
 }

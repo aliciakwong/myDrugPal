@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+
 
 
 import com.example.mydrugpal.model.InfoPage;
@@ -32,7 +34,7 @@ import com.google.firebase.firestore.Query;
  * Main detail page class which displays the RecyclerView list of substances
  * and the add substance button
  */
-public class DetailPageActivity extends AppCompatActivity {
+public class DetailPageActivity extends LogoutActivity {
 
     private RecyclerView recyclerView;
     private Button addSubstanceButton;
@@ -51,7 +53,10 @@ public class DetailPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailpage);
+        //setContentView(R.layout.activity_detailpage);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+
+        getLayoutInflater().inflate(R.layout.activity_detailpage, contentFrameLayout);
 
         recyclerView = findViewById(R.id.substanceList);
         addSubstanceButton = findViewById(R.id.addSubstance);
@@ -186,6 +191,12 @@ public class DetailPageActivity extends AppCompatActivity {
         super.onStop();
 
         adapter.stopListening();
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_detailpage;
+
     }
 
 }
