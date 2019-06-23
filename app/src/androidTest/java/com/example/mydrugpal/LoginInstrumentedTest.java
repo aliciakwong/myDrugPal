@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * JUnit Tests for login page business logic
- * @author Jocelyn MacDonald, Alicia Wong, Ian Sifton
+ * @author Jocelyn MacDonald, Alicia Wong, Ian Sifton, Emma Travers
  */
 public class LoginInstrumentedTest {
 

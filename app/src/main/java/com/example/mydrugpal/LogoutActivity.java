@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
- * Activity for logout button and logout functionality
+ * Activity for logout button display on relevant activities
  * @author Emma Travers, Alicia Wong
  *
  */
@@ -18,7 +18,7 @@ public abstract class LogoutActivity extends AppCompatActivity {
 
     private static boolean loggedOut = false;
     /**
-     * creates main display activity when called
+     * creates main display activity when called and add logout button listener and implementation
      * @param savedInstanceState current app instance
      */
     @Override
@@ -38,19 +38,17 @@ public abstract class LogoutActivity extends AppCompatActivity {
 
     }
 
-
     private void gotoLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //intent.putExtra("EXIT", true);
         startActivity(intent);
         finish();
     }
 
-    public static boolean getLoggedOut() {
-        return loggedOut;
-
-    }
-
+    /**
+     * required method for abstract implementation of this class
+     *
+     * @return layoutResourceId
+     */
     protected abstract int getLayoutResourceId();
 }

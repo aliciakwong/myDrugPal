@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Controller for first page display
- * @author Ian Sifton, Alicia Wong, Jocelyn MacDonald
+ * @author Ian Sifton, Alicia Wong, Jocelyn MacDonald, Emma Travers
  *
  */
 public class LoginActivity extends AppCompatActivity {
@@ -33,11 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-      //  if (getIntent().getBooleanExtra("EXIT", false)){
-        //    finish();
-        //}
-
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");
@@ -59,6 +54,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.button_login);
         loginButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for login button clicked
+             * @param view current application view
+             */
             public void onClick(View view){
                 boolean validatePassword = VerifyLogin.validateUser(
                        ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
@@ -79,6 +78,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button registrationButton = findViewById(R.id.button_register);
         registrationButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for registration button click
+             * @param view current application view
+             */
             public void onClick(View view){
                 gotoRegistration();
             }
@@ -90,17 +93,17 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void gotoRegistration()
-    {
+    private void gotoRegistration() {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * when back button is pressed, always close this activity
+     */
     @Override
     public void onBackPressed() {
         finish();
-        //System.exit(0);
-
 
     }
 }
