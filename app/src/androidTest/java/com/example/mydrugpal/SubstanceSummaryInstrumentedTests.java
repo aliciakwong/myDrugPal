@@ -34,9 +34,9 @@ public class SubstanceSummaryInstrumentedTests
             = new ActivityTestRule<>(SubstanceSummaryActivity.class);
 
     /**
-     * Tests standard use case
-     *
-     * @author Megan Brock, Richard Purcell
+     * Tests standard use case. Click select date button to open
+     * start/end date buttons, click start date button, click end
+     * date button, click select date button to close.
      */
     @Test
     public void TestStandardUseCase() {
