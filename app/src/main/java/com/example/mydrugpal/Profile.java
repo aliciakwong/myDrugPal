@@ -1,6 +1,11 @@
 package com.example.mydrugpal;
 import java.io.Serializable;
 
+/**
+ * Profile object for each user
+ *
+ * @author Megan Brock, Jocelyn MacDonald, Emma Travers
+ */
 public class Profile implements Serializable
 {
     public String FirstName;
@@ -15,8 +20,6 @@ public class Profile implements Serializable
      * @param lastName The last name of the user
      * @param email The Email used to register account
      * @param pass The user's password, stored in plain text
-     *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public Profile (String firstName, String lastName, String email, String pass)
     {
@@ -30,8 +33,6 @@ public class Profile implements Serializable
      * Accesses the first name of the user
      *
      * @return The first name of the user
-     *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetFirstName()
     {
@@ -42,8 +43,6 @@ public class Profile implements Serializable
      * Accesses the last name of the user
      *
      * @return The last name of the user
-     *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetLastName()
     {
@@ -54,8 +53,6 @@ public class Profile implements Serializable
      * Accesses the Email of the user
      *
      * @return The Email of the user
-     *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetEmail()
     {
@@ -66,14 +63,16 @@ public class Profile implements Serializable
      * Accesses the password of the user
      *
      * @return The password of the user
-     *
-     * @author Megan Brock, Jocelyn MacDonald, Emma Travers
      */
     public String GetPassword()
     {
         return Password;
     }
 
+    /**
+     * checks if any fields are empty
+     * @return true if all fields are valid
+     */
     public boolean NoNullOrEmptyFields()
     {
         return (FirstName != null && FirstName.length() > 0 &&
@@ -81,4 +80,6 @@ public class Profile implements Serializable
                 Email != null && Email.length() > 0 &&
                 Password != null && Password.length() > 0);
     }
+
+
 }
