@@ -34,6 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+      //  if (getIntent().getBooleanExtra("EXIT", false)){
+        //    finish();
+        //}
+
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");
@@ -90,5 +94,13 @@ public class LoginActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        //System.exit(0);
+
+
     }
 }

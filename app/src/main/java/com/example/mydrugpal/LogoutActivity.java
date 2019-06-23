@@ -3,21 +3,10 @@ package com.example.mydrugpal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.List;
 
 /**
  * Activity for logout button and logout functionality
@@ -26,6 +15,8 @@ import java.util.List;
  */
 public abstract class LogoutActivity extends AppCompatActivity {
 
+
+    private static boolean loggedOut = false;
     /**
      * creates main display activity when called
      * @param savedInstanceState current app instance
@@ -39,6 +30,7 @@ public abstract class LogoutActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
 
+                loggedOut = true;
                 gotoLoginPage();
             }
 
@@ -49,7 +41,15 @@ public abstract class LogoutActivity extends AppCompatActivity {
 
     private void gotoLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.putExtra("EXIT", true);
         startActivity(intent);
+        finish();
+    }
+
+    public static boolean getLoggedOut() {
+        return loggedOut;
+
     }
 
     protected abstract int getLayoutResourceId();
