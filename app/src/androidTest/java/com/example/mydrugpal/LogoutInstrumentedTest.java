@@ -17,14 +17,15 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 public class LogoutInstrumentedTest {
 
     @Rule
-    public ActivityTestRule<LogoutActivity> activityRule
-            = new ActivityTestRule<>(LogoutActivity.class);
+    public ActivityTestRule<DetailPageActivity> activityRule
+            = new ActivityTestRule<>(DetailPageActivity.class);
 
     /**
      * test to check that once a user clicks the Logout button, they are returned to the Login page
      */
     @Test
     public void logoutTransition() {
+
 
         onView(withId(R.id.button_logout)).perform(click());
         onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
