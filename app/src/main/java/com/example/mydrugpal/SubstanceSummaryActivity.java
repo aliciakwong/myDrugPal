@@ -156,12 +156,16 @@ public class SubstanceSummaryActivity extends AppCompatActivity
             d2.setVisibility(View.INVISIBLE);
 
             scrollView.setVisibility(View.VISIBLE);
+
+            updateSubstanceList();
         }
 
         else
         {
             d1.setVisibility(View.VISIBLE);
             d2.setVisibility(View.INVISIBLE);
+
+            updateSubstanceList();
 
             scrollView.setVisibility(View.INVISIBLE);
         }
@@ -180,8 +184,6 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         date[0] = y;
         date[1] = m;
         date[2] = d;
-
-        updateSubstanceList();
     }
 
     /**
@@ -192,10 +194,8 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         startDate = new int[3];
         endDate = new int[3];
 
-        Date d = Calendar.getInstance().getTime();
-
-        changeDate(startDate, d.getYear() + 1900, d.getMonth(), d.getDate());
-        changeDate(endDate, d.getYear() + 1900, d.getMonth(), d.getDate());
+        changeDate(startDate, 1, 1, 1);
+        changeDate(endDate, 1, 1, 1);
     }
 
     /**
@@ -212,18 +212,6 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         }
         // TODO: replace empty strings with substances
 
-        // TODO: remove start/end date debug entries
-        TextView tv = new TextView(getApplicationContext());
-        tv.setTextSize(24f);
-        tv.setText("Start date: " + startDate[0] + "/" + startDate[1] + "/" + startDate[2]);
-        scrollViewLayout.addView(tv);
-
-        tv = new TextView(getApplicationContext());
-        tv.setTextSize(24f);
-        tv.setText("End date: " + endDate[0] + "/" + endDate[1] + "/" + endDate[2]);
-        scrollViewLayout.addView(tv);
-        // TODO: remove start/end date debug entries
-
         updateSubstanceList();
     }
 
@@ -234,24 +222,22 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     {
         // TODO: remove start/end date debug entries
         TextView tv = new TextView(getApplicationContext());
-        tv.setTextSize(20f);
+        tv.setTextSize(24f);
         tv.setText("Start date: " + startDate[0] + "/" + startDate[1] + "/" + startDate[2]);
         scrollViewLayout.addView(tv);
 
         tv = new TextView(getApplicationContext());
-        tv.setTextSize(20f);
+        tv.setTextSize(24f);
         tv.setText("End date: " + endDate[0] + "/" + endDate[1] + "/" + endDate[2]);
         scrollViewLayout.addView(tv);
         // TODO: remove start/end date debug entries
-
-        // TODO: update substance list from FireStore DB between start and end dates
 
         int len = substanceList.size();
 
         for (int i = 0; i < len; i++)
         {
             tv = new TextView(getApplicationContext());
-            tv.setTextSize(20f);
+            tv.setTextSize(24f);
             tv.setText(substanceList.get(i));
 
             scrollViewLayout.addView(tv);
