@@ -21,11 +21,11 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.substance_detail);
+        setContentView(R.layout.activity_add_to_intake_diary);
 
-        substanceName = findViewById(R.id.substanceName);
-
-
+        substanceName = findViewById(R.id.nameOfSubstanceEdit);
+        substanceType = findViewById(R.id.typeOfSubstanceEdit);
+        amount = findViewById(R.id.amountEdit);
 
     }
 }
