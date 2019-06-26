@@ -14,7 +14,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertTrue;
 
 /**
- * JUnit Tests for login page business logic
+ * Espresso Tests for login page business logic
  * @author Jocelyn MacDonald, Alicia Wong, Ian Sifton, Emma Travers
  */
 public class LoginInstrumentedTest {
