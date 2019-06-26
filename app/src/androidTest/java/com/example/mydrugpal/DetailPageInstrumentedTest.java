@@ -12,32 +12,47 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-
+/**
+ * UI Tests for detail page
+ * @author Richard Purcell, Emma Travers, Megan Brock, Alicia Wong
+ */
 public class DetailPageInstrumentedTest {
+    /**
+     * Rule for tests to display detail page
+     */
     @Rule
     public ActivityTestRule<DetailPageActivity> detailRule = new ActivityTestRule<DetailPageActivity>(DetailPageActivity.class);
 
     ViewInteraction substanceListButton = null;
     ViewInteraction addSubstanceButton = null;
 
+    /**
+     * ensures substancelist and addsubstance buttons are displayed
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         substanceListButton = onView(withId(R.id.substanceList));
         addSubstanceButton = onView(withId(R.id.addSubstance));
     }
-/*
-    @Test
-    public void substanceListButton() {
-        substanceListButton
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-    }
 
-
-*/
-
+    /**
+     * test that add substance button is displayed and clickable
+     */
     @Test
     public void addSubstanceButton() {
         addSubstanceButton.perform(click());
         onView(isRoot());
     }
+
+    /**
+     * test that substance summary button works and changes to correct display
+     */
+    @Test
+    public void toSubstanceSummary(){
+        onView(withId(R.id.substanceSummaryButton)).perform(click());
+        onView(withId(R.id.selectDateRangeButton));
+    }
+
+
 }

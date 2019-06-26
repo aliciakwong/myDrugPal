@@ -68,7 +68,6 @@ public class LoginInstrumentedTest {
     @Test
     public void goBack() {
         onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
-        //Espresso.pressBack();
         onView(isRoot()).perform(ViewActions.pressBackUnconditionally());
         assertTrue(activityRule.getActivity().isFinishing());
 
