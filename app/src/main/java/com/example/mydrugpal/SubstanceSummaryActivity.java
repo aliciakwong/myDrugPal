@@ -1,18 +1,24 @@
 package com.example.mydrugpal;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.List;
 
 /**
@@ -20,7 +26,7 @@ import java.util.List;
  * choosing start and end date on calendars. Substances consumed between
  * the two dates are shown in the summary list.
  *
- * @author Megan Brock, Richard Purcell
+ * @author Megan Brock, Richard Purcell, Alicia Wong
  */
 public class SubstanceSummaryActivity extends AppCompatActivity
 {
@@ -38,8 +44,9 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     public ScrollView scrollView;
     public LinearLayout scrollViewLayout;
 
-    private List<String> substanceList;   // TODO: replace string with Substance type when implemented
+       // TODO: replace string with Substance type when implemented
 
+    private SubstanceSummaryInformation summaryInformation;
     /**
      * Finds references to UI elements. Adds listeners
      * to button onClick and calendar onSelectedDayChange
@@ -52,6 +59,8 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_substance_summary);
+
+        summaryInformation = new SubstanceSummaryInformation();
 
         dateSelectButton = findViewById(R.id.selectDateRangeButton);
 
@@ -108,8 +117,30 @@ public class SubstanceSummaryActivity extends AppCompatActivity
 
         scrollView.setVisibility(View.VISIBLE);
 
+
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference userDocument = database.collection("Users").
+                                                document(CurrentUser.getInstance().GetEmail());
+        CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
+        userIntakeDiary.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+            /**
+             * method called to retrieve users from database and update UserList instance with users
+             * @param task task to ensure database is properly accessed and data retrieved
+             */
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
+
+                    summaryInformation.updateSubstanceList(diaryList);
+                }
+            }
+        });
+
         initializeDates();
-        initializeSubstanceList();
+
+        //initializeSubstanceList();
     }
 
     /**
@@ -184,6 +215,8 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         date[0] = y;
         date[1] = m;
         date[2] = d;
+
+        updateSubstanceList();
     }
 
     /**
@@ -198,29 +231,17 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         changeDate(endDate, 1, 1, 1);
     }
 
-    /**
-     * Set the substance list for current date.
-     */
-    private void initializeSubstanceList()
-    {
-        // TODO: replace empty strings with substances
-        substanceList = new ArrayList<String>();
-
-        for (int i = 0; i < 100; i++)
-        {
-            substanceList.add("Drug Name\tDrug Type\tDrug Amount");
-        }
-        // TODO: replace empty strings with substances
-
-        updateSubstanceList();
-    }
 
     /**
      * Update the substance list after changing date range.
      */
     private void updateSubstanceList()
     {
-        // TODO: remove start/end date debug entries
+
+        scrollViewLayout.removeAllViews();
+
+        //TODO: grab database stuff
+
         TextView tv = new TextView(getApplicationContext());
         tv.setTextSize(24f);
         tv.setText("Start date: " + startDate[0] + "/" + startDate[1] + "/" + startDate[2]);
@@ -230,15 +251,16 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         tv.setTextSize(24f);
         tv.setText("End date: " + endDate[0] + "/" + endDate[1] + "/" + endDate[2]);
         scrollViewLayout.addView(tv);
+
         // TODO: remove start/end date debug entries
 
-        int len = substanceList.size();
+        int len = summaryInformation.getSubstanceList().size();
 
         for (int i = 0; i < len; i++)
         {
             tv = new TextView(getApplicationContext());
             tv.setTextSize(24f);
-            tv.setText(substanceList.get(i));
+            tv.setText(summaryInformation.getSubstanceList().get(i).getName());
 
             scrollViewLayout.addView(tv);
         }
