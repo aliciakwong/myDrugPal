@@ -36,6 +36,7 @@ public class DetailPageActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private Button addSubstanceButton;
+    private Button substanceSummaryPageButton;
 
     private FirebaseFirestore database;
     private FirestoreRecyclerAdapter adapter;
@@ -55,6 +56,7 @@ public class DetailPageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.substanceList);
         addSubstanceButton = findViewById(R.id.addSubstance);
+        substanceSummaryPageButton = findViewById(R.id.substanceSummaryButton);
         database = FirebaseFirestore.getInstance();
 
         adapter = setUpAdapter(database);
@@ -75,6 +77,13 @@ public class DetailPageActivity extends AppCompatActivity {
             }
         });
 
+        substanceSummaryPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPageActivity.this, SubstanceSummaryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
