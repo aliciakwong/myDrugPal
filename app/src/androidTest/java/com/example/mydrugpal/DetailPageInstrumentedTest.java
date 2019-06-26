@@ -21,17 +21,21 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
-
+/**
+ * Espresso tests which for the AddToIntakeDiaryActivity
+ *
+ * @author Ian Sifton, Jocelyn MacDonald
+ */
 public class DetailPageInstrumentedTest {
     @Rule
     public ActivityTestRule<DetailPageActivity> detailRule = new ActivityTestRule<DetailPageActivity>(DetailPageActivity.class);
 
-    ViewInteraction substanceListButton = null;
+    ViewInteraction substanceName = null;
     ViewInteraction addSubstanceButton = null;
 
     @Before
     public void setUp() throws Exception {
-        substanceListButton = onView(withId(R.id.substanceList));
+        substanceName = onView(withId(R.id.nameOfSubstanceEdit));
         addSubstanceButton = onView(withId(R.id.addSubstance));
     }
 /*
