@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * @author Emma Travers, Richard Purcell, Ian Sifton
  *
  */
-public class AddSubstanceActivity extends AppCompatActivity {
+public class AddCustomSubstanceActivity extends AppCompatActivity {
 
     private TextView substanceName;
     private TextView substanceType;

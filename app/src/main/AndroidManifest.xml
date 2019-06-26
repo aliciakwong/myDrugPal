@@ -18,7 +18,7 @@
             android:name=".SubstanceDetailActivity"
             android:parentActivityName=".SubstanceListActivity" />
         <activity
-            android:name=".AddSubstanceActivity"
+            android:name=".AddCustomSubstanceActivity"
             android:parentActivityName=".SubstanceListActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
