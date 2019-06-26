@@ -10,20 +10,32 @@ import java.io.Serializable;
 
 public class InfoPage implements Serializable {
 
+    /**
+     * id from database
+     */
     public String id;
+    /**
+     * name of substance
+     */
     public String substanceName;
+    /**
+     * information about substance
+     */
     public String substanceMainInfo;
 
+    /**
+     * default empty constructor of object
+     */
     public InfoPage() {
 
     }
 
     /**
-     * @author Emma Travers, Richard Purcell, Ian Sifton
-     * @param substanceName
-     * @param substanceMainInfo
-     *
      * Method which takes in the name and main info od a substance
+     *
+     * @param  substanceName name of substance
+     * @param substanceMainInfo main information of substance
+     *
      */
     public InfoPage(String substanceName, String substanceMainInfo) {
         this.substanceName = substanceName;
@@ -31,10 +43,10 @@ public class InfoPage implements Serializable {
     }
 
     /**
-     * @author Emma Travers, Richard Purcell, Ian Sifton
+     * Method which returns the substance name as a String
+     *
      * @return String with substance name
      *
-     * Method which returns the substance name as a String
      */
     @Override
     public String toString() {

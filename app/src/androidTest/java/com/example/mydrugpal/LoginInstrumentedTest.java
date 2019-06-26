@@ -1,18 +1,21 @@
 package com.example.mydrugpal;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.assertTrue;
 
 /**
  * JUnit Tests for login page business logic
- * @author Jocelyn MacDonald, Alicia Wong, Ian Sifton
+ * @author Jocelyn MacDonald, Alicia Wong, Ian Sifton, Emma Travers
  */
 public class LoginInstrumentedTest {
 
@@ -59,6 +62,15 @@ public class LoginInstrumentedTest {
 
         onView(withId(R.id.enterEmail)).toString().equals("");
         onView(withId(R.id.enterPassword)).toString().equals("");
+
+    }
+
+    @Test
+    public void goBack() {
+        onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
+        //Espresso.pressBack();
+        onView(isRoot()).perform(ViewActions.pressBackUnconditionally());
+        assertTrue(activityRule.getActivity().isFinishing());
 
     }
 
