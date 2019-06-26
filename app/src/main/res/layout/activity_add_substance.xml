@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/substanceName"
+        android:id="@+id/substanceNameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,7 +18,7 @@
         tools:text="@string/enter_substance_name" />
 
     <EditText
-        android:id="@+id/substanceMainInfo"
+        android:id="@+id/substanceType"
         android:layout_width="match_parent"
         android:layout_height="411dp"
         android:ems="10"
@@ -26,7 +26,7 @@
         android:hint="@string/enter_substance_info"
         android:inputType="textMultiLine"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@+id/substanceName"
+        app:layout_constraintTop_toBottomOf="@+id/substanceNameView"
         tools:text="@string/enter_substance_info" />
 
     <Button
@@ -38,5 +38,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/substanceMainInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/substanceType" />
 </LinearLayout>

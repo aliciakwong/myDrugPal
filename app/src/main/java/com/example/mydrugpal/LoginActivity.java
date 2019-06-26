@@ -9,6 +9,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mydrugpal.model.UserList;
+import com.example.mydrugpal.model.VerifyLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,7 +22,7 @@ import java.util.List;
 
 /**
  * Controller for first page display
- * @author Ian Sifton, Alicia Wong, Jocelyn MacDonald
+ * @author Ian Sifton, Alicia Wong, Jocelyn MacDonald, Emma Travers
  *
  */
 public class LoginActivity extends AppCompatActivity {
@@ -33,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");
@@ -55,6 +56,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.button_login);
         loginButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for login button clicked
+             * @param view current application view
+             */
             public void onClick(View view){
                 boolean validatePassword = VerifyLogin.validateUser(
                        ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
@@ -75,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button registrationButton = findViewById(R.id.button_register);
         registrationButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for registration button click
+             * @param view current application view
+             */
             public void onClick(View view){
                 gotoRegistration();
             }
@@ -82,13 +91,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void gotoDetailPage() {
-        Intent intent = new Intent(this, DetailPageActivity.class);
+        Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
     }
 
-    private void gotoRegistration()
-    {
+    private void gotoRegistration() {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * when back button is pressed, always close this activity
+     */
+    @Override
+    public void onBackPressed() {
+        finish();
+
     }
 }
