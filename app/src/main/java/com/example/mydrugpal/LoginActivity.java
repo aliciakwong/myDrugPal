@@ -63,8 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                        ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
                         ((EditText)findViewById(R.id.enterPassword)).getText().toString());
 
-
                 if(validatePassword){
+                    updateCurrentUser(((EditText)findViewById(R.id.enterEmail)).getText().toString());
                     gotoDetailPage();
 
                 }
@@ -105,5 +105,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
 
+    }
+
+    private void updateCurrentUser(String userEmail){
+        Profile currentProfile = UserList.getInstance().getUsers().get(userEmail);
+        CurrentUser.getInstance().setUser(currentProfile);
     }
 }

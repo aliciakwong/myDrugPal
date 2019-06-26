@@ -16,12 +16,12 @@ public class VerifyLogin {
     public static boolean validateUser(String email, final String password){
         if(UserList.getInstance().getUsers() != null &&
                 UserList.getInstance().getUsers().containsKey(email) &&
-                UserList.getInstance().getUsers().get(email).equals(password)){
+                UserList.getInstance().getUsers().get(email).GetPassword().equals(password)){
+
             return true;
         }
         return false;
     }
-
 
 
 
