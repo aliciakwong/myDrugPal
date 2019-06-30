@@ -1,47 +1,59 @@
 package com.example.mydrugpal;
 
-import androidx.test.espresso.ViewInteraction;
-
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
 
 /**
- * Espresso tests which for the AddToIntakeDiaryActivity
+ * Tests the AddToIntakeDiary UI/functionality
  *
- * @author Ian Sifton, Jocelyn MacDonald
+ * @author Jocelyn Macdonald, Megan Brock, Emma Travers
  */
 public class AddToIntakeDiaryInstrumentedTest {
+    /**
+     * Rule for the registration activity tests
+     *
+     */
     @Rule
-    public ActivityTestRule<DetailPageActivity> detailRule = new ActivityTestRule<DetailPageActivity>(DetailPageActivity.class);
+    public ActivityTestRule<AddToIntakeDiaryActivity> activityRule
+            = new ActivityTestRule<>(AddToIntakeDiaryActivity.class);
 
-    ViewInteraction substanceName = null;
-    ViewInteraction addSubstanceButton = null;
-
-    @Before
-    public void setUp() throws Exception {
-        substanceName = onView(withId(R.id.nameOfSubstanceEdit));
-        addSubstanceButton = onView(withId(R.id.addSubstance));
-    }
-/*
+    /**
+     * Tests that the add to intake page opens
+     *
+     */
     @Test
-    public void substanceListButton() {
-        substanceListButton
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-    }
-*/
+    public void appOpensAddToIntakePage(){
+        onView(withId(R.id.addSubstanceView)).toString().equals("Add Substance to Diary");
 
-    @Test
-    public void addSubstanceButton() {
-        addSubstanceButton.perform(click());
     }
+
+    /**
+     * Tests that the fields can be written to
+     *
+     */
+    @Test
+    public void testTyping() {
+        onView(withId(R.id.nameOfSubstanceEdit)).perform(typeText("cocaine"), closeSoftKeyboard());
+        onView(withId(R.id.typeOfSubstanceEdit)).perform(typeText("stimulant"), closeSoftKeyboard());
+        onView(withId(R.id.amountEdit)).perform(typeText("1"), closeSoftKeyboard());
+
+    }
+
+    /**
+     * Tests that the button can be clicked
+     *
+     */
+    @Test
+    public void testAddButton() {
+        onView(withId(R.id.addSubstancebutton)).perform(click());
+    }
+
 }
-
-
