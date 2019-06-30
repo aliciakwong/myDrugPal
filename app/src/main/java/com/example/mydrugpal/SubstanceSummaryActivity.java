@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,9 +45,8 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     public ScrollView scrollView;
     public LinearLayout scrollViewLayout;
 
-       // TODO: replace string with Substance type when implemented
-
     private SubstanceSummaryInformation summaryInformation;
+
     /**
      * Finds references to UI elements. Adds listeners
      * to button onClick and calendar onSelectedDayChange
@@ -61,6 +61,9 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         setContentView(R.layout.activity_substance_summary);
 
         summaryInformation = new SubstanceSummaryInformation();
+
+        startDate = new int[3];
+        endDate = new int[3];
 
         dateSelectButton = findViewById(R.id.selectDateRangeButton);
 
@@ -98,14 +101,14 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         startDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
-                changeDate(startDate, year, month, dayOfMonth);
+                changeStartDate(year, month, dayOfMonth);
             }
         });
 
         endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
-                changeDate(endDate, year, month, dayOfMonth);
+                changeEndDate(year, month, dayOfMonth);
             }
         });
 
@@ -139,8 +142,6 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         });
 
         initializeDates();
-
-        //initializeSubstanceList();
     }
 
     /**
@@ -203,18 +204,35 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     }
 
     /**
-     * Changes the date of the summary.
-     *
-     * @param date Size-3 integer array representing date Y/M/D
+     * Changes the start date.
      * @param y Year
      * @param m Month
-     * @param d Date
+     * @param d Day of month
      */
-    private void changeDate(int[] date, int y, int m, int d)
+    private void changeStartDate(int y, int m, int d)
     {
-        date[0] = y;
-        date[1] = m;
-        date[2] = d;
+        startDate = new int[3];
+
+        startDate[0] = y;
+        startDate[1] = m + 1;
+        startDate[2] = d;
+
+        updateSubstanceList();
+    }
+
+    /**
+     * Changes the end date.
+     * @param y Year
+     * @param m Month
+     * @param d Day of month
+     */
+    private void changeEndDate(int y, int m, int d)
+    {
+        endDate = new int[3];
+
+        endDate[0] = y;
+        endDate[1] = m + 1;
+        endDate[2] = d;
 
         updateSubstanceList();
     }
@@ -224,45 +242,37 @@ public class SubstanceSummaryActivity extends AppCompatActivity
      */
     private void initializeDates()
     {
-        startDate = new int[3];
-        endDate = new int[3];
-
-        changeDate(startDate, 1, 1, 1);
-        changeDate(endDate, 1, 1, 1);
+        changeStartDate(1, 1, 1);
+        changeEndDate(1, 1, 1);
     }
-
 
     /**
      * Update the substance list after changing date range.
      */
     private void updateSubstanceList()
     {
-
         scrollViewLayout.removeAllViews();
 
-        //TODO: grab database stuff
-
-        TextView tv = new TextView(getApplicationContext());
-        tv.setTextSize(24f);
-        tv.setText("Start date: " + startDate[0] + "/" + startDate[1] + "/" + startDate[2]);
-        scrollViewLayout.addView(tv);
-
-        tv = new TextView(getApplicationContext());
-        tv.setTextSize(24f);
-        tv.setText("End date: " + endDate[0] + "/" + endDate[1] + "/" + endDate[2]);
-        scrollViewLayout.addView(tv);
-
-        // TODO: remove start/end date debug entries
+        Date d, sd, ed;
+        TextView tv;
 
         int len = summaryInformation.getSubstanceList().size();
 
         for (int i = 0; i < len; i++)
         {
-            tv = new TextView(getApplicationContext());
-            tv.setTextSize(24f);
-            tv.setText(summaryInformation.getSubstanceList().get(i).getName());
+            d = SubstanceSummaryInformation.parseDate(summaryInformation.getSubstanceList().get(i).getDateTime());
+            sd = SubstanceSummaryInformation.parseDate(startDate);
+            ed = SubstanceSummaryInformation.parseDate(endDate);
 
-            scrollViewLayout.addView(tv);
+            if (sd != null && ed != null && d != null) {
+                if (d.after(sd) && d.before(ed)) {
+                    tv = new TextView(getApplicationContext());
+                    tv.setTextSize(24f);
+                    tv.setText(summaryInformation.getSubstanceList().get(i).getName());
+
+                    scrollViewLayout.addView(tv);
+                }
+            }
         }
     }
 }
