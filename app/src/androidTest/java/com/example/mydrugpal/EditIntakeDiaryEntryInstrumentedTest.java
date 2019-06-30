@@ -25,6 +25,7 @@ public class EditIntakeDiaryEntryInstrumentedTest {
     public ActivityTestRule<EditIntakeDiaryEntry> activityRule
             = new ActivityTestRule<>(EditIntakeDiaryEntry.class);
 
+
     /**
      * test to make sure that the user is on the correct page with the title: "Edit Entry"
      */
@@ -45,6 +46,8 @@ public class EditIntakeDiaryEntryInstrumentedTest {
         onView(withId(R.id.editTextSubstanceAmount)).perform(clearText(), typeText("15"), closeSoftKeyboard());
     }
 
+
+
     /**
      * TODO:
      * After the fields have been changed, the user clicks the "SAVE" button and is returned to the
@@ -52,7 +55,13 @@ public class EditIntakeDiaryEntryInstrumentedTest {
      */
     @Test
     public void saveButtonAndReturn() {
-        // See above
+
+
+        onView(withId(R.id.EntryEditorTitle)).toString().equals("Edit Entry");
+
+        onView(withId(R.id.button_saveEntryEdit)).perform(click());
+        onView(withId(R.id.dummy)).toString().equals("dummy");
+
     }
 
     /**
@@ -63,6 +72,9 @@ public class EditIntakeDiaryEntryInstrumentedTest {
     @Test
     public void deleteButtonAndReturn() {
 
+
+        onView(withId(R.id.button_entryDelete)).perform(click());
+        onView(withId(R.id.dummy)).toString().equals("dummy");
     }
 
 }
