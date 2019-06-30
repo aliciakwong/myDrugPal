@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
  */
 public class DetailPageInstrumentedTest {
     @Rule
-    public ActivityTestRule<DetailPageActivity> detailRule = new ActivityTestRule<DetailPageActivity>(DetailPageActivity.class);
+    public ActivityTestRule<SubstanceListActivity> detailRule = new ActivityTestRule<SubstanceListActivity>(SubstanceListActivity.class);
 
     ViewInteraction substanceName = null;
     ViewInteraction addSubstanceButton = null;
