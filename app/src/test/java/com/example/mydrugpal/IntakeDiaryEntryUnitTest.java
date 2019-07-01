@@ -19,11 +19,11 @@ public class IntakeDiaryEntryUnitTest {
     @Test
     public void intakeEntry_NotEmpty()
     {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", 3);
+        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
 
         assertNotNull(entry.getNameOfSubstance());
         assertNotNull(entry.getTypeOfSubstance());
-        assertNotNull(entry.getAmount());
+        assertNotNull(entry.getDose());
         assertNotNull(entry.getTime());
     }
 
@@ -32,7 +32,7 @@ public class IntakeDiaryEntryUnitTest {
      */
     @Test
     public void getNameOfSubstance() {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", 3);
+        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
 
         assertEquals(entry.getNameOfSubstance(), "fentanyl");
     }
@@ -43,9 +43,9 @@ public class IntakeDiaryEntryUnitTest {
      */
     @Test
     public void getAmount() {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", 3);
+        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
 
-        assertEquals(entry.getAmount(), 3);
+        assertEquals(entry.getDose(), "3");
     }
 
     /**
@@ -53,7 +53,7 @@ public class IntakeDiaryEntryUnitTest {
      */
     @Test
     public void getTypeOfSubstance() {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", 3);
+        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
 
         assertEquals(entry.getTypeOfSubstance(), "narcotic");
     }

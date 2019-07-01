@@ -12,19 +12,20 @@ import java.io.Serializable;
 public class IntakeDiaryEntry implements Serializable {
     public String nameOfSubstance;
     public String typeOfSubstance;
-    public int amount;
+    public String dose;
     public Timestamp time;
 
     /**
      * The constructor for the IntakeDiaryEntry class
      * @param nameOfSubstance the name of the substance being added
      * @param typeOfSubstance the type of the substance being added
-     * @param amount the amount of the substance taken
+     * @param dose the number of doses taken relative to the recommended amount per dose as given on
+     *             the drugs specific SubstanceDetailActivity page
      */
-    public IntakeDiaryEntry(String nameOfSubstance, String typeOfSubstance, int amount) {
+    public IntakeDiaryEntry(String nameOfSubstance, String typeOfSubstance, String dose) {
         this.nameOfSubstance = nameOfSubstance;
         this.typeOfSubstance = typeOfSubstance;
-        this.amount = amount;
+        this.dose = dose;
         time = Timestamp.now();
     }
 
@@ -44,7 +45,7 @@ public class IntakeDiaryEntry implements Serializable {
      * gets the amount of the substance logged
      * @return returns the amount
      */
-    public int getAmount() {return amount;}
+    public String getDose() {return dose;}
 
     /**
      * gets the time of the entry

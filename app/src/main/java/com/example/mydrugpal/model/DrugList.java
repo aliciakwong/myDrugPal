@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * Singleton implementation of DrugList that holds current drugs from database
- * @author Jocelyn MacDonald, Ian Sifton
+ * @author Jocelyn MacDonald, Ian Sifton, Richard Purcell
  */
 public class DrugList {
     private static volatile DrugList instance;
@@ -50,12 +50,21 @@ public class DrugList {
         drugs = new HashMap<String, List<String>>();
 
         for(DocumentSnapshot d: updatedList){
+            System.out.println("updating");
             List<String> fields = new ArrayList<>();
             String id = d.getId();
-            String substanceMainInfo = d.get("substanceMainInfo").toString();
+            String substanceType = d.get("substanceType").toString();
+            System.out.println(substanceType + "4");
             String substanceName = d.get("substanceName").toString();
-            fields.add(substanceMainInfo);
+            System.out.println(substanceType + "5");
+            String amount = d.get("amount").toString();
+            System.out.println(amount + "6");
+            fields.add(substanceType);
             fields.add(substanceName);
+            fields.add(amount);
+            for(int i=0; i < fields.size();i++) {
+                System.out.println(fields.get(i));
+            }
             drugs.put(id,fields);
         }
 
