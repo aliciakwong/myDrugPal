@@ -45,6 +45,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         substanceId = getIntent().getStringExtra("id");
 
         setPageText();
+
     }
 
     /**
