@@ -50,30 +50,23 @@ public class EditIntakeDiaryEntryInstrumentedTest {
 
 
     /**
-     * TODO:
      * After the fields have been changed, the user clicks the "SAVE" button and is returned to the
      * Intake Diary activity.
      */
     @Test
     public void saveButtonAndReturn() {
-
-
         onView(withId(R.id.EntryEditorTitle)).toString().equals("Edit Entry");
 
         onView(withId(R.id.button_saveEntryEdit)).perform(click());
         onView(withId(R.id.dummy)).toString().equals("dummy");
-
     }
 
     /**
-     * TODO:
      * After the user has accessed the Edit Intake Diary Entry activity, they click the "DELETE"
      * button and are returned to the Intake Diary activity
      */
     @Test
     public void deleteButtonAndReturn() {
-
-
         onView(withId(R.id.button_entryDelete)).perform(click());
         onView(withId(R.id.dummy)).toString().equals("dummy");
     }
