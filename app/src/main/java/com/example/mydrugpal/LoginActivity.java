@@ -9,8 +9,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mydrugpal.model.UserList;
 import com.example.mydrugpal.model.CurrentUser;
+import com.example.mydrugpal.model.UserList;
 import com.example.mydrugpal.model.VerifyLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
