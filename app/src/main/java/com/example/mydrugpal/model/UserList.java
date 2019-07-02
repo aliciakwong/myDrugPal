@@ -1,5 +1,6 @@
-package com.example.mydrugpal;
+package com.example.mydrugpal.model;
 
+import com.example.mydrugpal.Profile;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class UserList {
     private static volatile UserList instance;
-    private HashMap<String,String> users;
+    private HashMap<String, Profile> users;
 
     private UserList(){
 
@@ -48,7 +49,10 @@ public class UserList {
         for(DocumentSnapshot d: updatedList){
             String email = d.getId();
             String password = d.get("Password").toString();
-            users.put(email,password);
+            String firstName = d.get("FirstName").toString();
+            String lastName = d.get("LastName").toString();
+            Profile currentProfile = new Profile(firstName, lastName, email, password);
+            users.put(email, currentProfile);
         }
 
     }
@@ -57,7 +61,7 @@ public class UserList {
      * method returns users in the UserList instance
      * @return HashMap of users emails and passwords
      */
-    public HashMap<String, String> getUsers(){
+    public HashMap<String, Profile> getUsers(){
         return users;
     }
 

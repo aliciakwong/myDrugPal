@@ -26,7 +26,7 @@ import com.google.firebase.firestore.Query;
  * @author Emma Travers, Richard Purcell, Ian Sifton
  *
  */
-public class DetailPageActivity extends LogoutActivity {
+public class SubstanceListActivity extends LogoutActivity {
 
     private RecyclerView recyclerView;
     private Button addSubstanceButton;
@@ -65,7 +65,7 @@ public class DetailPageActivity extends LogoutActivity {
         addSubstanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailPageActivity.this, AddSubstance.class);
+                Intent intent = new Intent(SubstanceListActivity.this, AddCustomSubstanceActivity.class);
                 startActivity(intent);
             }
         });
@@ -121,7 +121,7 @@ public class DetailPageActivity extends LogoutActivity {
                 holder.detailsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(DetailPageActivity.this, SubstanceDetail.class);
+                        Intent intent = new Intent(SubstanceListActivity.this, SubstanceDetailActivity.class);
                         intent.putExtra("substance",model);
                         startActivity(intent);
                     }
@@ -132,12 +132,12 @@ public class DetailPageActivity extends LogoutActivity {
              * nested method which creates a view from the substance_entry xml file
              *
              * @param group (ViewGroup)
-             * @param i (integer)
+             * @param recyclerViewNum (integer)
              * @return SubstanceViewHolder view holder for substances
              *
              */
             @Override
-            public SubstanceViewHolder onCreateViewHolder(ViewGroup group, int i)
+            public SubstanceViewHolder onCreateViewHolder(ViewGroup group, int recyclerViewNum)
             {
                 View view = LayoutInflater.from(group.getContext())
                         .inflate(R.layout.substance_entry,group,false);

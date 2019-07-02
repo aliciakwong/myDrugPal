@@ -4,15 +4,21 @@ import java.io.Serializable;
 /**
  * Profile object for each user
  *
- * @author Megan Brock, Jocelyn MacDonald, Emma Travers
+ * @author Megan Brock, Jocelyn MacDonald, Emma Travers, Alicia Wong
  */
 public class Profile implements Serializable
 {
-    public String FirstName;
-    public String LastName;
-    public String Email;
-    public String Password;
+    private String FirstName;
+    private String LastName;
+    private String Email;
+    private String Password;
 
+    /**
+     * default constructor used for CurrentUser subclass
+     */
+    public Profile(){
+
+    }
     /**
      * The sole constructor for Profile objects.
      *
@@ -27,6 +33,7 @@ public class Profile implements Serializable
         this.LastName = lastName;
         this.Email = email;
         Password = pass;
+
     }
 
     /**
@@ -81,5 +88,35 @@ public class Profile implements Serializable
                 Password != null && Password.length() > 0);
     }
 
+    /**
+     * set first name
+     * @param firstName first name of user
+     */
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
 
+    /**
+     * set last name of user
+     * @param lastName last name of user
+     */
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    /**
+     * set email of user
+     * @param email email address of user
+     */
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    /**
+     * set user password
+     * @param password password of user
+     */
+    public void setPassword(String password) {
+        Password = password;
+    }
 }

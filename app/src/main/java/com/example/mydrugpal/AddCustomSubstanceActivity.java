@@ -18,10 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * @author Emma Travers, Richard Purcell, Ian Sifton
  *
  */
-public class AddSubstance extends AppCompatActivity {
+public class AddCustomSubstanceActivity extends AppCompatActivity {
 
     private TextView substanceName;
-    private TextView substanceMainInfo;
+    private TextView substanceType;
+    private TextView amount;
 
     private FirebaseFirestore database;
     private Button addSubstance;
@@ -39,8 +40,9 @@ public class AddSubstance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_substance);
 
-        substanceName = findViewById(R.id.substanceName);
-        substanceMainInfo = findViewById(R.id.substanceMainInfo);
+        substanceName = findViewById(R.id.substanceNameView);
+        substanceType = findViewById(R.id.substanceTypeView);
+        amount = findViewById(R.id.amountView);
         addSubstance = findViewById(R.id.addSubstance);
 
         database = FirebaseFirestore.getInstance();
@@ -49,7 +51,7 @@ public class AddSubstance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 InfoPage c = new InfoPage(substanceName.getText().toString(),
-                        substanceMainInfo.getText().toString());
+                        substanceType.getText().toString(),amount.getText().toString());
 
                 DocumentReference ref = database.collection("substances").document();
                 c.id = ref.getId();
