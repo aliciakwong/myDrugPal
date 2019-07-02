@@ -46,6 +46,7 @@ public class AddToIntakeDiaryInstrumentedTest {
      * Tests that the fields can be written to
      * doesn't test the click of the button because the implementation of the current user object
      * involves retrieving data from firestore, which leads to a null document reference
+     * can't test the click due to the need for a firestore document reference
      *
      */
     @Test
@@ -56,10 +57,8 @@ public class AddToIntakeDiaryInstrumentedTest {
         onView(withId(R.id.typeOfSubstanceEdit)).perform(typeText("stimulant"), closeSoftKeyboard());
         onView(withId(R.id.amountEdit)).perform(typeText("1"), closeSoftKeyboard());
 
-
-
-
     }
+
 
 
 

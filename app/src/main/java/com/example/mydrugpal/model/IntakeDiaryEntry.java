@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  *holds the data for an entry to the intake diary
- * @author Jocelyn MacDonald, Ian Sifton
+ * @author Jocelyn MacDonald, Ian Sifton, Richard Purcell
  */
 public class IntakeDiaryEntry implements Serializable {
     public String nameOfSubstance;
@@ -52,4 +52,15 @@ public class IntakeDiaryEntry implements Serializable {
      * @return returns the time of entry
      */
     public Timestamp getTime() {return time;}
+
+    /**
+     *
+     * @return returns a boolean. Returns true if all the fields are not null. Otherwise returns false
+     */
+    public boolean NoNullOrEmptyFields()
+    {
+        return (nameOfSubstance != null && nameOfSubstance.length() > 0 &&
+                typeOfSubstance!= null && typeOfSubstance.length() > 0 &&
+                dose != null && dose.length() > 0);
+    }
 }

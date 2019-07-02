@@ -7,6 +7,12 @@ import com.example.mydrugpal.Profile;
  *
  * @author Megan Brock, Alicia Wong
  */
+
+/**
+ * singleton class for current logged-in user that extends Profile class
+ *
+ * @author Megan Brock, Alicia Wong
+ */
 public class CurrentUser extends Profile {
     private static CurrentUser instance = new CurrentUser();
 
