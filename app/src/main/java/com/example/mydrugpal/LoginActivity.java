@@ -9,6 +9,9 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mydrugpal.model.UserList;
+import com.example.mydrugpal.model.CurrentUser;
+import com.example.mydrugpal.model.VerifyLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -60,11 +63,11 @@ public class LoginActivity extends AppCompatActivity {
              */
             public void onClick(View view){
                 boolean validatePassword = VerifyLogin.validateUser(
-                       ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
+                        ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
                         ((EditText)findViewById(R.id.enterPassword)).getText().toString());
 
-
                 if(validatePassword){
+                    updateCurrentUser(((EditText)findViewById(R.id.enterEmail)).getText().toString());
                     gotoDetailPage();
 
                 }
@@ -89,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void gotoDetailPage() {
-        Intent intent = new Intent(this, DetailPageActivity.class);
+        Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
     }
 
@@ -105,5 +108,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
 
+    }
+
+    private void updateCurrentUser(String userEmail){
+        Profile currentProfile = UserList.getInstance().getUsers().get(userEmail);
+        CurrentUser.getInstance().setUser(currentProfile);
     }
 }

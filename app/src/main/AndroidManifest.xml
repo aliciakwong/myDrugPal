@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EditIntakeDiaryEntry"></activity>
-        <activity android:name=".DetailPageActivity" />
+        <activity android:name=".SubstanceListActivity" />
         <activity
-            android:name=".SubstanceDetail"
-            android:parentActivityName=".DetailPageActivity" />
+            android:name=".SubstanceDetailActivity"
+            android:parentActivityName=".SubstanceListActivity" />
         <activity
-            android:name=".AddSubstance"
-            android:parentActivityName=".DetailPageActivity" />
+            android:name=".AddCustomSubstanceActivity"
+            android:parentActivityName=".SubstanceListActivity" />
+        <activity
+            android:name=".AddToIntakeDiaryActivity">
+
+        </activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Simple POJO class to hold substance information in Firestore database.
- * @author Emma Travers, Richard Purcull, Ian Sifton
+ * @author Emma Travers, Richard Purcull, Ian Sifton, Jocelyn MacDonald
  *
  */
 
@@ -19,9 +19,13 @@ public class InfoPage implements Serializable {
      */
     public String substanceName;
     /**
-     * information about substance
+     * type of substance
      */
-    public String substanceMainInfo;
+    public String substanceType;
+    /**
+     * amount of the substance logged
+     */
+    public String amount;
 
     /**
      * default empty constructor of object
@@ -34,12 +38,14 @@ public class InfoPage implements Serializable {
      * Method which takes in the name and main info od a substance
      *
      * @param  substanceName name of substance
-     * @param substanceMainInfo main information of substance
+     * @param substanceType type of substance
+     * @param amount the amount of the substance logged or the recommended amount
      *
      */
-    public InfoPage(String substanceName, String substanceMainInfo) {
+    public InfoPage(String substanceName, String substanceType, String amount) {
         this.substanceName = substanceName;
-        this.substanceMainInfo = substanceMainInfo;
+        this.substanceType = substanceType;
+        this.amount = amount;
     }
 
     /**
