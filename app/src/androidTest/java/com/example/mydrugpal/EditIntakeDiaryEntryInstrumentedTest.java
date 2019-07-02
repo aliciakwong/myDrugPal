@@ -12,6 +12,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+
 /**
  * Espresso Tests for editing a user's intake diary (editing and deleting)
  * @author Ian Sifton, Emma Travers
