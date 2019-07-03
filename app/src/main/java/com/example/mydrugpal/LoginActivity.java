@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(validatePassword){
                     updateCurrentUser(((EditText)findViewById(R.id.enterEmail)).getText().toString());
-                    gotoDetailPage();
+                    gotoSubstanceSummary();
 
                 }
                 else{
@@ -88,8 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void gotoDetailPage() {
-        Intent intent = new Intent(this, DetailPageActivity.class);
+    private void gotoSubstanceSummary() {
+        Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
 
