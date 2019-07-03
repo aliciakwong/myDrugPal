@@ -126,4 +126,5 @@ public class SubstanceSummaryInstrumentedTests
         onView(withId(R.id.addSubstance)).toString().equals("Add Substance");
     }
 
+
 }

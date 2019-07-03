@@ -1,7 +1,6 @@
 package com.example.mydrugpal;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +47,6 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         substanceName = findViewById(R.id.nameOfSubstanceEdit);
         substanceType = findViewById(R.id.typeOfSubstanceEdit);
         amount = findViewById(R.id.amountEdit);
-        amountPerDoseView = findViewById(R.id.amountPerDoseView);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
         messageView = findViewById(R.id.messageView);
 
@@ -82,8 +80,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
                 else
                 {
-                    messageView.setText("Enter a dose");
-                    messageView.setTextColor(Color.parseColor("#c44040"));
+
                 }
             }
         });
@@ -103,12 +100,11 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
         substanceName.setText(name);
         substanceType.setText(type);
-        amountPerDoseView.setText("One dose is: " + amountPerDose);
 
     }
 
     public void goToSubstanceDetail() {
-        Intent intent = new Intent(this, SubstanceListActivity.class);
+        Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
 
