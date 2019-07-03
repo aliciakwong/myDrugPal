@@ -60,16 +60,14 @@ public class SubstanceListActivity extends LogoutActivity {
         addSubstanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SubstanceListActivity.this, AddCustomSubstanceActivity.class);
-                startActivity(intent);
+                goToAddSubstance();
             }
         });
 
         substanceSummaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SubstanceListActivity.this, SubstanceSummaryActivity.class);
-                startActivity(intent);
+                goToSubstanceSummary();
             }
         });
     }
@@ -177,6 +175,15 @@ public class SubstanceListActivity extends LogoutActivity {
     }
 
     /**
+     * Returns to summary page when back button is pressed
+     */
+    @Override
+    public void onBackPressed()
+    {
+        goToSubstanceSummary();
+    }
+
+    /**
      * required as an extension of logout superclass
      * @return layoutResourceId
      */
@@ -185,4 +192,19 @@ public class SubstanceListActivity extends LogoutActivity {
         return R.layout.activity_detailpage;
     }
 
+    /**
+     * Change activity to SubstanceSummaryActivity
+     */
+    public void goToSubstanceSummary() {
+        Intent intent = new Intent(SubstanceListActivity.this, SubstanceSummaryActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Change activity to AddCustomSubstanceActivity
+     */
+    public void goToAddSubstance() {
+        Intent intent = new Intent(SubstanceListActivity.this, AddCustomSubstanceActivity.class);
+        startActivity(intent);
+    }
 }
