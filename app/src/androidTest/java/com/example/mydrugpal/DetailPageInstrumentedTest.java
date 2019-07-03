@@ -26,24 +26,30 @@ public class DetailPageInstrumentedTest {
 
     ViewInteraction substanceName = null;
     ViewInteraction addSubstanceButton = null;
+    ViewInteraction substanceSummaryButton = null;
 
     /**
-     * ensures substancelist and addsubstance buttons are displayed
+     * Finds addSubstanceButton, substanceSummaryButton references
      * @throws Exception
      */
     @Before
     public void setUp() throws Exception {
         substanceName = onView(withId(R.id.nameOfSubstanceEdit));
         addSubstanceButton = onView(withId(R.id.addSubstance));
+        substanceSummaryButton = onView(withId(R.id.substanceSummaryButton));
     }
 
     /**
-     * test that add substance button is displayed and clickable
+     * Tests that add substance button is displayed and clickable
      */
     @Test
-    public void addSubstanceButton() {
+    public void testAddSubstanceButton() {
         addSubstanceButton.perform(click());
     }
 
-
+    /**
+     * Tests that the substance summary button is displayed and clickable
+     */
+    @Test
+    public void testSubstanceSummaryButton() { substanceSummaryButton.perform((click())); }
 }
