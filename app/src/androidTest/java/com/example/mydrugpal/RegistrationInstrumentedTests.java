@@ -42,11 +42,12 @@ public class RegistrationInstrumentedTests {
      *
      */
     @Test
-    public void testRegister() {
+    public void testTyping() {
         onView(withId(R.id.editText_fName)).perform(typeText("name"), closeSoftKeyboard());
         onView(withId(R.id.editText_lName)).perform(typeText("lastname"), closeSoftKeyboard());
         onView(withId(R.id.editText_Email)).perform(typeText("Email"), closeSoftKeyboard());
         onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
+
     }
 
     /**

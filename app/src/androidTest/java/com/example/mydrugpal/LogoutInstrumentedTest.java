@@ -16,8 +16,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 public class LogoutInstrumentedTest {
 
     @Rule
-    public ActivityTestRule<DetailPageActivity> activityRule
-            = new ActivityTestRule<>(DetailPageActivity.class);
+    public ActivityTestRule<SubstanceListActivity> activityRule
+            = new ActivityTestRule<>(SubstanceListActivity.class);
 
     /**
      * test to check that once a user clicks the Logout button, they are returned to the Login page

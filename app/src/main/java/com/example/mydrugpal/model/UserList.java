@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class UserList {
     private static volatile UserList instance;
-    private HashMap<String,Profile> users;
+    private HashMap<String, Profile> users;
 
     private UserList(){
 

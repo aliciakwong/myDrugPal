@@ -1,4 +1,7 @@
-package com.example.mydrugpal;
+package com.example.mydrugpal.model;
+
+
+import com.example.mydrugpal.UserList;
 
 /**
  *  Class that holds business logic to verify a user when logging in

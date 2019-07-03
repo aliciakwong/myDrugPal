@@ -67,9 +67,9 @@ public class RegistrationActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Profile p = new Profile(editFName.getText().toString(),
-                                        editLName.getText().toString(),
-                                        editEmail.getText().toString(),
-                                        editPass.getText().toString());
+                        editLName.getText().toString(),
+                        editEmail.getText().toString(),
+                        editPass.getText().toString());
 
                 if (p.NoNullOrEmptyFields())
                 {

@@ -316,7 +316,7 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
     }
     private void goToDetailPage(){
-        Intent intent = new Intent(this, DetailPageActivity.class);
+        Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
     }
     @Override

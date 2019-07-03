@@ -13,17 +13,18 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * UI Tests for detail page
- * @author Richard Purcell, Emma Travers, Megan Brock, Alicia Wong
+ * Espresso tests which for the AddToIntakeDiaryActivity
+ *
+ * @author Ian Sifton, Jocelyn MacDonald, Richard Purcell, Emma Travers, Megan Brock, Alicia Wong
  */
 public class DetailPageInstrumentedTest {
     /**
      * Rule for tests to display detail page
      */
     @Rule
-    public ActivityTestRule<DetailPageActivity> detailRule = new ActivityTestRule<DetailPageActivity>(DetailPageActivity.class);
+    public ActivityTestRule<SubstanceListActivity> detailRule = new ActivityTestRule<SubstanceListActivity>(SubstanceListActivity.class);
 
-    ViewInteraction substanceListButton = null;
+    ViewInteraction substanceName = null;
     ViewInteraction addSubstanceButton = null;
 
     /**
@@ -32,7 +33,7 @@ public class DetailPageInstrumentedTest {
      */
     @Before
     public void setUp() throws Exception {
-        substanceListButton = onView(withId(R.id.substanceList));
+        substanceName = onView(withId(R.id.nameOfSubstanceEdit));
         addSubstanceButton = onView(withId(R.id.addSubstance));
     }
 
@@ -42,7 +43,6 @@ public class DetailPageInstrumentedTest {
     @Test
     public void addSubstanceButton() {
         addSubstanceButton.perform(click());
-        onView(isRoot());
     }
 
 
