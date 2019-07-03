@@ -131,37 +131,39 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         scrollView.setVisibility(View.VISIBLE);
 
+        if (CurrentUser.getInstance() != null &&
+            CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "")
+        {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference userDocument = database.collection("Users").
+                    document(CurrentUser.getInstance().GetEmail());
+            CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
+            Query diaryByDate = userIntakeDiary.orderBy("dateTime");
+            diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        DocumentReference userDocument = database.collection("Users").
-                                                document(CurrentUser.getInstance().GetEmail());
-        CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
-        Query diaryByDate = userIntakeDiary.orderBy("dateTime");
-        diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-            /**
-             * method called to retrieve users from database and update UserList instance with users
-             * @param task task to ensure database is properly accessed and data retrieved
-             */
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
-
-                    summaryInformation.updateSubstanceList(diaryList);
+                /**
+                 * method called to retrieve users from database and update UserList instance with users
+                 *
+                 * @param task task to ensure database is properly accessed and data retrieved
+                 */
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
+                        summaryInformation.updateSubstanceList(diaryList);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         initializeDates();
 
         viewSubstanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToDetailPage();
+                goToSubstanceList();
             }
         });
-
     }
 
     /**
@@ -313,15 +315,24 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
             }
         }
-
     }
-    private void goToDetailPage(){
+
+    /**
+     * Change to the SubstanceListActivity
+     */
+    private void goToSubstanceList()
+    {
         Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Gets the resource ID of the xml layout for SubstanceSummaryActivity
+     * @return
+     */
     @Override
-    protected int getLayoutResourceId(){
+    protected int getLayoutResourceId()
+    {
         return R.layout.activity_substance_summary;
     }
-
 }
