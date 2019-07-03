@@ -1,4 +1,12 @@
-package com.example.mydrugpal;
+package com.example.mydrugpal.model;
+
+import com.example.mydrugpal.Profile;
+
+/**
+ * singleton class for current logged-in user that extends Profile class
+ *
+ * @author Megan Brock, Alicia Wong
+ */
 
 /**
  * singleton class for current logged-in user that extends Profile class

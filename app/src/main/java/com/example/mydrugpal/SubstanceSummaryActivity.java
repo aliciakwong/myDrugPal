@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.mydrugpal.model.CurrentUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
@@ -134,7 +136,8 @@ public class SubstanceSummaryActivity extends LogoutActivity
         DocumentReference userDocument = database.collection("Users").
                                                 document(CurrentUser.getInstance().GetEmail());
         CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
-        userIntakeDiary.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Query diaryByDate = userIntakeDiary.orderBy("dateTime");
+        diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
             /**
              * method called to retrieve users from database and update UserList instance with users
@@ -282,6 +285,9 @@ public class SubstanceSummaryActivity extends LogoutActivity
             sd = SubstanceSummaryInformation.parseDate(startDate);
             ed = SubstanceSummaryInformation.parseDate(endDate);
 
+            if(sd.after(ed)){
+                ed = sd;
+            }
             if (sd != null && ed != null && d != null) {
                 if ((d.after(sd) && d.before(ed)) || d.equals(sd) || d.equals(ed)) {
                     tv = new TextView(getApplicationContext());
@@ -299,13 +305,13 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
                     tv.setTextSize(24f);
                     String date = (d.getMonth()+1) + "/"+ d.getDate();
-                    tv.setText(summaryInformation.getSubstanceList().get(i).getName() + " " + date);
+                    tv.setText(summaryInformation.getSubstanceList().get(i).getName() + " " + date + "\t(" +
+                            summaryInformation.getSubstanceList().get(i).getDose() + ")");
 
                     scrollViewLayout.addView(tv);
                 }
 
             }
-            //TODO: order scrollview layout by date
         }
 
     }
