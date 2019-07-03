@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Megan Brock, Richard Purcell, Alicia Wong
  */
-public class SubstanceSummaryActivity extends AppCompatActivity
+public class SubstanceSummaryActivity extends LogoutActivity
 {
     private int[] startDate;
     private int[] endDate;
@@ -61,7 +61,9 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_substance_summary);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+
+        getLayoutInflater().inflate(R.layout.activity_substance_summary, contentFrameLayout);
 
         summaryInformation = new SubstanceSummaryInformation();
 
@@ -311,4 +313,9 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         Intent intent = new Intent(this, DetailPageActivity.class);
         startActivity(intent);
     }
+    @Override
+    protected int getLayoutResourceId(){
+        return R.layout.activity_substance_summary;
+    }
+
 }
