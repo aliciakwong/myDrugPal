@@ -7,9 +7,10 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
@@ -50,25 +51,24 @@ public class EditIntakeDiaryEntryInstrumentedTest {
 
 
     /**
-     * After the fields have been changed, the user clicks the "SAVE" button and is returned to the
-     * Intake Diary activity.
+     * Checks if the save entry button is visible on the page.
      */
     @Test
-    public void saveButtonAndReturn() {
+    public void saveButtonVisible() {
         onView(withId(R.id.EntryEditorTitle)).toString().equals("Edit Entry");
 
-        onView(withId(R.id.button_saveEntryEdit)).perform(click());
-        onView(withId(R.id.dummy)).toString().equals("dummy");
+//        onView(withId(R.id.button_saveEntryEdit)).perform(click());
+        onView(withId(R.id.button_saveEntryEdit)).check(matches(isDisplayed()));
+
     }
 
     /**
-     * After the user has accessed the Edit Intake Diary Entry activity, they click the "DELETE"
-     * button and are returned to the Intake Diary activity
+     * Checks if the delete entry button is visible on the page.
      */
     @Test
-    public void deleteButtonAndReturn() {
-        onView(withId(R.id.button_entryDelete)).perform(click());
-        onView(withId(R.id.dummy)).toString().equals("dummy");
+    public void deleteButtonVisible() {
+//        onView(withId(R.id.button_entryDelete)).perform(click());
+        onView(withId(R.id.button_entryDelete)).check(matches(isDisplayed()));
     }
 
 }
