@@ -17,7 +17,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
  *
  * @author Ian Sifton, Jocelyn MacDonald, Richard Purcell, Emma Travers, Megan Brock, Alicia Wong
  */
-public class DetailPageInstrumentedTest {
+public class SubstanceListInstrumentedTest {
     /**
      * Rule for tests to display detail page
      */
