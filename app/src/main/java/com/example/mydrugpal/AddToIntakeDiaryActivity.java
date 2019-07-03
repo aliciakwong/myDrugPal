@@ -48,7 +48,6 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         substanceName = findViewById(R.id.nameOfSubstanceEdit);
         substanceType = findViewById(R.id.typeOfSubstanceEdit);
         amount = findViewById(R.id.amountEdit);
-        amountPerDoseView = findViewById(R.id.amountPerDoseView);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
         messageView = findViewById(R.id.messageView);
 

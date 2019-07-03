@@ -10,18 +10,14 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mydrugpal.model.CurrentUser;
+import com.example.mydrugpal.model.GetIntakeEntryData;
 import com.example.mydrugpal.model.InfoPage;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-//import com.example.mydrugpal.model.GetIntakeEntryData;
-
 
 /**
  * Edit intake diary entry activity
@@ -29,11 +25,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class EditIntakeDiaryEntry extends AppCompatActivity {
 
+    private EditText substanceName;
+    private EditText substanceType;
+    private String substanceId;
+    private EditText amount;
+
+    private String entryId;
+
+
     private EditText entryName;
     private EditText entryType;
     private EditText entryAmount;
 
-    private FirebaseFirestore database;
     private Button updateEntry;
     private Button deleteEntry;
     private Intent intent;
@@ -50,33 +53,26 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_intake_diary_entry);
 
-        entryName = findViewById(R.id.editTextSubstanceName);
-        entryType = findViewById(R.id.editTextSubstanceType);
-        entryAmount = findViewById(R.id.editTextSubstanceAmount);
+        substanceName = findViewById(R.id.editTextSubstanceName);
+        substanceType = findViewById(R.id.editTextSubstanceType);
+        amount = findViewById(R.id.editTextSubstanceAmount);
         updateEntry = findViewById(R.id.button_saveEntryEdit);
         deleteEntry = findViewById(R.id.button_entryDelete);
 
-        database = FirebaseFirestore.getInstance();
+       // entryId = SubstanceSummaryActivity.summaryInformation.getSubstanceList().get(i).getId();
+                //getIntent().getStringExtra("id");
 
-        //HARD CODED COLLECTION/DOCUMENT PATHS
-        final DocumentReference userDoc = database.collection("Users").document("Email");
-        CollectionReference userIntakeDiary = userDoc.collection("IntakeDiary");
-        final DocumentReference userEntry = userIntakeDiary.document("pGggvip6Mq8AygPLsCcU");
+        substanceId = getIntent().getStringExtra("id");
 
-        /**
-         * method to set the intake diary entry information into the corresponding text boxes on the page
-         * Currently, this will grab the field data based on the above DocumentReference variable
-         */
-        userEntry.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
+        setPageText();
 
-                entryName.setText(document.getString("substanceName"));
-                entryType.setText(document.getString("type"));
-                entryAmount.setText(document.getString("dose"));
-            }
-        });
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+        CollectionReference ref = userRef.collection("IntakeDiary");
+        final DocumentReference userEntry = ref.document(substanceId);
+
+
+
 
         /**
          * OnClickListener method on updateEntry button which will update the Firestore database
@@ -89,6 +85,8 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
                 entryName = findViewById(R.id.editTextSubstanceName);
                 entryType = findViewById(R.id.editTextSubstanceType);
                 entryAmount = findViewById(R.id.editTextSubstanceAmount);
+
+
 
                 userEntry.update(
                         "substanceName", entryName.getText().toString(),
@@ -129,6 +127,16 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
         });
 
+    }
+
+    public void setPageText() {
+        String name = GetIntakeEntryData.getSubstanceName(substanceId);
+        String type = GetIntakeEntryData.getType(substanceId);
+        String dose = GetIntakeEntryData.getAmount(substanceId);
+
+        substanceName.setText(name);
+        substanceType.setText(type);
+        amount.setText(dose);
     }
 }
 

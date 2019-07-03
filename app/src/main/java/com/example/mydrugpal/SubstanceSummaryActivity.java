@@ -281,6 +281,7 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         for (int i = 0; i < len; i++)
         {
+            final int subId = i;
             d = SubstanceSummaryInformation.parseDate(summaryInformation.getSubstanceList().get(i).getDateTime());
             sd = SubstanceSummaryInformation.parseDate(startDate);
             ed = SubstanceSummaryInformation.parseDate(endDate);
@@ -296,9 +297,18 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
                         @Override
                         public void onClick(View v) {
-                            // TODO add edit transition
-                            //TODO: USE THIS to get the substance name and date ((TextView)v).getText().toString());
-                            //TODO: to get id: summaryInformation.getSubstanceList().get(i).getId();
+
+
+                            String text = ((TextView)v).getText().toString();
+                            int index = text.indexOf(' ');
+                            String textName = text.substring(0, index);
+                            for (IntakeDiaryItem i: summaryInformation.getSubstanceList()){
+                                if ((textName.equals(i.getName()))){
+                                    String id = i.getId();
+
+                                    goToEditEntryPage(id);
+                                }
+                            }
 
                         }
                     });
@@ -319,6 +329,13 @@ public class SubstanceSummaryActivity extends LogoutActivity
         Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
     }
+
+    private void goToEditEntryPage(String id) {
+        Intent intent = new Intent(SubstanceSummaryActivity.this, EditIntakeDiaryEntry.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
     @Override
     protected int getLayoutResourceId(){
         return R.layout.activity_substance_summary;
