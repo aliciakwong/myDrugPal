@@ -1,5 +1,6 @@
 package com.example.mydrugpal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,8 @@ public class SubstanceSummaryActivity extends AppCompatActivity
     public ScrollView scrollView;
     public LinearLayout scrollViewLayout;
 
+    public Button viewSubstanceButton;
+
     private SubstanceSummaryInformation summaryInformation;
 
     /**
@@ -76,6 +79,8 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         scrollView = findViewById(R.id.scrollView);
         scrollViewLayout = findViewById(R.id.scrollViewLayout);
 
+        viewSubstanceButton = findViewById(R.id.viewSubstanceButton);
+
         dateSelectButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -102,6 +107,7 @@ public class SubstanceSummaryActivity extends AppCompatActivity
             @Override
             public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
                 changeStartDate(year, month, dayOfMonth);
+                startDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
             }
         });
 
@@ -109,6 +115,7 @@ public class SubstanceSummaryActivity extends AppCompatActivity
             @Override
             public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
                 changeEndDate(year, month, dayOfMonth);
+                endDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
             }
         });
 
@@ -142,6 +149,14 @@ public class SubstanceSummaryActivity extends AppCompatActivity
         });
 
         initializeDates();
+
+        viewSubstanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDetailPage();
+            }
+        });
+
     }
 
     /**
@@ -258,6 +273,7 @@ public class SubstanceSummaryActivity extends AppCompatActivity
 
         int len = summaryInformation.getSubstanceList().size();
 
+
         for (int i = 0; i < len; i++)
         {
             d = SubstanceSummaryInformation.parseDate(summaryInformation.getSubstanceList().get(i).getDateTime());
@@ -265,14 +281,34 @@ public class SubstanceSummaryActivity extends AppCompatActivity
             ed = SubstanceSummaryInformation.parseDate(endDate);
 
             if (sd != null && ed != null && d != null) {
-                if (d.after(sd) && d.before(ed)) {
+                if ((d.after(sd) && d.before(ed)) || d.equals(sd) || d.equals(ed)) {
                     tv = new TextView(getApplicationContext());
+                    tv.setClickable(true);
+                    tv.setOnClickListener(new View.OnClickListener(){
+
+                        @Override
+                        public void onClick(View v) {
+                            // TODO add edit transition
+                            //TODO: USE THIS to get the substance name and date ((TextView)v).getText().toString());
+                            //TODO: to get id: summaryInformation.getSubstanceList().get(i).getId();
+
+                        }
+                    });
+
                     tv.setTextSize(24f);
-                    tv.setText(summaryInformation.getSubstanceList().get(i).getName());
+                    String date = (d.getMonth()+1) + "/"+ d.getDate();
+                    tv.setText(summaryInformation.getSubstanceList().get(i).getName() + " " + date);
 
                     scrollViewLayout.addView(tv);
                 }
+
             }
+            //TODO: order scrollview layout by date
         }
+
+    }
+    private void goToDetailPage(){
+        Intent intent = new Intent(this, DetailPageActivity.class);
+        startActivity(intent);
     }
 }
