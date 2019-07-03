@@ -1,6 +1,7 @@
 package com.example.mydrugpal.model;
 
-import com.example.mydrugpal.model.UserList;
+
+import com.example.mydrugpal.UserList;
 
 /**
  *  Class that holds business logic to verify a user when logging in
@@ -18,12 +19,12 @@ public class VerifyLogin {
     public static boolean validateUser(String email, final String password){
         if(UserList.getInstance().getUsers() != null &&
                 UserList.getInstance().getUsers().containsKey(email) &&
-                UserList.getInstance().getUsers().get(email).equals(password)){
+                UserList.getInstance().getUsers().get(email).GetPassword().equals(password)){
+
             return true;
         }
         return false;
     }
-
 
 
 

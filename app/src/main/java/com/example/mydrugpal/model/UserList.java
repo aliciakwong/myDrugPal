@@ -1,6 +1,5 @@
-package com.example.mydrugpal.model;
+package com.example.mydrugpal;
 
-import com.example.mydrugpal.Profile;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;

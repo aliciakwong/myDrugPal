@@ -1,12 +1,20 @@
 package com.example.mydrugpal;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.GetIntakeEntryData;
+import com.example.mydrugpal.model.IntakeDiaryEntry;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * activity to add a specific substance to the users intake diary
@@ -18,6 +26,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     private String substanceId;
     private TextView amount;
     private TextView amountPerDoseView;
+    private TextView messageView;
 
     private Button addSubstanceButton;
 
@@ -41,8 +50,43 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         amount = findViewById(R.id.amountEdit);
         amountPerDoseView = findViewById(R.id.amountPerDoseView);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
+        messageView = findViewById(R.id.messageView);
 
         substanceId = getIntent().getStringExtra("id");
+
+        addSubstanceButton.setOnClickListener(new View.OnClickListener()
+        {
+            /**
+             * on the click of the register button a new profile is created using the text inputted
+             * to the text fields on the registration screen and the information is added to the Users
+             * collection contained on firestore. The outcome of the addition to firestore outputs an
+             * appropriate message telling the user if registration was succeessful or not
+             * @param v the registrationActivity page
+             */
+            public void onClick(View v)
+            {
+                IntakeDiaryEntry entry = new IntakeDiaryEntry(substanceName.getText().toString(),
+                        substanceType.getText().toString(),
+                        amount.getText().toString());
+
+                if (entry.NoNullOrEmptyFields())
+                {
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+                    CollectionReference ref = userRef.collection("IntakeDiary");
+
+                    ref.document().set(entry);
+                    goToSubstanceDetail();
+
+                }
+
+                else
+                {
+                    messageView.setText("Enter a dose");
+                    messageView.setTextColor(Color.parseColor("#c44040"));
+                }
+            }
+        });
 
         setPageText();
 
@@ -61,6 +105,11 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         substanceType.setText(type);
         amountPerDoseView.setText("One dose is: " + amountPerDose);
 
+    }
+
+    public void goToSubstanceDetail() {
+        Intent intent = new Intent(this, SubstanceListActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -9,7 +9,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mydrugpal.model.UserList;
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.VerifyLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     List<DocumentSnapshot> uList = task.getResult().getDocuments();
 
-                    UserList.getInstance().updateUsers(uList);
+                    com.example.mydrugpal.UserList.getInstance().updateUsers(uList);
                 }
             }
         });
@@ -68,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(validatePassword){
                     updateCurrentUser(((EditText)findViewById(R.id.enterEmail)).getText().toString());
-                    gotoDetailPage();
+                    gotoSubstanceSummary();
 
                 }
                 else{
@@ -91,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void gotoDetailPage() {
-        Intent intent = new Intent(this, SubstanceListActivity.class);
+    private void gotoSubstanceSummary() {
+        Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
 
@@ -111,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateCurrentUser(String userEmail){
-        Profile currentProfile = UserList.getInstance().getUsers().get(userEmail);
+        Profile currentProfile = com.example.mydrugpal.UserList.getInstance().getUsers().get(userEmail);
         CurrentUser.getInstance().setUser(currentProfile);
     }
 }
