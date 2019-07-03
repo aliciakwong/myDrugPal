@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
  *
  * @author Megan Brock, Alicia Wong
  */
-public class IntakeDiaryItemTests
+public class IntakeDiaryItemUnitTests
 {
     /**
      * Tests that the IntakeDiaryItem constuctor sets values properly.
