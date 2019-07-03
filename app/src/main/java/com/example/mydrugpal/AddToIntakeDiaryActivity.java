@@ -108,7 +108,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     }
 
     public void goToSubstanceDetail() {
-        Intent intent = new Intent(this, SubstanceListActivity.class);
+        Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
 
