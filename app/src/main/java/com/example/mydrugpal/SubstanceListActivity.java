@@ -30,6 +30,7 @@ public class SubstanceListActivity extends LogoutActivity {
 
     private RecyclerView recyclerView;
     private Button addSubstanceButton;
+    private Button substanceSummaryButton;
 
     private FirebaseFirestore database;
     private FirestoreRecyclerAdapter adapter;
@@ -40,7 +41,6 @@ public class SubstanceListActivity extends LogoutActivity {
      * substance
      *
      * @param savedInstanceState
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +51,12 @@ public class SubstanceListActivity extends LogoutActivity {
 
         recyclerView = findViewById(R.id.substanceList);
         addSubstanceButton = findViewById(R.id.addSubstance);
+        substanceSummaryButton = findViewById(R.id.substanceSummaryButton);
         database = FirebaseFirestore.getInstance();
 
         adapter = setUpAdapter(database);
         setUpRecyclerView(recyclerView,adapter);
 
-        /**
-         *
-         * Method which sets an OnClickListener button so that the User can travel to the
-         * Add Substance page so that they can create and add a new susbtance to the FireStore
-         * database
-         */
         addSubstanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +65,13 @@ public class SubstanceListActivity extends LogoutActivity {
             }
         });
 
+        substanceSummaryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SubstanceListActivity.this, SubstanceSummaryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -181,7 +183,6 @@ public class SubstanceListActivity extends LogoutActivity {
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_detailpage;
-
     }
 
 }
