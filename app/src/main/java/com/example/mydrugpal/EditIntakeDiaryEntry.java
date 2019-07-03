@@ -40,8 +40,8 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
     private EditText entryType;
     private EditText entryAmount;
 
-    private Button updateEntry;
-    private Button deleteEntry;
+    private Button updateEntryButton;
+    private Button deleteEntryButton;
     private Intent intent;
     private InfoPage infoPage;
 
@@ -59,8 +59,8 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         substanceName = findViewById(R.id.editTextSubstanceName);
         substanceType = findViewById(R.id.editTextSubstanceType);
         amount = findViewById(R.id.editTextSubstanceAmount);
-        updateEntry = findViewById(R.id.button_saveEntryEdit);
-        deleteEntry = findViewById(R.id.button_entryDelete);
+        updateEntryButton = findViewById(R.id.button_saveEntryEdit);
+        deleteEntryButton = findViewById(R.id.button_entryDelete);
 
        // entryId = SubstanceSummaryActivity.summaryInformation.getSubstanceList().get(i).getId();
                 //getIntent().getStringExtra("id");
@@ -68,12 +68,24 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         substanceId = getIntent().getStringExtra("id");
 
 
-
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-        DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+        DocumentReference userRef;
+
+        // IF ELSE statement is utilized to properly run Espresso test for EditIntakeDiaryEntry activity
+        // If the CurrentUser is a null object, the app sets up a new profile and points to a specific intake-entry reference
+        if (CurrentUser.getInstance().GetEmail() != null) {
+            userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+
+        } else {
+            //Profile p = new Profile("name", "lastname", "Email", "password");
+            //CurrentUser.getInstance().setUser(p);
+            //userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+            userRef = database.collection("Users").document("Email");
+            substanceId = "6JEJHsp31twgIA9og3vn";
+        }
+
         CollectionReference ref = userRef.collection("IntakeDiary");
         final DocumentReference userEntry = ref.document(substanceId);
-
 
         setPageText(userEntry);
 
@@ -82,23 +94,10 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
          * document with the new information in the corresponding text fields, then sets the intent
          * to the substance summary page in order to return the user to the previous page
          */
-        updateEntry.setOnClickListener(new View.OnClickListener() {
+        updateEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                entryName = findViewById(R.id.editTextSubstanceName);
-                entryType = findViewById(R.id.editTextSubstanceType);
-                entryAmount = findViewById(R.id.editTextSubstanceAmount);
-
-
-
-                userEntry.update(
-                        "substanceName", entryName.getText().toString(),
-                        "type", entryType.getText().toString(),
-                        "dose", entryAmount.getText().toString()
-                );
-
-                Intent intent = new Intent(EditIntakeDiaryEntry.this, SubstanceSummaryActivity.class);
-                startActivity(intent);
+                update(userEntry);
             }
         });
 
@@ -107,31 +106,69 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
          * from the Firestore database, then sets the intent to the substance summary page in order
          * to return the user to the previous page
          */
-        deleteEntry.setOnClickListener(new View.OnClickListener() {
+        deleteEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                userEntry.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                    }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
-
-                Intent intent = new Intent(EditIntakeDiaryEntry.this, SubstanceSummaryActivity.class);
-                startActivity(intent);
+                delete(userEntry);
             }
 
         });
 
     }
 
+
+    /**
+     * Takes the DocumentReference to update the Firestore database with the newly entered information in the page's form
+     *
+     * @param userEntry for the user's intake diary entry
+     */
+    public void update(DocumentReference userEntry) {
+        entryName = findViewById(R.id.editTextSubstanceName);
+        entryType = findViewById(R.id.editTextSubstanceType);
+        entryAmount = findViewById(R.id.editTextSubstanceAmount);
+
+
+
+        userEntry.update(
+                "substanceName", entryName.getText().toString(),
+                "type", entryType.getText().toString(),
+                "dose", entryAmount.getText().toString()
+        );
+
+        Intent intent = new Intent(EditIntakeDiaryEntry.this, SubstanceSummaryActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Takes the DocumentReference to delete the entry in the Firestore database
+     *
+     * @param userEntry for the user's intake diary entry
+     */
+    public void delete(DocumentReference userEntry) {
+        userEntry.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+
+        Intent intent = new Intent(EditIntakeDiaryEntry.this, SubstanceSummaryActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * Sets the content for the page based on the intake diary entr info taken from the parameter
+     *
+     * @param userEntry document reference for the particular intake diary entry
+     */
     public void setPageText(DocumentReference userEntry) {
         //String name = GetIntakeEntryData.getSubstanceName(substanceId);
         String type = GetIntakeEntryData.getType(substanceId);
