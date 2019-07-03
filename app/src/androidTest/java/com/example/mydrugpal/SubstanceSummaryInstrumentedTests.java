@@ -117,4 +117,13 @@ public class SubstanceSummaryInstrumentedTests
         Assert.assertTrue(startDatePicker.getVisibility() == View.INVISIBLE && endDatePicker.getVisibility() == View.INVISIBLE);
     }
 
+    /**
+     * Test to ensure page transition to substance detail page when button clicked
+     */
+    @Test
+    public void TestViewSubstancePageTransition(){
+        onView(withId(R.id.viewSubstanceButton)).perform(click());
+        onView(withId(R.id.addSubstance)).toString().equals("Add Substance");
+    }
+
 }
