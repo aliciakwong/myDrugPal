@@ -47,7 +47,6 @@ public class RegistrationInstrumentedTests {
         onView(withId(R.id.editText_lName)).perform(typeText("lastname"), closeSoftKeyboard());
         onView(withId(R.id.editText_Email)).perform(typeText("Email"), closeSoftKeyboard());
         onView(withId(R.id.editText_Password)).perform(typeText("password"), closeSoftKeyboard());
-        onView(withId(R.id.register_button)).perform(click());
     }
 
     /**

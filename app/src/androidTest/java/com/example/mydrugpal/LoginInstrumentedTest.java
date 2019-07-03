@@ -33,7 +33,7 @@ public class LoginInstrumentedTest {
     }
 
     /**
-     * test to check that once a valid user is entered, the activity switches to a profile page
+     * test to check that once a valid user is entered, the activity switches to summary page
      */
     @Test
     public void loginTransition() {
@@ -44,7 +44,7 @@ public class LoginInstrumentedTest {
         onView(withId(R.id.enterPassword)).perform(typeText("password"));
         onView(withId(R.id.button_login)).perform(click());
 
-        onView(withId(R.id.addSubstance)).toString().equals("ADD SUBSTANCE");
+        onView(withId(R.id.viewSubstanceButton)).toString().equals("View Substances");
 
     }
 

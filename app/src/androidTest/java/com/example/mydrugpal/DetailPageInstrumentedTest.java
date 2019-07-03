@@ -45,14 +45,5 @@ public class DetailPageInstrumentedTest {
         onView(isRoot());
     }
 
-    /**
-     * test that substance summary button works and changes to correct display
-     */
-    @Test
-    public void toSubstanceSummary(){
-        onView(withId(R.id.substanceSummaryButton)).perform(click());
-        onView(withId(R.id.selectDateRangeButton));
-    }
-
 
 }
