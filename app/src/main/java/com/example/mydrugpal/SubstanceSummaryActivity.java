@@ -281,7 +281,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         for (int i = 0; i < len; i++)
         {
-            final int subId = i;
             d = SubstanceSummaryInformation.parseDate(summaryInformation.getSubstanceList().get(i).getDateTime());
             sd = SubstanceSummaryInformation.parseDate(startDate);
             ed = SubstanceSummaryInformation.parseDate(endDate);
@@ -305,6 +304,8 @@ public class SubstanceSummaryActivity extends LogoutActivity
                             for (IntakeDiaryItem i: summaryInformation.getSubstanceList()){
                                 if ((textName.equals(i.getName()))){
                                     String id = i.getId();
+
+                                    System.out.println(id);
 
                                     goToEditEntryPage(id);
                                 }

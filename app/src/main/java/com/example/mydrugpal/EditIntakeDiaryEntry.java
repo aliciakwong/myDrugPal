@@ -13,10 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.GetIntakeEntryData;
 import com.example.mydrugpal.model.InfoPage;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -64,7 +67,7 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
         substanceId = getIntent().getStringExtra("id");
 
-        setPageText();
+
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
@@ -72,7 +75,7 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         final DocumentReference userEntry = ref.document(substanceId);
 
 
-
+        setPageText(userEntry);
 
         /**
          * OnClickListener method on updateEntry button which will update the Firestore database
@@ -129,14 +132,29 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
     }
 
-    public void setPageText() {
-        String name = GetIntakeEntryData.getSubstanceName(substanceId);
+    public void setPageText(DocumentReference userEntry) {
+        //String name = GetIntakeEntryData.getSubstanceName(substanceId);
         String type = GetIntakeEntryData.getType(substanceId);
         String dose = GetIntakeEntryData.getAmount(substanceId);
 
-        substanceName.setText(name);
-        substanceType.setText(type);
-        amount.setText(dose);
+        userEntry.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    substanceName.setText(document.getString("substanceName"));
+                    substanceType.setText(document.getString("type"));
+                    amount.setText(document.getString("dose"));
+                }
+            }
+        });
+
+
+
+//        substanceName.setText(name);
+//        substanceType.setText(type);
+//        amount.setText(dose);
     }
 }
 
