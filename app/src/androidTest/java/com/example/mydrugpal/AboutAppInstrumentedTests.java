@@ -20,7 +20,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 public class AboutAppInstrumentedTests {
 
     /**
-     * Rule for the registration activity tests (needs activity page created)
+     * Rule for the AboutApp activity tests (needs activity page created)
      *
      */
 
