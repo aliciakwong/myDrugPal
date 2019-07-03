@@ -16,7 +16,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public abstract class LogoutActivity extends AppCompatActivity {
 
 
-    private static boolean loggedOut = false;
     /**
      * creates main display activity when called and add logout button listener and implementation
      * @param savedInstanceState current app instance
@@ -30,11 +29,11 @@ public abstract class LogoutActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
 
-                loggedOut = true;
                 gotoLoginPage();
             }
 
         });
+
 
     }
 
