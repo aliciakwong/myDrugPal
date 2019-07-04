@@ -9,7 +9,7 @@ import java.io.Serializable;
  *holds the data for an entry to the intake diary
  * @author Jocelyn MacDonald, Ian Sifton, Richard Purcell
  */
-public class IntakeDiaryEntry implements Serializable {
+public class NewIntakeEntry implements Serializable {
     public String nameOfSubstance;
     public String typeOfSubstance;
     public String dose;
@@ -22,7 +22,7 @@ public class IntakeDiaryEntry implements Serializable {
      * @param dose the number of doses taken relative to the recommended amount per dose as given on
      *             the drugs specific SubstanceDetailActivity page
      */
-    public IntakeDiaryEntry(String nameOfSubstance, String typeOfSubstance, String dose) {
+    public NewIntakeEntry(String nameOfSubstance, String typeOfSubstance, String dose) {
         this.nameOfSubstance = nameOfSubstance;
         this.typeOfSubstance = typeOfSubstance;
         this.dose = dose;

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.GetIntakeEntryData;
-import com.example.mydrugpal.model.IntakeDiaryEntry;
+import com.example.mydrugpal.model.NewIntakeEntry;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -63,7 +63,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
              */
             public void onClick(View v)
             {
-                IntakeDiaryEntry entry = new IntakeDiaryEntry(substanceName.getText().toString(),
+                NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
                         substanceType.getText().toString(),
                         amount.getText().toString());
 
