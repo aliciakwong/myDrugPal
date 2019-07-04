@@ -97,7 +97,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
         substanceName.setText(name);
         substanceType.setText(type);
-        amountPerDoseView.setText(amountPerDose);
+        amountPerDoseView.setText("One dose is: " + amountPerDose);
 
     }
 
