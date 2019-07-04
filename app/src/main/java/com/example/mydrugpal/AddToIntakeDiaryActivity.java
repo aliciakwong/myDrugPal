@@ -49,6 +49,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         amount = findViewById(R.id.amountEdit);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
         messageView = findViewById(R.id.messageView);
+        amountPerDoseView = findViewById(R.id.amountPerDoseView);
 
         substanceId = getIntent().getStringExtra("id");
 
@@ -74,14 +75,10 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
                     CollectionReference ref = userRef.collection("IntakeDiary");
 
                     ref.document().set(entry);
-                    goToSubstanceDetail();
+                    goToSubstanceSummary();
 
                 }
 
-                else
-                {
-
-                }
             }
         });
 
@@ -100,10 +97,14 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
         substanceName.setText(name);
         substanceType.setText(type);
+        amountPerDoseView.setText(amountPerDose);
 
     }
 
-    public void goToSubstanceDetail() {
+    /**
+     * changes the activity to the substanceSummaryActivity
+     */
+    public void goToSubstanceSummary() {
         Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
