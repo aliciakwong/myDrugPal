@@ -25,16 +25,13 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     private String substanceId;
     private TextView amount;
     private TextView amountPerDoseView;
-    private TextView messageView;
 
     private Button addSubstanceButton;
 
     /**
-     * Called when registration activity is created
+     * Called when AddToIntakeDiaryActivity is used
      *
-     *  Finds references to text fields and buttons. Adds listener to register and clear buttons.
-     *  Clear button will empty all text fields. Register button will create a profile and add it
-     *  to the database if the fields are not empty. Displays a success or failure message.
+     *  Finds references to text fields and buttons. Adds listener to add button.
      *
      * @param savedInstanceState saved state of the app instance
      */
@@ -48,7 +45,6 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         substanceType = findViewById(R.id.typeOfSubstanceEdit);
         amount = findViewById(R.id.amountEdit);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
-        messageView = findViewById(R.id.messageView);
         amountPerDoseView = findViewById(R.id.amountPerDoseView);
 
         substanceId = getIntent().getStringExtra("id");
@@ -56,11 +52,10 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         addSubstanceButton.setOnClickListener(new View.OnClickListener()
         {
             /**
-             * on the click of the register button a new profile is created using the text inputted
+             * on the click of the add button a new intake entry is created using the text inputted
              * to the text fields on the registration screen and the information is added to the Users
-             * collection contained on firestore. The outcome of the addition to firestore outputs an
-             * appropriate message telling the user if registration was succeessful or not
-             * @param v the registrationActivity page
+             * intake diary collection contained on firestore.
+             * @param v the AddToIntakeDiaryActivity page
              */
             public void onClick(View v)
             {
