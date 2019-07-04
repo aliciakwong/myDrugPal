@@ -1,5 +1,6 @@
 package com.example.mydrugpal;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.SimpleDateFormat;
@@ -35,11 +36,10 @@ public class SubstanceSummaryInformation {
         for(DocumentSnapshot d: intakeDiary){
             String id = d.getId();
 
-            String dateTime = d.get("dateTime").toString();
-            String dose = "";
+            Timestamp dateTime = ((Timestamp)d.get("dateTime"));
+            String dose = d.get("dose").toString();
             String substanceName = d.get("substanceName").toString();
             String type = d.get("type").toString();
-            dose = d.get("dose").toString();
             IntakeDiaryItem currentItem = new IntakeDiaryItem(id, substanceName, type, dose, dateTime);
             substanceList.add(currentItem);
         }

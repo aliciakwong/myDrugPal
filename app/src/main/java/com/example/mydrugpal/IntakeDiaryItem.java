@@ -1,5 +1,7 @@
 package com.example.mydrugpal;
 
+import com.google.firebase.Timestamp;
+
 /**
  * An item found in the intake diary
  * @author Megan Brock, Alicia Wong
@@ -10,7 +12,7 @@ public class IntakeDiaryItem {
     private String name;
     private String type;
     private String dose;
-    private String dateTime;
+    private Timestamp dateTime;
 
     /**
      * constructor for each intake diary item
@@ -21,7 +23,7 @@ public class IntakeDiaryItem {
      * @param dateTime the date and time of the entry
      */
 
-    public IntakeDiaryItem(String id, String name, String type, String dose, String dateTime) {
+    public IntakeDiaryItem(String id, String name, String type, String dose, Timestamp dateTime) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -66,7 +68,7 @@ public class IntakeDiaryItem {
      * gets the date and time the entry was made
      * @return date and time of entry
      */
-    public String getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
@@ -74,7 +76,7 @@ public class IntakeDiaryItem {
      * set date and time of entry
      * @param dateTime the date and time of entry
      */
-    public void setDateTime(String dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 
