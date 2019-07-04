@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.GetIntakeEntryData;
-import com.example.mydrugpal.model.IntakeDiaryEntry;
+import com.example.mydrugpal.model.NewIntakeEntry;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -49,6 +49,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         amount = findViewById(R.id.amountEdit);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
         messageView = findViewById(R.id.messageView);
+        amountPerDoseView = findViewById(R.id.amountPerDoseView);
 
         substanceId = getIntent().getStringExtra("id");
 
@@ -63,7 +64,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
              */
             public void onClick(View v)
             {
-                IntakeDiaryEntry entry = new IntakeDiaryEntry(substanceName.getText().toString(),
+                NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
                         substanceType.getText().toString(),
                         amount.getText().toString());
 
@@ -74,14 +75,10 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
                     CollectionReference ref = userRef.collection("IntakeDiary");
 
                     ref.document().set(entry);
-                    goToSubstanceDetail();
+                    goToSubstanceSummary();
 
                 }
 
-                else
-                {
-
-                }
             }
         });
 
@@ -100,10 +97,14 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
         substanceName.setText(name);
         substanceType.setText(type);
+        amountPerDoseView.setText(amountPerDose);
 
     }
 
-    public void goToSubstanceDetail() {
+    /**
+     * changes the activity to the substanceSummaryActivity
+     */
+    public void goToSubstanceSummary() {
         Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }

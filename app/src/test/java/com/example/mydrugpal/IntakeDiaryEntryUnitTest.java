@@ -1,6 +1,6 @@
 package com.example.mydrugpal;
 
-import com.example.mydrugpal.model.IntakeDiaryEntry;
+import com.example.mydrugpal.model.NewIntakeEntry;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class IntakeDiaryEntryUnitTest {
     @Test
     public void intakeEntry_NotEmpty()
     {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
+        NewIntakeEntry entry = new NewIntakeEntry("fentanyl", "narcotic", "3");
 
         assertNotNull(entry.getNameOfSubstance());
         assertNotNull(entry.getTypeOfSubstance());
@@ -32,7 +32,7 @@ public class IntakeDiaryEntryUnitTest {
      */
     @Test
     public void getNameOfSubstance() {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
+        NewIntakeEntry entry = new NewIntakeEntry("fentanyl", "narcotic", "3");
 
         assertEquals(entry.getNameOfSubstance(), "fentanyl");
     }
@@ -43,7 +43,7 @@ public class IntakeDiaryEntryUnitTest {
      */
     @Test
     public void getAmount() {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
+        NewIntakeEntry entry = new NewIntakeEntry("fentanyl", "narcotic", "3");
 
         assertEquals(entry.getDose(), "3");
     }
@@ -53,7 +53,7 @@ public class IntakeDiaryEntryUnitTest {
      */
     @Test
     public void getTypeOfSubstance() {
-        IntakeDiaryEntry entry = new IntakeDiaryEntry("fentanyl", "narcotic", "3");
+        NewIntakeEntry entry = new NewIntakeEntry("fentanyl", "narcotic", "3");
 
         assertEquals(entry.getTypeOfSubstance(), "narcotic");
     }
