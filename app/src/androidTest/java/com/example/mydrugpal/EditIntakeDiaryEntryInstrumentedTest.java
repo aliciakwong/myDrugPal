@@ -2,6 +2,8 @@ package com.example.mydrugpal;
 
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mydrugpal.model.EditIntakeDiaryEntry;
+
 import org.junit.Rule;
 import org.junit.Test;
 

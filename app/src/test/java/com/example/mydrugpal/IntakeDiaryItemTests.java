@@ -1,5 +1,6 @@
 package com.example.mydrugpal;
 
+import com.example.mydrugpal.model.IntakeDiaryItem;
 import com.google.firebase.Timestamp;
 
 import org.junit.Test;

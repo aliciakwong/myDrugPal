@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.mydrugpal.model.CurrentUser;
+import com.example.mydrugpal.model.EditIntakeDiaryEntry;
+import com.example.mydrugpal.model.IntakeDiaryItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
