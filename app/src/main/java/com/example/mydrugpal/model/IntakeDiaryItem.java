@@ -1,4 +1,4 @@
-package com.example.mydrugpal;
+package com.example.mydrugpal.model;
 
 /**
  * An item found in the intake diary

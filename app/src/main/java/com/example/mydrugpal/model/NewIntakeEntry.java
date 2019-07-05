@@ -6,7 +6,9 @@ import java.io.Serializable;
 
 
 /**
- *holds the data for an entry to the intake diary
+ *holds the data for a new entry to the intake diary. This is not the same as IntakeDiaryItem, this
+ * handles adding to the database, and generating the timestamp and id, while IntakeDiaryItem is used
+ * to pull the already inputted data from firestore
  * @author Jocelyn MacDonald, Ian Sifton, Richard Purcell
  */
 public class NewIntakeEntry implements Serializable {

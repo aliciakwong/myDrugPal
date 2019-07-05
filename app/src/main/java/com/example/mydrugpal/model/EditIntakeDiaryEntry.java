@@ -1,4 +1,4 @@
-package com.example.mydrugpal;
+package com.example.mydrugpal.model;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mydrugpal.model.CurrentUser;
-import com.example.mydrugpal.model.GetIntakeEntryData;
-import com.example.mydrugpal.model.InfoPage;
+import com.example.mydrugpal.R;
+import com.example.mydrugpal.SubstanceSummaryActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -189,9 +188,7 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
 
 
-//        substanceName.setText(name);
-//        substanceType.setText(type);
-//        amount.setText(dose);
+
     }
 }
 

@@ -1,5 +1,7 @@
 package com.example.mydrugpal;
 
+import com.example.mydrugpal.model.IntakeDiaryItem;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
