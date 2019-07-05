@@ -1,6 +1,9 @@
 package com.example.mydrugpal;
 
+import com.google.firebase.Timestamp;
+
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,7 +22,7 @@ public class IntakeDiaryItemTests
         String name = "Nicotine";
         String type = "Narcotic";
         String dose = "10";
-        String dateTime = "2019-01-31:T12:30:00";
+        Timestamp dateTime = Timestamp.now();
 
         IntakeDiaryItem item = new IntakeDiaryItem(id, name, type, dose, dateTime);
 
