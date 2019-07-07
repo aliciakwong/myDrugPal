@@ -36,7 +36,7 @@ public class AboutAppInstrumentedTests {
     }
 
     /**
-     * Tests that that a go to company web page is clickable.
+     * Tests that that a go to the gitlab repository  is clickable.
      */
     @Test
     public void goToGitLabRepository(){
@@ -45,12 +45,23 @@ public class AboutAppInstrumentedTests {
     }
 
     /**
-     * Tests that that an email info button is active in some way.
+     * Tests that the dev team info box is populated
      */
     @Test
-    public void clickEmail(){
-        //TODO: add the logic
+    public void devTeamInfoVisible(){
+        onView(withId(R.id.devTeamInfoBox)).toString().equals("Information about the development team goes here..");
     }
+
+    /**
+     * Tests that the about app info box is populated
+     */
+    @Test
+    public void appInfoVisible(){
+        onView(withId(R.id.appInfoBox)).toString().equals("Information about the app goes here.");
+    }
+
+
+
 
 
 }
