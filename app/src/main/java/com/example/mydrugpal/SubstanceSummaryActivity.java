@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.EditIntakeDiaryEntry;
-import com.example.mydrugpal.model.IntakeDiaryItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,23 +35,57 @@ import java.util.List;
  */
 public class SubstanceSummaryActivity extends LogoutActivity
 {
-    private int[] startDate;
-    private int[] endDate;
+    /**
+     * start date from calendar
+     */
+    public int[] startDate;
+    /**
+     * end date from calendar
+     */
+    public  int[] endDate;
 
-    private Button dateSelectButton;
+    /**
+     * select date button from display
+     */
+    public  Button dateSelectButton;
 
-    private Button startDateButton;
-    private Button endDateButton;
+    /**
+     * start date button on display
+     */
+    public  Button startDateButton;
+    /**
+     * end date button on display
+     */
+    public  Button endDateButton;
 
-    private DatePicker startDatePicker;
-    private DatePicker endDatePicker;
+    /**
+     * start date picker used with calendar
+     */
+    public  DatePicker startDatePicker;
 
-    private ScrollView scrollView;
-    private LinearLayout scrollViewLayout;
+    /**
+     * end date picker used with calendar
+     */
+    public  DatePicker endDatePicker;
 
-    private Button viewSubstanceButton;
+    /**
+     * scrollview used to display intake diary
+     */
+    public  ScrollView scrollView;
+    /**
+     * layout used to hold scrollview
+     */
+    public  LinearLayout scrollViewLayout;
 
-    private SubstanceSummaryInformation summaryInformation;
+    /**
+     * button to move to add substance to diary
+     */
+    public Button viewSubstanceButton;
+
+    /**
+     * object that holds current user's intake diary
+     */
+    public  SubstanceSummaryInformation summaryInformation;
 
     /**
      * Finds references to UI elements. Adds listeners
