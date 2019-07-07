@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".SubstanceSummaryActivity" >
         </activity>
+        <activity android:name=".model.EditIntakeDiaryEntry"></activity>
+
     </application>
 
 </manifest>
