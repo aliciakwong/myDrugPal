@@ -18,7 +18,6 @@ import static androidx.test.espresso.action.ViewActions.typeText;
  */
 
 public class AboutAppInstrumentedTests {
-
     /**
      * Rule for the AboutApp activity tests (needs activity page created)
      *
@@ -33,14 +32,15 @@ public class AboutAppInstrumentedTests {
      */
     @Test
     public void appOpensAboutApp(){
-        //TODO: add the logic
+        onView(withId(R.id.AboutAppButton)).toString().equals("About myDrugPal");
     }
 
     /**
      * Tests that that a go to company web page is clickable.
      */
     @Test
-    public void goToCompanyWebsite(){
+    public void goToGitLabRepository(){
+        onView(withId(R.id.gitLabLink)).toString().equals("https://git.cs.dal.ca/alicia/mydrugpal");
 
     }
 
