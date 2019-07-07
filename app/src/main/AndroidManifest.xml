@@ -14,7 +14,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".AboutAppActivity">
         </activity>
-        <activity android:name=".AddToIntakeDiaryActivity"></activity>
+        <activity
+            android:name=".AddToIntakeDiaryActivity">
+        </activity>
         <activity android:name=".SubstanceListActivity" />
         <activity
             android:name=".SubstanceDetailActivity"
@@ -29,8 +31,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrationActivity"></activity>
-        <activity android:name=".SubstanceSummaryActivity"></activity>
+        <activity android:name=".RegistrationActivity" >
+        </activity>
+        <activity android:name=".SubstanceSummaryActivity" >
+        </activity>
+        <activity android:name=".model.EditIntakeDiaryEntry"></activity>
     </application>
 
 </manifest>

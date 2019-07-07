@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.mydrugpal.model.CurrentUser;
+import com.example.mydrugpal.model.EditIntakeDiaryEntry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,23 +35,57 @@ import java.util.List;
  */
 public class SubstanceSummaryActivity extends LogoutActivity
 {
-    private int[] startDate;
-    private int[] endDate;
+    /**
+     * start date from calendar
+     */
+    public int[] startDate;
+    /**
+     * end date from calendar
+     */
+    public  int[] endDate;
 
-    public Button dateSelectButton;
+    /**
+     * select date button from display
+     */
+    public  Button dateSelectButton;
 
-    public Button startDateButton;
-    public Button endDateButton;
+    /**
+     * start date button on display
+     */
+    public  Button startDateButton;
+    /**
+     * end date button on display
+     */
+    public  Button endDateButton;
 
-    public DatePicker startDatePicker;
-    public DatePicker endDatePicker;
+    /**
+     * start date picker used with calendar
+     */
+    public  DatePicker startDatePicker;
 
-    public ScrollView scrollView;
-    public LinearLayout scrollViewLayout;
+    /**
+     * end date picker used with calendar
+     */
+    public  DatePicker endDatePicker;
 
+    /**
+     * scrollview used to display intake diary
+     */
+    public  ScrollView scrollView;
+    /**
+     * layout used to hold scrollview
+     */
+    public  LinearLayout scrollViewLayout;
+
+    /**
+     * button to move to add substance to diary
+     */
     public Button viewSubstanceButton;
 
-    private SubstanceSummaryInformation summaryInformation;
+    /**
+     * object that holds current user's intake diary
+     */
+    public  SubstanceSummaryInformation summaryInformation;
 
     /**
      * Finds references to UI elements. Adds listeners
@@ -87,6 +122,10 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         dateSelectButton.setOnClickListener(new View.OnClickListener()
         {
+            /**
+             * On click method for when dates are selected
+             * @param v view of activity
+             */
             public void onClick(View v)
             {
                 toggleButtons();
@@ -281,31 +320,32 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         for (int i = 0; i < len; i++)
         {
-            d = SubstanceSummaryInformation.parseDate(summaryInformation.getSubstanceList().get(i).getDateTime());
+            d = summaryInformation.getSubstanceList().get(i).getDateTime().toDate();
             sd = SubstanceSummaryInformation.parseDate(startDate);
             ed = SubstanceSummaryInformation.parseDate(endDate);
+
 
             if(sd.after(ed)){
                 ed = sd;
             }
             if (sd != null && ed != null && d != null) {
-                if ((d.after(sd) && d.before(ed)) || d.equals(sd) || d.equals(ed)) {
+                if ((d.after(sd) && d.before(ed)) || sameDay(d, sd, ed)) {
                     tv = new TextView(getApplicationContext());
                     tv.setClickable(true);
                     tv.setOnClickListener(new View.OnClickListener(){
 
                         @Override
                         public void onClick(View v) {
-                            // TODO add edit transition
-                            //TODO: USE THIS to get the substance name and date ((TextView)v).getText().toString());
-                            //TODO: to get id: summaryInformation.getSubstanceList().get(i).getId();
-
+                            String text = ((TextView)v).getText().toString();
+                            int number = Character.getNumericValue(text.charAt(0));
+                            String id = summaryInformation.getSubstanceList().get(number-1).getId();
+                            goToEditEntryPage(id);
                         }
                     });
 
                     tv.setTextSize(24f);
                     String date = (d.getMonth()+1) + "/"+ d.getDate();
-                    tv.setText(summaryInformation.getSubstanceList().get(i).getName() + " " + date + "\t(" +
+                     tv.setText(i+1 + ". "+ summaryInformation.getSubstanceList().get(i).getName() + "  |  " + date + "  (" +
                             summaryInformation.getSubstanceList().get(i).getDose() + ")");
 
                     scrollViewLayout.addView(tv);
@@ -319,9 +359,34 @@ public class SubstanceSummaryActivity extends LogoutActivity
         Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
     }
+
+    private void goToEditEntryPage(String id) {
+        Intent intent = new Intent(SubstanceSummaryActivity.this, EditIntakeDiaryEntry.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
+    private boolean sameDay(Date current, Date start, Date end){
+        if(current.getYear() == start.getYear() && current.getMonth() == start.getMonth()
+                && current.getDate() == start.getDate()){
+            return true;
+        }
+        if(current.getYear() == end.getYear() && current.getMonth() == end.getMonth()
+                && current.getDate() == end.getDate()){
+            return true;
+        }
+        return false;
+    }
+    /**
+     * needed for logout button fragment
+     * @return layoutResourceId
+     */
     @Override
     protected int getLayoutResourceId(){
         return R.layout.activity_substance_summary;
     }
+
+
+
 
 }

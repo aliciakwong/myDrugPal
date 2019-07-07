@@ -1,7 +1,6 @@
 package com.example.mydrugpal;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.GetIntakeEntryData;
-import com.example.mydrugpal.model.IntakeDiaryEntry;
+import com.example.mydrugpal.model.NewIntakeEntry;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,16 +25,13 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     private String substanceId;
     private TextView amount;
     private TextView amountPerDoseView;
-    private TextView messageView;
 
     private Button addSubstanceButton;
 
     /**
-     * Called when registration activity is created
+     * Called when AddToIntakeDiaryActivity is used
      *
-     *  Finds references to text fields and buttons. Adds listener to register and clear buttons.
-     *  Clear button will empty all text fields. Register button will create a profile and add it
-     *  to the database if the fields are not empty. Displays a success or failure message.
+     *  Finds references to text fields and buttons. Adds listener to add button.
      *
      * @param savedInstanceState saved state of the app instance
      */
@@ -48,24 +44,22 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         substanceName = findViewById(R.id.nameOfSubstanceEdit);
         substanceType = findViewById(R.id.typeOfSubstanceEdit);
         amount = findViewById(R.id.amountEdit);
-        amountPerDoseView = findViewById(R.id.amountPerDoseView);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
-        messageView = findViewById(R.id.messageView);
+        amountPerDoseView = findViewById(R.id.amountPerDoseView);
 
         substanceId = getIntent().getStringExtra("id");
 
         addSubstanceButton.setOnClickListener(new View.OnClickListener()
         {
             /**
-             * on the click of the register button a new profile is created using the text inputted
+             * on the click of the add button a new intake entry is created using the text inputted
              * to the text fields on the registration screen and the information is added to the Users
-             * collection contained on firestore. The outcome of the addition to firestore outputs an
-             * appropriate message telling the user if registration was succeessful or not
-             * @param v the registrationActivity page
+             * intake diary collection contained on firestore.
+             * @param v the AddToIntakeDiaryActivity page
              */
             public void onClick(View v)
             {
-                IntakeDiaryEntry entry = new IntakeDiaryEntry(substanceName.getText().toString(),
+                NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
                         substanceType.getText().toString(),
                         amount.getText().toString());
 
@@ -76,15 +70,10 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
                     CollectionReference ref = userRef.collection("IntakeDiary");
 
                     ref.document().set(entry);
-                    goToSubstanceDetail();
+                    goToSubstanceSummary();
 
                 }
 
-                else
-                {
-                    messageView.setText("Enter a dose");
-                    messageView.setTextColor(Color.parseColor("#c44040"));
-                }
             }
         });
 
@@ -107,8 +96,11 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
     }
 
-    public void goToSubstanceDetail() {
-        Intent intent = new Intent(this, SubstanceListActivity.class);
+    /**
+     * changes the activity to the substanceSummaryActivity
+     */
+    public void goToSubstanceSummary() {
+        Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
 
