@@ -23,8 +23,9 @@ public class AboutAppInstrumentedTests {
      * Rule for the AboutApp activity tests (needs activity page created)
      *
      */
-
-    //TODO: add the initial ActivityTestRule
+    @Rule
+    public ActivityTestRule<AboutAppActivity> activityRule
+            = new ActivityTestRule<>(AboutAppActivity.class);
 
     /**
      * Tests that the go to AboutApp button opens in aboutApp information page
@@ -40,7 +41,7 @@ public class AboutAppInstrumentedTests {
      */
     @Test
     public void goToCompanyWebsite(){
-        //TODO: add the logic
+
     }
 
     /**
