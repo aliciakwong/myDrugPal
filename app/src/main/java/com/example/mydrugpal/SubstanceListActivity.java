@@ -16,6 +16,7 @@ import com.example.mydrugpal.model.InfoPage;
 import com.example.mydrugpal.viewholder.SubstanceViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -23,7 +24,7 @@ import com.google.firebase.firestore.Query;
  *  Main detail page class which displays the RecyclerView list of substances
  *  and the add substance button
  *
- * @author Emma Travers, Richard Purcell, Ian Sifton
+ * @author Emma Travers, Richard Purcell, Ian Sifton, Megan Brock
  *
  */
 public class SubstanceListActivity extends LogoutActivity {
@@ -34,6 +35,11 @@ public class SubstanceListActivity extends LogoutActivity {
 
     private FirebaseFirestore database;
     private FirestoreRecyclerAdapter adapter;
+
+    public TabLayout layout;
+    public TabLayout.Tab list;
+    public TabLayout.Tab diary;
+    public TabLayout.Tab about;
 
     /**
      * Method which sets the content view for this page and creates an OnClickListener method
@@ -48,6 +54,11 @@ public class SubstanceListActivity extends LogoutActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameLayout);
 
         getLayoutInflater().inflate(R.layout.activity_detailpage, contentFrameLayout);
+
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
 
         recyclerView = findViewById(R.id.substanceList);
         addSubstanceButton = findViewById(R.id.addSubstance);
@@ -72,7 +83,6 @@ public class SubstanceListActivity extends LogoutActivity {
         });
     }
 
-
     /**
      * Method which sets up the RecyclerView for the page
      *
@@ -87,7 +97,6 @@ public class SubstanceListActivity extends LogoutActivity {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(adapter);
     }
-
 
     /**
      * Method which sets up the FireStore Recycler adapter, which builds the FireStore Recycler options

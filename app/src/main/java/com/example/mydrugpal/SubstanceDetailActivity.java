@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.DrugList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +29,7 @@ import java.util.List;
  * Class which displays the details for a particular substance (which the user would have determined
  * in the DetailPageActivity page)
  *
- * @author Emma Travers, Richard Purcell, Ian Sifton
+ * @author Emma Travers, Richard Purcell, Ian Sifton, Megan Brock
  *
  */
 public class SubstanceDetailActivity extends AppCompatActivity {
@@ -38,6 +40,11 @@ public class SubstanceDetailActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Intent intent;
     private InfoPage infoPage;
+
+    public TabLayout layout;
+    public TabLayout.Tab list;
+    public TabLayout.Tab diary;
+    public TabLayout.Tab about;
 
     private Button addToIntakeButton;
 
@@ -56,24 +63,30 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("substances");
 
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
 
+        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
+            loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
-        loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                /**
+                 * method called to retrieve substances from database and update DrugList instance with drugs
+                 *
+                 * @param task task to ensure database is properly accessed and data retrieved
+                 */
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> dList = task.getResult().getDocuments();
 
-            /**
-             * method called to retrieve substances from database and update DrugList instance with drugs
-             * @param task task to ensure database is properly accessed and data retrieved
-             */
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> dList = task.getResult().getDocuments();
+                        DrugList.getInstance().updateDrugs(dList);
 
-                    DrugList.getInstance().updateDrugs(dList);
-
+                    }
                 }
-            }
-        });
+            });
+        }
 
         substanceNameView = findViewById(R.id.substanceNameView);
         substanceTypeView = findViewById(R.id.substanceTypeView);
@@ -84,9 +97,11 @@ public class SubstanceDetailActivity extends AppCompatActivity {
 
         infoPage = (InfoPage) intent.getSerializableExtra("substance");
 
-        substanceNameView.setText(infoPage.substanceName);
-        substanceTypeView.setText("Type: " + infoPage.substanceType);
-        amountView.setText("Recommended amount per dose: " + infoPage.amount);
+        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
+            substanceNameView.setText(infoPage.substanceName);
+            substanceTypeView.setText("Type: " + infoPage.substanceType);
+            amountView.setText("Recommended amount per dose: " + infoPage.amount);
+        }
 
         addToIntakeButton = findViewById(R.id.addToDiaryButton);
 
@@ -100,6 +115,9 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Change to AddToIntakeDiaryActivity
+     */
     private void goToAddToIntakePage() {
         Intent intent = new Intent(this, AddToIntakeDiaryActivity.class);
         intent.putExtra("id", infoPage.id);

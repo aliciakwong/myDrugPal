@@ -6,14 +6,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/menuTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimaryDark">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/listTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/summaryTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Summary" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/aboutTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About" />
+    </com.google.android.material.tabs.TabLayout>
+
     <TextView
         android:id="@+id/substanceNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
         android:text="Substance Name"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,11 +50,10 @@
         android:layout_width="360dp"
         android:layout_height="46dp"
         android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/substanceNameView" />
 
@@ -49,12 +76,10 @@
         android:layout_width="360dp"
         android:layout_height="46dp"
         android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="323dp"
-        android:layout_marginRight="323dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/substanceTypeView" />
 

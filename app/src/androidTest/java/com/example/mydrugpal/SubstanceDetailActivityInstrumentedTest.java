@@ -11,16 +11,14 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * Espresso tests which for the AddToIntakeDiaryActivity
+ * Tests for the SubstanceDetailActivity class.
  *
- * @author Ian Sifton, Jocelyn MacDonald, Richard Purcell, Emma Travers, Megan Brock, Alicia Wong
+ * @author Megan Brock, Ian Sifton
  */
-public class SubstanceListInstrumentedTest {
+public class SubstanceDetailActivityInstrumentedTest {
     public TabLayout layout;
     public TabLayout.Tab list;
     public TabLayout.Tab diary;
@@ -30,7 +28,7 @@ public class SubstanceListInstrumentedTest {
      * Rule for tests to display detail page
      */
     @Rule
-    public ActivityTestRule<SubstanceListActivity> detailRule = new ActivityTestRule<SubstanceListActivity>(SubstanceListActivity.class);
+    public ActivityTestRule<SubstanceDetailActivity> detailRule = new ActivityTestRule<SubstanceDetailActivity>(SubstanceDetailActivity.class);
 
     ViewInteraction substanceName = null;
     ViewInteraction addSubstanceButton = null;
@@ -67,18 +65,4 @@ public class SubstanceListInstrumentedTest {
         Assert.assertEquals(diary.getText().toString(), "Summary");
         Assert.assertEquals(about.getText().toString(), "About");
     }
-
-    /**
-     * Tests that add substance button is displayed and clickable
-     */
-    @Test
-    public void testAddSubstanceButton() {
-        addSubstanceButton.perform(click());
-    }
-
-    /**
-     * Tests that the substance summary button is displayed and clickable
-     */
-    @Test
-    public void testSubstanceSummaryButton() { substanceSummaryButton.perform((click())); }
 }

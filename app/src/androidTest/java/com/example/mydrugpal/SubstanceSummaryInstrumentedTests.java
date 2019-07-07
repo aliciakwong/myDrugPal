@@ -6,6 +6,8 @@ import android.widget.DatePicker;
 
 import androidx.test.rule.ActivityTestRule;
 
+import com.google.android.material.tabs.TabLayout;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,7 +19,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 /**
  * Tests UI for substance summary page
  *
- * @author Megan Brock, Richard Purcell, Alicia Wong
+ * @author Megan Brock, Richard Purcell, Alicia Wong, Ian Sifton
  */
 public class SubstanceSummaryInstrumentedTests
 {
@@ -29,9 +31,36 @@ public class SubstanceSummaryInstrumentedTests
     public DatePicker startDatePicker;
     public DatePicker endDatePicker;
 
+    public TabLayout layout;
+    public TabLayout.Tab list;
+    public TabLayout.Tab diary;
+    public TabLayout.Tab about;
+
     @Rule
     public ActivityTestRule<SubstanceSummaryActivity> activityRule
             = new ActivityTestRule<>(SubstanceSummaryActivity.class);
+
+
+    /**
+     * Test that the menu bar is visible, all three tabs
+     * are visible and have the right text.
+     */
+    @Test
+    public void TestMenuBarVisible() {
+        layout = activityRule.getActivity().layout;
+        list = activityRule.getActivity().list;
+        diary = activityRule.getActivity().diary;
+        about = activityRule.getActivity().about;
+
+        Assert.assertNotNull(layout);
+        Assert.assertNotNull(list);
+        Assert.assertNotNull(diary);
+        Assert.assertNotNull(about);
+
+        Assert.assertEquals(list.getText().toString(), "List");
+        Assert.assertEquals(diary.getText().toString(), "Summary");
+        Assert.assertEquals(about.getText().toString(), "About");
+    }
 
     /**
      * Tests that the select date button will enable the start
@@ -93,7 +122,6 @@ public class SubstanceSummaryInstrumentedTests
         onView(withId(R.id.endDateButton)).perform(click());
 
         Assert.assertTrue(endDatePicker.getVisibility() == View.VISIBLE && startDatePicker.getVisibility() == View.INVISIBLE);
-
     }
 
     /**
@@ -125,5 +153,6 @@ public class SubstanceSummaryInstrumentedTests
         onView(withId(R.id.viewSubstanceButton)).perform(click());
         onView(withId(R.id.addSubstance)).toString().equals("Add Substance");
     }
+
 
 }
