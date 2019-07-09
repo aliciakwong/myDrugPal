@@ -22,7 +22,7 @@
             android:name=".SubstanceDetailActivity"
             android:parentActivityName=".SubstanceListActivity" />
         <activity
-            android:name=".AddCustomSubstanceActivity"
+            android:name=".AddCustomActivity"
             android:parentActivityName=".SubstanceListActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -36,6 +36,8 @@
         <activity android:name=".SubstanceSummaryActivity" >
         </activity>
         <activity android:name=".model.EditIntakeDiaryEntry"></activity>
+        <activity android:name=".AddCustomSubstanceActivity">
+        </activity>
     </application>
 
 </manifest>
