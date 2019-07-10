@@ -18,6 +18,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.example.mydrugpal.model.UserList;
+
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     List<DocumentSnapshot> uList = task.getResult().getDocuments();
 
-                    com.example.mydrugpal.UserList.getInstance().updateUsers(uList);
+                    UserList.getInstance().updateUsers(uList);
                 }
             }
         });
@@ -122,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateCurrentUser(String userEmail){
-        Profile currentProfile = com.example.mydrugpal.UserList.getInstance().getUsers().get(userEmail);
+        Profile currentProfile = UserList.getInstance().getUsers().get(userEmail);
         CurrentUser.getInstance().setUser(currentProfile);
     }
 
