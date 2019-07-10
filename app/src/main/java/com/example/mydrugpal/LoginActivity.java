@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     List<DocumentSnapshot> uList = task.getResult().getDocuments();
 
-                    com.example.mydrugpal.UserList.getInstance().updateUsers(uList);
+                    com.example.mydrugpal.model.UserList.getInstance().updateUsers(uList);
                 }
             }
         });
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateCurrentUser(String userEmail){
-        Profile currentProfile = com.example.mydrugpal.UserList.getInstance().getUsers().get(userEmail);
+        Profile currentProfile = com.example.mydrugpal.model.UserList.getInstance().getUsers().get(userEmail);
         CurrentUser.getInstance().setUser(currentProfile);
     }
 }
