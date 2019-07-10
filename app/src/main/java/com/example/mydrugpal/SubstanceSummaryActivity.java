@@ -337,8 +337,12 @@ public class SubstanceSummaryActivity extends LogoutActivity
                         @Override
                         public void onClick(View v) {
                             String text = ((TextView)v).getText().toString();
-                            int number = Character.getNumericValue(text.charAt(0));
+                            int index = text.indexOf('.');
+                            String textNumber = text.substring(0, index);
+                            int number = Integer.valueOf(textNumber);
+                            System.out.println(number-1);
                             String id = summaryInformation.getSubstanceList().get(number-1).getId();
+                            System.out.println(id + summaryInformation.getSubstanceList().get(number-1));
                             goToEditEntryPage(id);
                         }
                     });
