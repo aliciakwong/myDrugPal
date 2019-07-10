@@ -31,7 +31,6 @@ public class SubstanceListActivity extends LogoutActivity {
 
     private RecyclerView recyclerView;
     private Button addSubstanceButton;
-    private Button substanceSummaryButton;
 
     private FirebaseFirestore database;
     private FirestoreRecyclerAdapter adapter;
@@ -60,9 +59,23 @@ public class SubstanceListActivity extends LogoutActivity {
         diary = layout.getTabAt(1);
         about = layout.getTabAt(2);
 
+        list.select();
+
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
         recyclerView = findViewById(R.id.substanceList);
         addSubstanceButton = findViewById(R.id.addSubstance);
-        substanceSummaryButton = findViewById(R.id.substanceSummaryButton);
         database = FirebaseFirestore.getInstance();
 
         adapter = setUpAdapter(database);
@@ -72,13 +85,6 @@ public class SubstanceListActivity extends LogoutActivity {
             @Override
             public void onClick(View v) {
                 goToAddSubstance();
-            }
-        });
-
-        substanceSummaryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToSubstanceSummary();
             }
         });
     }
@@ -215,5 +221,36 @@ public class SubstanceListActivity extends LogoutActivity {
     public void goToAddSubstance() {
         Intent intent = new Intent(SubstanceListActivity.this, AddCustomSubstanceActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getText().toString().equalsIgnoreCase("List"))
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
+
+            System.out.println("List selected");
+        }
+
+        else if (tab.getText().toString().equalsIgnoreCase("Summary"))
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
+
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getText().toString().equalsIgnoreCase("About"))
+        {
+            // TODO: link to about Activity
+
+            System.out.println("About selected");
+        }
     }
 }

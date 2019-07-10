@@ -51,8 +51,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
     private ScrollView scrollView;
     private LinearLayout scrollViewLayout;
 
-    private Button viewSubstanceButton;
-
     private SubstanceSummaryInformation summaryInformation;
 
     public TabLayout layout;
@@ -82,6 +80,25 @@ public class SubstanceSummaryActivity extends LogoutActivity
         diary = layout.getTabAt(1);
         about = layout.getTabAt(2);
 
+        diary.select();
+
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+        });
+
         startDate = new int[3];
         endDate = new int[3];
 
@@ -95,8 +112,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         scrollView = findViewById(R.id.scrollView);
         scrollViewLayout = findViewById(R.id.scrollViewLayout);
-
-        viewSubstanceButton = findViewById(R.id.viewSubstanceButton);
 
         dateSelectButton.setOnClickListener(new View.OnClickListener()
         {
@@ -172,14 +187,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
             });
         }
         initializeDates();
-
-        viewSubstanceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToDetailPage();
-            }
-        });
-
     }
 
     /**
@@ -334,17 +341,25 @@ public class SubstanceSummaryActivity extends LogoutActivity
         }
 
     }
-    private void goToDetailPage(){
-        Intent intent = new Intent(this, SubstanceListActivity.class);
-        startActivity(intent);
-    }
 
+    /**
+     * Changes page to edit intake diary entry.
+     * @param id
+     */
     private void goToEditEntryPage(String id) {
         Intent intent = new Intent(SubstanceSummaryActivity.this, EditIntakeDiaryEntry.class);
         intent.putExtra("id", id);
         startActivity(intent);
     }
 
+    /**
+     * Compares current date to two dates. Returns true if
+     * either date is current.
+     * @param current the current date.
+     * @param start the selected start date.
+     * @param end the selected end date.
+     * @return true if current equals start or end, or false otherwise.
+     */
     private boolean sameDay(Date current, Date start, Date end){
         if(current.getYear() == start.getYear() && current.getMonth() == start.getMonth()
                 && current.getDate() == start.getDate()){
@@ -365,7 +380,34 @@ public class SubstanceSummaryActivity extends LogoutActivity
         return R.layout.activity_substance_summary;
     }
 
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getPosition() == 0)
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
 
+            System.out.println("List selected");
+        }
 
+        else if (tab.getPosition() == 1)
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
 
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getPosition() == 2)
+        {
+            // TODO: link to about Activity
+
+            System.out.println("About selected");
+        }
+    }
 }

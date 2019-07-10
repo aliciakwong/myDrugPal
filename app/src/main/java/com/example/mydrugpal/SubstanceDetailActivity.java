@@ -68,6 +68,25 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         diary = layout.getTabAt(1);
         about = layout.getTabAt(2);
 
+        list.select();
+
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+        });
+
         if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
             loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
@@ -105,7 +124,6 @@ public class SubstanceDetailActivity extends AppCompatActivity {
 
         addToIntakeButton = findViewById(R.id.addToDiaryButton);
 
-
         addToIntakeButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -126,4 +144,34 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getPosition() == 0)
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
+
+            System.out.println("List selected");
+        }
+
+        else if (tab.getPosition() == 1)
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
+
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getPosition() == 2)
+        {
+            // TODO: link to about Activity
+
+            System.out.println("About selected");
+        }
+    }
 }
