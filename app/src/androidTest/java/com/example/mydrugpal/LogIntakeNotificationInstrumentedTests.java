@@ -31,4 +31,12 @@ public class LogIntakeNotificationInstrumentedTests {
         //TODO: add test logic
 
     }
+
+    /**
+     * test to check that clicking the dismiss notification button on the
+     * notification pop up works
+     */
+    public void dismissNotificationButtonClick(){
+        //TODO: add test logic
+    }
 }
