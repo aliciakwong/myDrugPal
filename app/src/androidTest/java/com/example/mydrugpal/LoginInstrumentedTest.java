@@ -44,8 +44,7 @@ public class LoginInstrumentedTest {
         onView(withId(R.id.enterPassword)).perform(typeText("password"));
         onView(withId(R.id.button_login)).perform(click());
 
-        onView(withId(R.id.viewSubstanceButton)).toString().equals("View Substances");
-
+        onView(withId(R.id.selectDateRangeButton)).toString().equals("View Substances");
     }
 
     /**

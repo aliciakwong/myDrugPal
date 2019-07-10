@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import com.google.android.material.tabs.TabLayout;
@@ -60,6 +62,60 @@ public class SubstanceSummaryInstrumentedTests
         Assert.assertEquals(list.getText().toString(), "List");
         Assert.assertEquals(diary.getText().toString(), "Summary");
         Assert.assertEquals(about.getText().toString(), "About");
+    }
+
+    /**
+     * Tests that pressing the list tab will open the substance
+     * list activity.
+     */
+    @Test
+    public void TestListTab()
+    {
+        layout = activityRule.getActivity().layout;
+        list = activityRule.getActivity().list;
+        diary = activityRule.getActivity().diary;
+        about = activityRule.getActivity().about;
+
+        onView(ViewMatchers.withText("List"))
+                .perform(ViewActions.click());
+
+        onView(withId(R.id.addSubstancebutton));
+    }
+
+    /**
+     * Tests that pressing the diary tab will open the substance
+     * summary activity.
+     */
+    @Test
+    public void TestDiaryTab()
+    {
+        layout = activityRule.getActivity().layout;
+        list = activityRule.getActivity().list;
+        diary = activityRule.getActivity().diary;
+        about = activityRule.getActivity().about;
+
+        onView(ViewMatchers.withText("Summary"))
+                .perform(ViewActions.click());
+
+        onView(withId(R.id.selectDateRangeButton));
+    }
+
+    /**
+     * Tests that pressing the about tab will open the substance
+     * about activity.
+     */
+    @Test
+    public void TestAboutTab()
+    {
+        layout = activityRule.getActivity().layout;
+        list = activityRule.getActivity().list;
+        diary = activityRule.getActivity().diary;
+        about = activityRule.getActivity().about;
+
+        onView(ViewMatchers.withText("About"))
+                .perform(ViewActions.click());
+
+        // TODO: update test when About page done
     }
 
     /**
@@ -144,15 +200,4 @@ public class SubstanceSummaryInstrumentedTests
         Assert.assertTrue(startDateButton.getVisibility() == View.INVISIBLE && endDateButton.getVisibility() == View.INVISIBLE);
         Assert.assertTrue(startDatePicker.getVisibility() == View.INVISIBLE && endDatePicker.getVisibility() == View.INVISIBLE);
     }
-
-    /**
-     * Test to ensure page transition to substance detail page when button clicked
-     */
-    @Test
-    public void TestViewSubstancePageTransition(){
-        onView(withId(R.id.viewSubstanceButton)).perform(click());
-        onView(withId(R.id.addSubstance)).toString().equals("Add Substance");
-    }
-
-
 }

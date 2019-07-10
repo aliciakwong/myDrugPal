@@ -1,6 +1,8 @@
 package com.example.mydrugpal;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import com.google.android.material.tabs.TabLayout;
@@ -32,7 +34,6 @@ public class SubstanceDetailActivityInstrumentedTest {
 
     ViewInteraction substanceName = null;
     ViewInteraction addSubstanceButton = null;
-    ViewInteraction substanceSummaryButton = null;
 
     /**
      * Finds addSubstanceButton, substanceSummaryButton references
@@ -42,7 +43,6 @@ public class SubstanceDetailActivityInstrumentedTest {
     public void setUp() throws Exception {
         substanceName = onView(withId(R.id.nameOfSubstanceEdit));
         addSubstanceButton = onView(withId(R.id.addSubstance));
-        substanceSummaryButton = onView(withId(R.id.substanceSummaryButton));
     }
 
     /**
@@ -64,5 +64,59 @@ public class SubstanceDetailActivityInstrumentedTest {
         Assert.assertEquals(list.getText().toString(), "List");
         Assert.assertEquals(diary.getText().toString(), "Summary");
         Assert.assertEquals(about.getText().toString(), "About");
+    }
+
+    /**
+     * Tests that pressing the list tab will open the substance
+     * list activity.
+     */
+    @Test
+    public void TestListTab()
+    {
+        layout = detailRule.getActivity().layout;
+        list = detailRule.getActivity().list;
+        diary = detailRule.getActivity().diary;
+        about = detailRule.getActivity().about;
+
+        onView(ViewMatchers.withText("List"))
+                .perform(ViewActions.click());
+
+        onView(withId(R.id.addSubstancebutton));
+    }
+
+    /**
+     * Tests that pressing the diary tab will open the substance
+     * summary activity.
+     */
+    @Test
+    public void TestDiaryTab()
+    {
+        layout = detailRule.getActivity().layout;
+        list = detailRule.getActivity().list;
+        diary = detailRule.getActivity().diary;
+        about = detailRule.getActivity().about;
+
+        onView(ViewMatchers.withText("Summary"))
+                .perform(ViewActions.click());
+
+        onView(withId(R.id.selectDateRangeButton));
+    }
+
+    /**
+     * Tests that pressing the about tab will open the substance
+     * about activity.
+     */
+    @Test
+    public void TestAboutTab()
+    {
+        layout = detailRule.getActivity().layout;
+        list = detailRule.getActivity().list;
+        diary = detailRule.getActivity().diary;
+        about = detailRule.getActivity().about;
+
+        onView(ViewMatchers.withText("About"))
+                .perform(ViewActions.click());
+
+        // TODO: update test when About page done
     }
 }
