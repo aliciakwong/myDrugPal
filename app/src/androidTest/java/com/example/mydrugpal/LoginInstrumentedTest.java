@@ -72,5 +72,16 @@ public class LoginInstrumentedTest {
 
     }
 
+    /**
+     * Tests that the go to AboutApp button opens in aboutApp information page
+     * and displays correct information.
+     */
+    @Test
+    public void appOpensAboutApp(){
+
+        onView(withId(R.id.AboutAppButton)).perform(click());
+        onView(withId(R.id.AboutAppTitle)).toString().equals("About myDrugPal");
+
+    }
 
 }

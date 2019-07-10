@@ -17,5 +17,8 @@
     <string name="label_login">LOGIN</string>
     <string name="hint_email">Email:</string>
     <string name="hint_password">Password:</string>
+    <string name="devTeamInfo">The development team for myDrugPal is: Alicia Wong, Emma Travers, Ian Sifton, Jocelyn MacDonald, Megan Brock,  and Richard Purcell.</string>
+    <string name="myDrugPalInfo">myDrugPal helps users to track their daily intake of substances such as alcohol and cannabis.  Users can choose from a list of known substances as well as adding personalized substances.  Intake quantity of a given substance is easily recorded.  Intake summary can be viewed by day or week.  Enjoy!</string>
+
 </resources>
 

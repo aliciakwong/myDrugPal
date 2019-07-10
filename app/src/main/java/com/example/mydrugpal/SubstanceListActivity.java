@@ -248,7 +248,8 @@ public class SubstanceListActivity extends LogoutActivity {
 
         else if (tab.getText().toString().equalsIgnoreCase("About"))
         {
-            // TODO: link to about Activity
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
 
             System.out.println("About selected");
         }

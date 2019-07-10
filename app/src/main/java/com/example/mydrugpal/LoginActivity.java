@@ -13,6 +13,7 @@ import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.VerifyLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -85,7 +86,18 @@ public class LoginActivity extends AppCompatActivity {
              * @param view current application view
              */
             public void onClick(View view){
-                gotoRegistration();
+                gotoAboutApp();
+            }
+        });
+
+        FloatingActionButton aboutAppButton = findViewById(R.id.AboutAppButton);
+        aboutAppButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for go to AboutAPP button click
+             * @param view current application view
+             */
+            public void onClick(View view){
+                gotoAboutApp();
             }
         });
     }
@@ -113,4 +125,12 @@ public class LoginActivity extends AppCompatActivity {
         Profile currentProfile = com.example.mydrugpal.model.UserList.getInstance().getUsers().get(userEmail);
         CurrentUser.getInstance().setUser(currentProfile);
     }
+
+    private void gotoAboutApp() {
+        Intent intent = new Intent(this, AboutAppActivity.class);
+        startActivity(intent);
+    }
+
+
+
 }

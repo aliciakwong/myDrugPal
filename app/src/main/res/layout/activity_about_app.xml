@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutAppActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/menuTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimaryDark">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/listTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/summaryTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Summary" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/aboutTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="405dp"
+        android:layout_height="670dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="@+id/menuTabLayout"
+        tools:layout_editor_absoluteX="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/AboutAppTitle"
+                android:layout_width="399dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="6dp"
+                android:text="About myDrugPal"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="About myDrugPal" />
+
+            <TextView
+                android:id="@+id/gitLabLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="73dp"
+                android:autoLink="web"
+                android:text="https://git.cs.dal.ca/alicia/mydrugpal"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/LinkText"
+                tools:text="https://git.cs.dal.ca/alicia/mydrugpal" />
+
+            <TextView
+                android:id="@+id/appInfoBox"
+                android:layout_width="344dp"
+                android:layout_height="113dp"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="34dp"
+                android:text="@string/myDrugPalInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AboutAppTitle"
+                tools:text="@string/myDrugPalInfo" />
+
+            <com.google.android.youtube.player.YouTubePlayerView
+                android:id="@+id/youtubePlayerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appInfoBox">
+
+            </com.google.android.youtube.player.YouTubePlayerView>
+
+            <TextView
+                android:id="@+id/devTeamInfoBox"
+                android:layout_width="319dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="59dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="33dp"
+                android:text="@string/devTeamInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
+                tools:text="@string/devTeamInfo" />
+
+            <TextView
+                android:id="@+id/LinkText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="141dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="142dp"
+                android:text="Link to Project Files:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/devTeamInfoBox" />
+
+            <WebView
+                android:id="@+id/gifView"
+                android:layout_width="441dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gitLabLink" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

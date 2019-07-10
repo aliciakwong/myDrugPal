@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.EditIntakeDiaryEntry;
-import com.example.mydrugpal.model.IntakeDiaryItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
@@ -37,25 +36,76 @@ import java.util.List;
  */
 public class SubstanceSummaryActivity extends LogoutActivity
 {
-    private int[] startDate;
-    private int[] endDate;
+    /**
+     * start date from calendar
+     */
+    public int[] startDate;
+    /**
+     * end date from calendar
+     */
+    public  int[] endDate;
 
-    public Button dateSelectButton;
+    /**
+     * select date button from display
+     */
+    public  Button dateSelectButton;
 
-    public Button startDateButton;
-    public Button endDateButton;
+    /**
+     * start date button on display
+     */
+    public  Button startDateButton;
+    /**
+     * end date button on display
+     */
+    public  Button endDateButton;
 
-    public DatePicker startDatePicker;
-    public DatePicker endDatePicker;
+    /**
+     * start date picker used with calendar
+     */
+    public  DatePicker startDatePicker;
 
-    private ScrollView scrollView;
-    private LinearLayout scrollViewLayout;
+    /**
+     * end date picker used with calendar
+     */
+    public  DatePicker endDatePicker;
 
-    private SubstanceSummaryInformation summaryInformation;
+    /**
+     * scrollview used to display intake diary
+     */
+    public  ScrollView scrollView;
+    /**
+     * layout used to hold scrollview
+     */
+    public  LinearLayout scrollViewLayout;
 
+    /**
+     * button to move to add substance to diary
+     */
+    public Button viewSubstanceButton;
+
+    /**
+     * object that holds current user's intake diary
+     */
+    public  SubstanceSummaryInformation summaryInformation;
+
+    /**
+     * TabLayout that holds three tabs
+     */
     public TabLayout layout;
+
+    /**
+     * Tab for substance list page
+     */
     public TabLayout.Tab list;
+
+    /**
+     * Tab for about page
+     */
     public TabLayout.Tab about;
+
+    /**
+     * Tab for diary (substance summary) page
+     */
     public TabLayout.Tab diary;
 
     /**
@@ -405,7 +455,8 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         else if (tab.getPosition() == 2)
         {
-            // TODO: link to about Activity
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
 
             System.out.println("About selected");
         }

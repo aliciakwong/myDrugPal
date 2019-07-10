@@ -169,7 +169,8 @@ public class SubstanceDetailActivity extends AppCompatActivity {
 
         else if (tab.getPosition() == 2)
         {
-            // TODO: link to about Activity
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
 
             System.out.println("About selected");
         }

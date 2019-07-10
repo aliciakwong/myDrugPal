@@ -115,7 +115,7 @@ public class SubstanceSummaryInstrumentedTests
         onView(ViewMatchers.withText("About"))
                 .perform(ViewActions.click());
 
-        // TODO: update test when About page done
+        onView(withId(R.id.AboutAppTitle));
     }
 
     /**
