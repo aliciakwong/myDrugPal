@@ -1,5 +1,6 @@
-package com.example.mydrugpal;
+package com.example.mydrugpal.model;
 
+import com.example.mydrugpal.Profile;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;
@@ -47,9 +48,9 @@ public class UserList {
         users = new HashMap<>();
         for(DocumentSnapshot d: updatedList){
             String email = d.getId();
-            String password = d.get("Password").toString();
-            String firstName = d.get("FirstName").toString();
-            String lastName = d.get("LastName").toString();
+            String password = d.get("password").toString();
+            String firstName = d.get("firstName").toString();
+            String lastName = d.get("lastName").toString();
             Profile currentProfile = new Profile(firstName, lastName, email, password);
             users.put(email, currentProfile);
         }
