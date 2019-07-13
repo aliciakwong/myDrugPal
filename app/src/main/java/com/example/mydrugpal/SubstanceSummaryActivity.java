@@ -224,6 +224,8 @@ public class SubstanceSummaryActivity extends LogoutActivity
         //Starts LogIntakeNotification system [RP]
         startAlarm(c);
         Log.d(TAG, "Alarm has been launched");
+        hasIntakeToday();
+
 
     }
 
@@ -240,6 +242,43 @@ public class SubstanceSummaryActivity extends LogoutActivity
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 1000*10*1, pendingIntent);
+    }
+
+    /**
+     * A method for comparing the current date with the dates of substance entries.
+     * Currently does not work.
+     */
+    private void hasIntakeToday() {
+            Date d, sd, ed;
+            TextView tv;
+            Date today = Calendar.getInstance().getTime();
+            Calendar cal = Calendar.getInstance();
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            int len = summaryInformation.getSubstanceList().size();
+
+            for (int i = 0; i < len; i++)
+            {
+                d = summaryInformation.getSubstanceList().get(i).getDateTime().toDate();
+                int substanceDay = d.getDay();
+                //below is just for debugging
+                Log.d(TAG, "Format of d is " + d);
+                Log.d(TAG, "Format of Calendar is " + cal.getTime());
+
+                //compares a drug time to time now.
+                //need to just compare days, not time...
+
+                if (d.getDay() == day) {
+                    Log.d(TAG, d.getDay() + " " + day);
+                    Log.d(TAG, "Has had intake today");
+                }
+                else {
+                    Log.d(TAG, d.getDay() + " " + day);
+                    Log.d(TAG, "No intake today");
+                }
+
+            }
     }
 
 
@@ -365,7 +404,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
             sd = SubstanceSummaryInformation.parseDate(startDate);
             ed = SubstanceSummaryInformation.parseDate(endDate);
 
-
             if(sd.after(ed)){
                 ed = sd;
             }
@@ -390,12 +428,15 @@ public class SubstanceSummaryActivity extends LogoutActivity
                             summaryInformation.getSubstanceList().get(i).getDose() + ")");
 
                     scrollViewLayout.addView(tv);
+
                 }
 
             }
         }
-
+        // temporary launch of the below method for testing
+        hasIntakeToday();
     }
+
     private void goToDetailPage(){
         Intent intent = new Intent(this, SubstanceListActivity.class);
         startActivity(intent);
