@@ -1,7 +1,15 @@
 package com.example.mydrugpal;
 
+import android.view.View;
+
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mydrugpal.model.CurrentUser;
+import com.google.android.material.tabs.TabLayout;
+
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -18,6 +26,11 @@ import static androidx.test.espresso.action.ViewActions.typeText;
  */
 
 public class AboutAppInstrumentedTests {
+    public TabLayout layout;
+    public TabLayout.Tab list;
+    public TabLayout.Tab diary;
+    public TabLayout.Tab about;
+
     /**
      * Rule for the AboutApp activity tests (needs activity page created)
      *
@@ -59,9 +72,5 @@ public class AboutAppInstrumentedTests {
     public void appInfoVisible(){
         onView(withId(R.id.appInfoBox)).toString().equals("Information about the app goes here.");
     }
-
-
-
-
 
 }
