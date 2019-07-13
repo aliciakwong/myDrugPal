@@ -1,7 +1,13 @@
 package com.example.mydrugpal;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -11,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.EditIntakeDiaryEntry;
@@ -23,8 +30,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import android.app.AlarmManager;
 
 /**
  * Activity for the substance summary diary page. Contains buttons for
@@ -35,6 +45,13 @@ import java.util.List;
  */
 public class SubstanceSummaryActivity extends LogoutActivity
 {
+    /**
+     * A variable for printing to logcat. [RP]
+     * To find any of these tags enter "Debug Printing" in the logcat search field
+     * while the app is running.
+     */
+    private static final String TAG = "Debug Printing";
+
     /**
      * start date from calendar
      */
@@ -201,7 +218,31 @@ public class SubstanceSummaryActivity extends LogoutActivity
             }
         });
 
+        //Calendar needed for LogIntakeNotification alarm [RP]
+        Calendar c = Calendar.getInstance();
+
+        //Starts LogIntakeNotification system [RP]
+        startAlarm(c);
+        Log.d(TAG, "Alarm has been launched");
+
     }
+
+    /**
+     * A method to start the LogIntakeNotification system.  [RP]
+     * To increase the time between notifications change alarmManager.setRepeating...
+     * i.e. to alert every 2 minutes set intervalMillis 1000*60*2
+     * @param c  A calendar instance.
+     */
+    private void startAlarm(Calendar c) {
+        Log.d(TAG, "Hello from startAlarm");
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, LogIntakeNotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 1000*10*1, pendingIntent);
+    }
+
+
 
     /**
      * Toggles the start and end date buttons.
