@@ -125,117 +125,21 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         summaryInformation = new SubstanceSummaryInformation();
 
-        layout = findViewById(R.id.menuTabLayout);
-        list = layout.getTabAt(0);
-        diary = layout.getTabAt(1);
-        about = layout.getTabAt(2);
+        setMenuTabs();
 
-        diary.select();
+        setTabListener();
 
-        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                changeTab(tab);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // no action here, needs override definition
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // no action here, needs override definition
-            }
-        });
-
-        startDate = new int[3];
-        endDate = new int[3];
-
-        dateSelectButton = findViewById(R.id.selectDateRangeButton);
-
-        startDateButton = findViewById(R.id.startDateButton);
-        endDateButton = findViewById(R.id.endDateButton);
-
-        startDatePicker = findViewById(R.id.startDatePicker);
-        endDatePicker = findViewById(R.id.endDatePicker);
+        setDateInformation();
 
         scrollView = findViewById(R.id.scrollView);
         scrollViewLayout = findViewById(R.id.scrollViewLayout);
 
-        dateSelectButton.setOnClickListener(new View.OnClickListener()
-        {
-            /**
-             * On click method for when dates are selected
-             * @param v view of activity
-             */
-            public void onClick(View v)
-            {
-                toggleButtons();
-            }
-        });
+        setListeners();
 
-        startDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDatePicker(startDatePicker, endDatePicker);
-            }
-        });
+        setVisibility();
 
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDatePicker(endDatePicker, startDatePicker);
-            }
-        });
+        setUpFireStoreDatabase();
 
-        startDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
-                changeStartDate(year, month, dayOfMonth);
-                startDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
-            }
-        });
-
-        endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
-                changeEndDate(year, month, dayOfMonth);
-                endDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
-            }
-        });
-
-        startDateButton.setVisibility(View.INVISIBLE);
-        endDateButton.setVisibility(View.INVISIBLE);
-
-        startDatePicker.setVisibility(View.INVISIBLE);
-        endDatePicker.setVisibility(View.INVISIBLE);
-
-        scrollView.setVisibility(View.VISIBLE);
-
-        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
-            FirebaseFirestore database = FirebaseFirestore.getInstance();
-            DocumentReference userDocument = database.collection("Users").
-                    document(CurrentUser.getInstance().GetEmail());
-            CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
-            Query diaryByDate = userIntakeDiary.orderBy("dateTime");
-            diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                /**
-                 * method called to retrieve users from database and update UserList instance with users
-                 *
-                 * @param task task to ensure database is properly accessed and data retrieved
-                 */
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
-
-                        summaryInformation.updateSubstanceList(diaryList);
-                    }
-                }
-            });
-        }
         initializeDates();
     }
 
@@ -459,6 +363,128 @@ public class SubstanceSummaryActivity extends LogoutActivity
             startActivity(intent);
 
             System.out.println("About selected");
+        }
+    }
+
+    private void setMenuTabs() {
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
+
+        diary.select();
+    }
+
+    private void setTabListener() {
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+        });
+    }
+
+    private void setDateInformation() {
+        startDate = new int[3];
+        endDate = new int[3];
+
+        dateSelectButton = findViewById(R.id.selectDateRangeButton);
+
+        startDateButton = findViewById(R.id.startDateButton);
+        endDateButton = findViewById(R.id.endDateButton);
+
+        startDatePicker = findViewById(R.id.startDatePicker);
+        endDatePicker = findViewById(R.id.endDatePicker);
+    }
+
+    private void setListeners() {
+        dateSelectButton.setOnClickListener(new View.OnClickListener()
+        {
+            /**
+             * On click method for when dates are selected
+             * @param v view of activity
+             */
+            public void onClick(View v)
+            {
+                toggleButtons();
+            }
+        });
+
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(startDatePicker, endDatePicker);
+            }
+        });
+
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(endDatePicker, startDatePicker);
+            }
+        });
+
+        startDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
+                changeStartDate(year, month, dayOfMonth);
+                startDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
+            }
+        });
+
+        endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
+                changeEndDate(year, month, dayOfMonth);
+                endDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
+            }
+        });
+    }
+
+    private void setVisibility() {
+        startDateButton.setVisibility(View.INVISIBLE);
+        endDateButton.setVisibility(View.INVISIBLE);
+
+        startDatePicker.setVisibility(View.INVISIBLE);
+        endDatePicker.setVisibility(View.INVISIBLE);
+
+        scrollView.setVisibility(View.VISIBLE);
+    }
+
+    private void setUpFireStoreDatabase() {
+
+        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference userDocument = database.collection("Users").
+                    document(CurrentUser.getInstance().GetEmail());
+            CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
+            Query diaryByDate = userIntakeDiary.orderBy("dateTime");
+            diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                /**
+                 * method called to retrieve users from database and update UserList instance with users
+                 *
+                 * @param task task to ensure database is properly accessed and data retrieved
+                 */
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
+
+                        summaryInformation.updateSubstanceList(diaryList);
+                    }
+                }
+            });
         }
     }
 }

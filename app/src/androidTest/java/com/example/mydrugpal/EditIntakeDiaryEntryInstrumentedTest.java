@@ -58,10 +58,7 @@ public class EditIntakeDiaryEntryInstrumentedTest {
     @Test
     public void saveButtonVisible() {
         onView(withId(R.id.EntryEditorTitle)).toString().equals("Edit Entry");
-
-//        onView(withId(R.id.button_saveEntryEdit)).perform(click());
         onView(withId(R.id.button_saveEntryEdit)).check(matches(isDisplayed()));
-
     }
 
     /**
@@ -69,7 +66,6 @@ public class EditIntakeDiaryEntryInstrumentedTest {
      */
     @Test
     public void deleteButtonVisible() {
-//        onView(withId(R.id.button_entryDelete)).perform(click());
         onView(withId(R.id.button_entryDelete)).check(matches(isDisplayed()));
     }
 

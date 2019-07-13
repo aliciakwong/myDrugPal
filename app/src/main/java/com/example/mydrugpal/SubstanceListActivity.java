@@ -54,39 +54,13 @@ public class SubstanceListActivity extends LogoutActivity {
 
         getLayoutInflater().inflate(R.layout.activity_detailpage, contentFrameLayout);
 
-        layout = findViewById(R.id.menuTabLayout);
-        list = layout.getTabAt(0);
-        diary = layout.getTabAt(1);
-        about = layout.getTabAt(2);
+        setUpMenuTabs();
 
-        list.select();
+        setTabListener();
 
-        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                changeTab(tab);
-            }
+        setRecyclerView();
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
-
-        recyclerView = findViewById(R.id.substanceList);
-        addSubstanceButton = findViewById(R.id.addSubstance);
-        database = FirebaseFirestore.getInstance();
-
-        adapter = setUpAdapter(database);
-        setUpRecyclerView(recyclerView,adapter);
-
-        addSubstanceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToAddSubstance();
-            }
-        });
+        setSubstanceButtonListener();
     }
 
     /**
@@ -253,5 +227,47 @@ public class SubstanceListActivity extends LogoutActivity {
 
             System.out.println("About selected");
         }
+    }
+
+    private void setUpMenuTabs() {
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
+
+        list.select();
+    }
+
+    private void setTabListener() {
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
+    private void setRecyclerView() {
+        recyclerView = findViewById(R.id.substanceList);
+        addSubstanceButton = findViewById(R.id.addSubstance);
+        database = FirebaseFirestore.getInstance();
+
+        adapter = setUpAdapter(database);
+        setUpRecyclerView(recyclerView,adapter);
+    }
+
+    private void setSubstanceButtonListener() {
+        addSubstanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAddSubstance();
+            }
+        });
     }
 }
