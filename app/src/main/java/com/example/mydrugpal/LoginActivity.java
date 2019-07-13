@@ -29,6 +29,11 @@ import java.util.List;
  *
  */
 public class LoginActivity extends AppCompatActivity {
+    private Button loginButton;
+    private EditText emailText;
+    private EditText passText;
+    private Button registrationButton;
+    private FloatingActionButton aboutAppButton;
 
     /**
      * creates main display activity when called
@@ -39,6 +44,74 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        findReferences();
+
+        connectToFireStore();
+
+        setListeners();
+    }
+
+    private void setListeners()
+    {
+        loginButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for login button clicked
+             * @param view current application view
+             */
+            public void onClick(View view){
+                validateFields();
+            }
+
+        });
+
+        registrationButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for registration button click
+             * @param view current application view
+             */
+            public void onClick(View view){
+                gotoAboutApp();
+            }
+        });
+
+        aboutAppButton.setOnClickListener(new View.OnClickListener(){
+            /**
+             * listener for go to AboutAPP button click
+             * @param view current application view
+             */
+            public void onClick(View view){
+                gotoAboutApp();
+            }
+        });
+    }
+
+    private void validateFields()
+    {
+        boolean validatePassword = VerifyLogin.validateUser(
+                emailText.getText().toString(),
+                passText.getText().toString());
+
+        if(validatePassword){
+            updateCurrentUser(emailText.getText().toString());
+            gotoSubstanceSummary();
+        }
+        else{
+            emailText.setText("");
+            passText.setText("");
+        }
+    }
+
+    private void findReferences()
+    {
+        loginButton = findViewById(R.id.button_login);
+        emailText = findViewById(R.id.enterEmail);
+        passText = findViewById(R.id.enterPassword);
+        registrationButton = findViewById(R.id.button_register);
+        aboutAppButton = findViewById(R.id.AboutAppButton);
+    }
+
+    private void connectToFireStore()
+    {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");
         loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -54,52 +127,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     UserList.getInstance().updateUsers(uList);
                 }
-            }
-        });
-
-        Button loginButton = findViewById(R.id.button_login);
-        loginButton.setOnClickListener(new View.OnClickListener(){
-            /**
-             * listener for login button clicked
-             * @param view current application view
-             */
-            public void onClick(View view){
-                boolean validatePassword = VerifyLogin.validateUser(
-                        ((EditText)findViewById(R.id.enterEmail)).getText().toString(),
-                        ((EditText)findViewById(R.id.enterPassword)).getText().toString());
-
-                if(validatePassword){
-                    updateCurrentUser(((EditText)findViewById(R.id.enterEmail)).getText().toString());
-                    gotoSubstanceSummary();
-
-                }
-                else{
-                    ((EditText) findViewById(R.id.enterEmail)).setText("");
-                    ((EditText) findViewById(R.id.enterPassword)).setText("");
-                }
-            }
-
-        });
-
-        Button registrationButton = findViewById(R.id.button_register);
-        registrationButton.setOnClickListener(new View.OnClickListener(){
-            /**
-             * listener for registration button click
-             * @param view current application view
-             */
-            public void onClick(View view){
-                gotoAboutApp();
-            }
-        });
-
-        FloatingActionButton aboutAppButton = findViewById(R.id.AboutAppButton);
-        aboutAppButton.setOnClickListener(new View.OnClickListener(){
-            /**
-             * listener for go to AboutAPP button click
-             * @param view current application view
-             */
-            public void onClick(View view){
-                gotoAboutApp();
             }
         });
     }

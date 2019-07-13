@@ -45,16 +45,13 @@ public class RegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        editFName = findViewById((R.id.editText_fName));
-        editLName = findViewById((R.id.editText_lName));
-        editEmail = findViewById((R.id.editText_Email));
-        editPass = findViewById((R.id.editText_Password));
+        findReferences();
 
-        registerButton = findViewById(R.id.register_button);
-        clearButton = findViewById(R.id.clear_button);
+        setListeners();
+    }
 
-        messageText = findViewById(R.id.textView_Message);
-
+    private void setListeners()
+    {
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             /**
@@ -66,26 +63,7 @@ public class RegistrationActivity extends AppCompatActivity
              */
             public void onClick(View v)
             {
-                Profile p = new Profile(editFName.getText().toString(),
-                        editLName.getText().toString(),
-                        editEmail.getText().toString(),
-                        editPass.getText().toString());
-
-                if (p.NoNullOrEmptyFields())
-                {
-                    FirebaseFirestore database = FirebaseFirestore.getInstance();
-                    DocumentReference ref = database.collection("Users").document(p.GetEmail());
-                    ref.set(p);
-
-                    messageText.setText("Profile successfully created!");
-                    messageText.setTextColor(Color.parseColor("#49af48"));
-                }
-
-                else
-                {
-                    messageText.setText("Profile could not be created!");
-                    messageText.setTextColor(Color.parseColor("#c44040"));
-                }
+                createProfile();
             }
         });
 
@@ -97,6 +75,43 @@ public class RegistrationActivity extends AppCompatActivity
                 gotoLogin();
             }
         });
+    }
+
+    private void createProfile()
+    {
+        Profile p = new Profile(editFName.getText().toString(),
+                editLName.getText().toString(),
+                editEmail.getText().toString(),
+                editPass.getText().toString());
+
+        if (p.NoNullOrEmptyFields())
+        {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference ref = database.collection("Users").document(p.GetEmail());
+            ref.set(p);
+
+            messageText.setText("Profile successfully created!");
+            messageText.setTextColor(Color.parseColor("#49af48"));
+        }
+
+        else
+        {
+            messageText.setText("Profile could not be created!");
+            messageText.setTextColor(Color.parseColor("#c44040"));
+        }
+    }
+
+    private void findReferences()
+    {
+        editFName = findViewById((R.id.editText_fName));
+        editLName = findViewById((R.id.editText_lName));
+        editEmail = findViewById((R.id.editText_Email));
+        editPass = findViewById((R.id.editText_Password));
+
+        registerButton = findViewById(R.id.register_button);
+        clearButton = findViewById(R.id.clear_button);
+
+        messageText = findViewById(R.id.textView_Message);
     }
 
     private void clearFields()

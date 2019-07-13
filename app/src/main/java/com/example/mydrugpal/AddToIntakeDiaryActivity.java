@@ -40,15 +40,15 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_intake_diary);
 
+        findReferences();
 
-        substanceName = findViewById(R.id.nameOfSubstanceEdit);
-        substanceType = findViewById(R.id.typeOfSubstanceEdit);
-        amount = findViewById(R.id.amountEdit);
-        addSubstanceButton = findViewById(R.id.addSubstancebutton);
-        amountPerDoseView = findViewById(R.id.amountPerDoseView);
+        setListeners();
 
-        substanceId = getIntent().getStringExtra("id");
+        setPageText();
+    }
 
+    private void setListeners()
+    {
         addSubstanceButton.setOnClickListener(new View.OnClickListener()
         {
             /**
@@ -59,26 +59,38 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
              */
             public void onClick(View v)
             {
-                NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
-                        substanceType.getText().toString(),
-                        amount.getText().toString());
-
-                if (entry.NoNullOrEmptyFields())
-                {
-                    FirebaseFirestore database = FirebaseFirestore.getInstance();
-                    DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
-                    CollectionReference ref = userRef.collection("IntakeDiary");
-
-                    ref.document().set(entry);
-                    goToSubstanceSummary();
-
-                }
-
+                connectToFireBase();
             }
         });
+    }
 
-        setPageText();
+    private void connectToFireBase()
+    {
+        NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
+                substanceType.getText().toString(),
+                amount.getText().toString());
 
+        if (entry.NoNullOrEmptyFields())
+        {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+            CollectionReference ref = userRef.collection("IntakeDiary");
+
+            ref.document().set(entry);
+            goToSubstanceSummary();
+
+        }
+    }
+
+    private void findReferences()
+    {
+        substanceName = findViewById(R.id.nameOfSubstanceEdit);
+        substanceType = findViewById(R.id.typeOfSubstanceEdit);
+        amount = findViewById(R.id.amountEdit);
+        addSubstanceButton = findViewById(R.id.addSubstancebutton);
+        amountPerDoseView = findViewById(R.id.amountPerDoseView);
+
+        substanceId = getIntent().getStringExtra("id");
     }
 
     /**
@@ -103,5 +115,4 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
-
 }
