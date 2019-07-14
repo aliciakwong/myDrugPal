@@ -16,11 +16,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.example.mydrugpal.model.InfoPage;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.util.List;
 
@@ -60,7 +63,6 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.substance_detail);
 
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         setMenuTabs();
 
@@ -147,9 +149,11 @@ public class SubstanceDetailActivity extends AppCompatActivity {
     }
 
     private void setDrugListListener() {
-        CollectionReference loginCollection = database.collection("substances");
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference userDoc = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+        CollectionReference drugCollection = userDoc.collection("drugs");
         if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
-            loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            drugCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
                 /**
                  * method called to retrieve substances from database and update DrugList instance with drugs

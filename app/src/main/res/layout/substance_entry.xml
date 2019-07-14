@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp"
+    android:padding="0dp"
     android:weightSum="10">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="9">
+        android:layout_weight="9"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/substanceNameView"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:textSize="36sp" />
 
@@ -23,14 +23,14 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="end">
+        android:gravity="end"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/goDetails"
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Details" />
 
     </LinearLayout>

@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @author Jocelyn MacDonald, Ian Sifton
  */
 
-public class IntakeDiaryEntryUnitTest {
+public class NewIntakeEntryUnitTest {
 
     /**
      * tests that the entry is not null

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.InfoPage;
 import com.example.mydrugpal.viewholder.SubstanceViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -87,7 +88,7 @@ public class SubstanceListActivity extends LogoutActivity {
      */
     private FirestoreRecyclerAdapter setUpAdapter(FirebaseFirestore db)
     {
-        Query query = db.collection("substances").orderBy("substanceName").limit(50);
+        Query query = db.collection("Users").document(CurrentUser.getInstance().GetEmail()).collection("drugs").orderBy("substanceName");
         FirestoreRecyclerOptions<InfoPage> options = new FirestoreRecyclerOptions.Builder<InfoPage>()
                 .setQuery(query,InfoPage.class)
                 .build();
