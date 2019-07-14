@@ -27,6 +27,7 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
     private TextView amountPerDoseEdit;
 
     private Button addSubstanceButton;
+    private Button addToListButton;
 
     /**
      * Called when AddCustomSubstanceActivity is used
@@ -46,6 +47,7 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
         amount = findViewById(R.id.amountEdit);
         amountPerDoseEdit = findViewById(R.id.amountPerDoseEdit);
         addSubstanceButton = findViewById(R.id.addSubstancebutton);
+        addToListButton = findViewById(R.id.addToListButton);
 
         substanceId = getIntent().getStringExtra("id");
 
@@ -59,9 +61,25 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
              */
             public void onClick(View v)
             {
-             addToFirebaseIntake();
-             addToCustomSubstance();
+             addToIntake();
+             addToDrugs();
              goToSubstanceSummary();
+
+
+            }
+        });
+        addToListButton.setOnClickListener(new View.OnClickListener()
+        {
+            /**
+             * on the click of the add button a new intake entry is created using the text inputted
+             * to the text fields on the registration screen and the information is added to the Users
+             * intake diary collection contained on firestore.
+             * @param v the AddCustomSubstanceActivity page
+             */
+            public void onClick(View v)
+            {
+                addToDrugs();
+                goToSubstanceSummary();
 
 
             }
@@ -82,7 +100,7 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
      * makes an IntakeEntryObject, the data contained within this object is then added to the intakeDiary
      * contained on firestore
      */
-    public void addToFirebaseIntake() {
+    public void addToIntake() {
         NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
                 substanceType.getText().toString(),
                 amount.getText().toString());
@@ -102,7 +120,7 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
     /**
      * adds the custom substance to the users personal custom substance database
      */
-    public void addToCustomSubstance() {
+    public void addToDrugs() {
         InfoPage custom = new InfoPage(substanceName.getText().toString(), substanceType.getText().toString(), amountPerDoseEdit.getText().toString());
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
