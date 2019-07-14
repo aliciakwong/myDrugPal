@@ -8,10 +8,10 @@ import java.io.Serializable;
  */
 public class Profile implements Serializable
 {
-    private String FirstName;
-    private String LastName;
-    private String Email;
-    private String Password;
+    public String firstName;
+    public String lastName;
+    public String email;
+    public String password;
 
     /**
      * default constructor used for CurrentUser subclass
@@ -29,10 +29,10 @@ public class Profile implements Serializable
      */
     public Profile (String firstName, String lastName, String email, String pass)
     {
-        this.FirstName = firstName;
-        this.LastName = lastName;
-        this.Email = email;
-        Password = pass;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        password = pass;
 
     }
 
@@ -43,7 +43,7 @@ public class Profile implements Serializable
      */
     public String GetFirstName()
     {
-        return FirstName;
+        return firstName;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Profile implements Serializable
      */
     public String GetLastName()
     {
-        return LastName;
+        return lastName;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Profile implements Serializable
      */
     public String GetEmail()
     {
-        return Email;
+        return email;
     }
 
     /**
@@ -73,7 +73,7 @@ public class Profile implements Serializable
      */
     public String GetPassword()
     {
-        return Password;
+        return password;
     }
 
     /**
@@ -82,10 +82,10 @@ public class Profile implements Serializable
      */
     public boolean NoNullOrEmptyFields()
     {
-        return (FirstName != null && FirstName.length() > 0 &&
-                LastName != null && LastName.length() > 0 &&
-                Email != null && Email.length() > 0 &&
-                Password != null && Password.length() > 0);
+        return (firstName != null && firstName.length() > 0 &&
+                lastName != null && lastName.length() > 0 &&
+                email != null && email.length() > 0 &&
+                password != null && password.length() > 0);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Profile implements Serializable
      * @param firstName first name of user
      */
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     /**
@@ -101,7 +101,7 @@ public class Profile implements Serializable
      * @param lastName last name of user
      */
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Profile implements Serializable
      * @param email email address of user
      */
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     /**
@@ -117,6 +117,6 @@ public class Profile implements Serializable
      * @param password password of user
      */
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 }

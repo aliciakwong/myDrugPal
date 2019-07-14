@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
              * @param view current application view
              */
             public void onClick(View view){
-                gotoAboutApp();
+                gotoRegistration();
             }
         });
 

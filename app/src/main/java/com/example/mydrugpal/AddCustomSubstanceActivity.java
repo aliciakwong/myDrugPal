@@ -106,11 +106,7 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
         InfoPage custom = new InfoPage(substanceName.getText().toString(), substanceType.getText().toString(), amountPerDoseEdit.getText().toString());
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
-        CollectionReference colRef = userRef.collection("CustomSubstances");
-
-        colRef.document().set(custom);
-
-        DocumentReference ref = userRef.collection("CustomSubstances").document();
+        DocumentReference ref = userRef.collection("drugs").document();
         custom.id = ref.getId();
         ref.set(custom);
 
