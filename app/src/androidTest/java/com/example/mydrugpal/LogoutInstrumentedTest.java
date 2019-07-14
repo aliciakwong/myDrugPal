@@ -24,8 +24,6 @@ public class LogoutInstrumentedTest {
      */
     @Test
     public void logoutTransition() {
-
-
         onView(withId(R.id.button_logout)).perform(click());
         onView(withId(R.id.Title_MyDrugPal)).toString().equals("MyDrugPal");
 

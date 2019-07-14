@@ -71,7 +71,7 @@ public class DrugList {
     }
 
     /**
-     * method returns users in the UserList instance
+     * method returns users in the drugList instance
      * @return HashMap of the drugs and associated information
      */
     public Map<String, List<String>> getDrugs() {

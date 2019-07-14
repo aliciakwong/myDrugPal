@@ -14,7 +14,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertTrue;
 
 /**
- * JUnit Tests for login page business logic
+ * Espresso Tests for login page business logic
  * @author Jocelyn MacDonald, Alicia Wong, Ian Sifton, Emma Travers
  */
 public class LoginInstrumentedTest {
@@ -44,8 +44,7 @@ public class LoginInstrumentedTest {
         onView(withId(R.id.enterPassword)).perform(typeText("password"));
         onView(withId(R.id.button_login)).perform(click());
 
-        onView(withId(R.id.viewSubstanceButton)).toString().equals("View Substances");
-
+        onView(withId(R.id.selectDateRangeButton)).toString().equals("View Substances");
     }
 
     /**
@@ -73,5 +72,16 @@ public class LoginInstrumentedTest {
 
     }
 
+    /**
+     * Tests that the go to AboutApp button opens in aboutApp information page
+     * and displays correct information.
+     */
+    @Test
+    public void appOpensAboutApp(){
+
+        onView(withId(R.id.AboutAppButton)).perform(click());
+        onView(withId(R.id.AboutAppTitle)).toString().equals("About myDrugPal");
+
+    }
 
 }

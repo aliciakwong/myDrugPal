@@ -1,7 +1,6 @@
 package com.example.mydrugpal;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,16 +25,13 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     private String substanceId;
     private TextView amount;
     private TextView amountPerDoseView;
-    private TextView messageView;
 
     private Button addSubstanceButton;
 
     /**
-     * Called when registration activity is created
+     * Called when AddToIntakeDiaryActivity is used
      *
-     *  Finds references to text fields and buttons. Adds listener to register and clear buttons.
-     *  Clear button will empty all text fields. Register button will create a profile and add it
-     *  to the database if the fields are not empty. Displays a success or failure message.
+     *  Finds references to text fields and buttons. Adds listener to add button.
      *
      * @param savedInstanceState saved state of the app instance
      */
@@ -44,52 +40,57 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_intake_diary);
 
+        findReferences();
 
-        substanceName = findViewById(R.id.nameOfSubstanceEdit);
-        substanceType = findViewById(R.id.typeOfSubstanceEdit);
-        amount = findViewById(R.id.amountEdit);
-        amountPerDoseView = findViewById(R.id.amountPerDoseView);
-        addSubstanceButton = findViewById(R.id.addSubstancebutton);
-        messageView = findViewById(R.id.messageView);
+        setListeners();
 
-        substanceId = getIntent().getStringExtra("id");
+        setPageText();
+    }
 
+    private void setListeners()
+    {
         addSubstanceButton.setOnClickListener(new View.OnClickListener()
         {
             /**
-             * on the click of the register button a new profile is created using the text inputted
+             * on the click of the add button a new intake entry is created using the text inputted
              * to the text fields on the registration screen and the information is added to the Users
-             * collection contained on firestore. The outcome of the addition to firestore outputs an
-             * appropriate message telling the user if registration was succeessful or not
-             * @param v the registrationActivity page
+             * intake diary collection contained on firestore.
+             * @param v the AddToIntakeDiaryActivity page
              */
             public void onClick(View v)
             {
-                NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
-                        substanceType.getText().toString(),
-                        amount.getText().toString());
-
-                if (entry.NoNullOrEmptyFields())
-                {
-                    FirebaseFirestore database = FirebaseFirestore.getInstance();
-                    DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
-                    CollectionReference ref = userRef.collection("IntakeDiary");
-
-                    ref.document().set(entry);
-                    goToSubstanceDetail();
-
-                }
-
-                else
-                {
-                    messageView.setText("Enter a dose");
-                    messageView.setTextColor(Color.parseColor("#c44040"));
-                }
+                connectToFireBase();
             }
         });
+    }
 
-        setPageText();
+    private void connectToFireBase()
+    {
+        NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
+                substanceType.getText().toString(),
+                amount.getText().toString());
 
+        if (entry.NoNullOrEmptyFields())
+        {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+            CollectionReference ref = userRef.collection("IntakeDiary");
+
+            ref.document().set(entry);
+            goToSubstanceSummary();
+
+        }
+    }
+
+    private void findReferences()
+    {
+        substanceName = findViewById(R.id.nameOfSubstanceEdit);
+        substanceType = findViewById(R.id.typeOfSubstanceEdit);
+        amount = findViewById(R.id.amountEdit);
+        addSubstanceButton = findViewById(R.id.addSubstancebutton);
+        amountPerDoseView = findViewById(R.id.amountPerDoseView);
+
+        substanceId = getIntent().getStringExtra("id");
     }
 
     /**
@@ -107,9 +108,11 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
 
     }
 
-    public void goToSubstanceDetail() {
+    /**
+     * changes the activity to the substanceSummaryActivity
+     */
+    public void goToSubstanceSummary() {
         Intent intent = new Intent(this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
-
 }

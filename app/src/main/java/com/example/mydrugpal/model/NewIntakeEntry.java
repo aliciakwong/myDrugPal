@@ -6,40 +6,42 @@ import java.io.Serializable;
 
 
 /**
- *holds the data for an entry to the intake diary
+ *holds the data for a new entry to the intake diary. This is not the same as IntakeDiaryItem, this
+ * handles adding to the database, and generating the timestamp and id, while IntakeDiaryItem is used
+ * to pull the already inputted data from firestore
  * @author Jocelyn MacDonald, Ian Sifton, Richard Purcell
  */
 public class NewIntakeEntry implements Serializable {
-    public String nameOfSubstance;
-    public String typeOfSubstance;
+    public String substanceName;
+    public String type;
     public String dose;
-    public Timestamp time;
+    public Timestamp dateTime;
 
     /**
      * The constructor for the IntakeDiaryEntry class
-     * @param nameOfSubstance the name of the substance being added
-     * @param typeOfSubstance the type of the substance being added
+     * @param substanceName the name of the substance being added
+     * @param type the type of the substance being added
      * @param dose the number of doses taken relative to the recommended amount per dose as given on
      *             the drugs specific SubstanceDetailActivity page
      */
-    public NewIntakeEntry(String nameOfSubstance, String typeOfSubstance, String dose) {
-        this.nameOfSubstance = nameOfSubstance;
-        this.typeOfSubstance = typeOfSubstance;
+    public NewIntakeEntry(String substanceName, String type, String dose) {
+        this.substanceName = substanceName;
+        this.type = type;
         this.dose = dose;
-        time = Timestamp.now();
+        dateTime = Timestamp.now();
     }
 
     /**
      * gets the name of the substance
      * @return returns the name of the substance
      */
-    public String getNameOfSubstance() {return nameOfSubstance;}
+    public String getNameOfSubstance() {return substanceName;}
 
     /**
      * gets the type of the substance
      * @return returns the type of substance
      */
-    public String getTypeOfSubstance() {return typeOfSubstance;}
+    public String getTypeOfSubstance() {return type;}
 
     /**
      * gets the amount of the substance logged
@@ -51,7 +53,7 @@ public class NewIntakeEntry implements Serializable {
      * gets the time of the entry
      * @return returns the time of entry
      */
-    public Timestamp getTime() {return time;}
+    public Timestamp getTime() {return dateTime;}
 
     /**
      *
@@ -59,8 +61,8 @@ public class NewIntakeEntry implements Serializable {
      */
     public boolean NoNullOrEmptyFields()
     {
-        return (nameOfSubstance != null && nameOfSubstance.length() > 0 &&
-                typeOfSubstance!= null && typeOfSubstance.length() > 0 &&
+        return (substanceName != null && substanceName.length() > 0 &&
+                type!= null && type.length() > 0 &&
                 dose != null && dose.length() > 0);
     }
 }

@@ -28,7 +28,6 @@ public class AddToIntakeDiaryInstrumentedTest {
     public ActivityTestRule<AddToIntakeDiaryActivity> activityRule
             = new ActivityTestRule<>(AddToIntakeDiaryActivity.class);
 
-
     /**
      * Tests that the add to intake page opens
      *
@@ -39,7 +38,6 @@ public class AddToIntakeDiaryInstrumentedTest {
         Intent intent = new Intent();
         activityRule.launchActivity(intent);
         onView(withId(R.id.addSubstanceView)).toString().equals("Add Substance to Diary");
-
     }
 
     /**
@@ -56,10 +54,6 @@ public class AddToIntakeDiaryInstrumentedTest {
         onView(withId(R.id.nameOfSubstanceEdit)).perform(typeText("cocaine"), closeSoftKeyboard());
         onView(withId(R.id.typeOfSubstanceEdit)).perform(typeText("stimulant"), closeSoftKeyboard());
         onView(withId(R.id.amountEdit)).perform(typeText("1"), closeSoftKeyboard());
-
     }
-
-
-
 
 }

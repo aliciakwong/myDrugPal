@@ -3,25 +3,20 @@ package com.example.mydrugpal.model;
 import com.example.mydrugpal.Profile;
 
 /**
- * singleton class for current logged-in user that extends Profile class
- *
- * @author Megan Brock, Alicia Wong
- */
-
-/**
- * singleton class for current logged-in user that extends Profile class
+ * Singleton class for current logged-in user that extends Profile class
  *
  * @author Megan Brock, Alicia Wong
  */
 public class CurrentUser extends Profile {
     private static CurrentUser instance = new CurrentUser();
 
-
-    private CurrentUser() {
-    }
+    /**
+     * Default constructor for CurrentUser
+     */
+    private CurrentUser() { }
 
     /**
-     * gets one instance of currentUser or creates instance if not created
+     * Gets instance of currentUser or creates instance if not created
      * @return current logged-in user
      */
     public static CurrentUser getInstance(){
