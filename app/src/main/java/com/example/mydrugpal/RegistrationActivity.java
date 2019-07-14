@@ -76,6 +76,7 @@ public class RegistrationActivity extends AppCompatActivity
             {
                 createProfile();
                 setSubstanceListListener(editEmail.getText().toString());
+                gotoLogin();
             }
         });
 
@@ -141,7 +142,7 @@ public class RegistrationActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void setSubstanceListListener(String email) {
+    private void setSubstanceListListener(final String email) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("substances");
         if (email != null && email != "") {
@@ -158,6 +159,7 @@ public class RegistrationActivity extends AppCompatActivity
                         List<DocumentSnapshot> sList = task.getResult().getDocuments();
 
                         SubstanceList.getInstance().updateSubstances(sList);
+                        SubstanceList.getInstance().addToDrugs(email);
 
                     }
                 }

@@ -1,6 +1,9 @@
 package com.example.mydrugpal.model;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,4 +76,31 @@ public class SubstanceList {
     public Map<String, List<String>> getSubstances() {
         return drugs;
     }
+
+    public void addToDrugs(String email) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference loginCollection = database.collection("Users");
+        DocumentReference userRef = loginCollection.document(email);
+
+        for (Map.Entry<String, List<String>> entry : drugs.entrySet()) {
+            String id = entry.getKey();
+            List<String> fields = entry.getValue();
+            String type = fields.get(0);
+            String name = fields.get(1);
+            String amount = fields.get(2);
+            Map<String, String> data = new HashMap<>();
+            data.put("substanceName", name);
+            data.put("id", id);
+            data.put("substanceType", type);
+            data.put("amount", amount);
+
+
+            CollectionReference drugCollection = userRef.collection("drugs");
+            drugCollection.document(id).set(data);
+
+        }
+
+    }
+
 }
+
