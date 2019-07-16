@@ -23,6 +23,7 @@ import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.EditIntakeDiaryEntry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,11 +31,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import android.app.AlarmManager;
+
+import org.w3c.dom.Document;
+
+import static com.google.firebase.Timestamp.now;
 
 /**
  * Activity for the substance summary diary page. Contains buttons for
@@ -224,9 +231,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
         //Starts LogIntakeNotification system [RP]
         startAlarm(c);
         Log.d(TAG, "Alarm has been launched");
-        hasIntakeToday();
-
-
     }
 
     /**
@@ -243,44 +247,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 1000*10*1, pendingIntent);
     }
-
-    /**
-     * A method for comparing the current date with the dates of substance entries.
-     * Currently does not work.
-     */
-    private void hasIntakeToday() {
-            Date d, sd, ed;
-            TextView tv;
-            Date today = Calendar.getInstance().getTime();
-            Calendar cal = Calendar.getInstance();
-            int month = cal.get(Calendar.MONTH);
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-
-            int len = summaryInformation.getSubstanceList().size();
-
-            for (int i = 0; i < len; i++)
-            {
-                d = summaryInformation.getSubstanceList().get(i).getDateTime().toDate();
-                int substanceDay = d.getDay();
-                //below is just for debugging
-                Log.d(TAG, "Format of d is " + d);
-                Log.d(TAG, "Format of Calendar is " + cal.getTime());
-
-                //compares a drug time to time now.
-                //need to just compare days, not time...
-
-                if (d.getDay() == day) {
-                    Log.d(TAG, d.getDay() + " " + day);
-                    Log.d(TAG, "Has had intake today");
-                }
-                else {
-                    Log.d(TAG, d.getDay() + " " + day);
-                    Log.d(TAG, "No intake today");
-                }
-
-            }
-    }
-
 
 
     /**
@@ -433,8 +399,8 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
             }
         }
-        // temporary launch of the below method for testing
-        hasIntakeToday();
+
+//        hasIntakeToday();
     }
 
     private void goToDetailPage(){
@@ -467,8 +433,4 @@ public class SubstanceSummaryActivity extends LogoutActivity
     protected int getLayoutResourceId(){
         return R.layout.activity_substance_summary;
     }
-
-
-
-
 }

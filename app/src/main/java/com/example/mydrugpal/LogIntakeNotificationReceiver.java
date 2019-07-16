@@ -5,7 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+
+import com.example.mydrugpal.model.CurrentUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This class handles the receiving parts of notifications. [RP]
@@ -31,8 +47,91 @@ public class LogIntakeNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG,"Hello from onRecieve");
+//        Log.d(TAG, "checkLatestDateNotification: " + checkLatestDateNotification());
+
+        checkLatestDateNotification(context, intent);
+    }
+
+    /**
+     * This method runs the notification if hasIntakeToday returns true
+     *
+     * @param context
+     * @param intent
+     */
+    public void runNotification(Context context, Intent intent) {
         LogIntakeNotificationHelper notificationHelper = new LogIntakeNotificationHelper(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
         notificationHelper.getManager().notify(1, nb.build());
     }
+
+
+    /**
+     * A method for comparing the current date with the dates of substance entries.
+     * Currently does not work.
+     */
+    private boolean hasIntakeToday(Timestamp lastEntry) {
+        boolean intakeEntryRequired = false;
+        Date date = new Date();
+        Timestamp todayTime = new Timestamp(date);
+        Timestamp latestEntryDate = lastEntry;
+
+
+        Log.d(TAG, "Previous Entry: " + latestEntryDate);
+        Log.d(TAG, "Today: " + todayTime);
+
+        long diffInSeconds = todayTime.getSeconds() - latestEntryDate.getSeconds();
+        Log.d(TAG, "Difference in Milliseconds: " + diffInSeconds);
+
+        long twelveHoursInSeconds = 60 * 60 * 12;
+        if (diffInSeconds > twelveHoursInSeconds) {
+            intakeEntryRequired = true;
+            // fire notification
+            Log.d(TAG, "Result of comparison: " + (diffInSeconds > twelveHoursInSeconds));
+        }
+
+        return intakeEntryRequired;
+    }
+
+
+    private void checkLatestDateNotification(final Context context, final Intent intent) {
+
+        // Firestore call for latest entry
+        CollectionReference diaryList = getColRefFromFirestore();
+
+        Query diaryByDateForLatest = diaryList.orderBy("dateTime", Query.Direction.DESCENDING).limit(1);
+        diaryByDateForLatest.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+            /**
+             * method called to retrieve users from database and update UserList instance with users
+             *
+             * @param task task to ensure database is properly accessed and data retrieved
+             */
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<DocumentSnapshot> diaryByDateForLatest = task.getResult().getDocuments();
+                    DocumentSnapshot documentResult = diaryByDateForLatest.get(0);
+
+                    Timestamp latestEntry = documentResult.getTimestamp("dateTime");
+                    Log.d(TAG, "latestEntryDate: " + latestEntry);
+
+                    if (hasIntakeToday(latestEntry)) {
+                        runNotification(context, intent);
+                    }
+                }
+            }
+        });
+    }
+
+
+    private CollectionReference getColRefFromFirestore() {
+        // Firestore call for latest entry
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference users = db.collection("Users").
+                document(CurrentUser.getInstance().GetEmail());
+        CollectionReference colRef = users.collection("IntakeDiary");
+
+        return colRef;
+    }
+
 }
