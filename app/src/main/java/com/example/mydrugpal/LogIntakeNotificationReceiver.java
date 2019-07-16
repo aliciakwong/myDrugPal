@@ -47,7 +47,6 @@ public class LogIntakeNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG,"Hello from onRecieve");
-//        Log.d(TAG, "checkLatestDateNotification: " + checkLatestDateNotification());
 
         checkLatestDateNotification(context, intent);
     }
