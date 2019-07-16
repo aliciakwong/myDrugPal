@@ -248,7 +248,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 1000*10*1, pendingIntent);
     }
 
-
     /**
      * Toggles the start and end date buttons.
      */
@@ -399,8 +398,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
             }
         }
-
-//        hasIntakeToday();
     }
 
     private void goToDetailPage(){
