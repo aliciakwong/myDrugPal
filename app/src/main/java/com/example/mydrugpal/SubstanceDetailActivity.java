@@ -10,15 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.DrugList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.example.mydrugpal.model.InfoPage;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.util.List;
 
@@ -27,7 +32,7 @@ import java.util.List;
  * Class which displays the details for a particular substance (which the user would have determined
  * in the DetailPageActivity page)
  *
- * @author Emma Travers, Richard Purcell, Ian Sifton
+ * @author Emma Travers, Richard Purcell, Ian Sifton, Megan Brock
  *
  */
 public class SubstanceDetailActivity extends AppCompatActivity {
@@ -38,6 +43,11 @@ public class SubstanceDetailActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Intent intent;
     private InfoPage infoPage;
+
+    public TabLayout layout;
+    public TabLayout.Tab list;
+    public TabLayout.Tab diary;
+    public TabLayout.Tab about;
 
     private Button addToIntakeButton;
 
@@ -53,43 +63,137 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.substance_detail);
 
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        CollectionReference loginCollection = database.collection("substances");
+
+        setMenuTabs();
+
+        setTabListener();
+
+        setDrugListListener();
+
+        setViewDetails();
+
+        setUpFirestoreDatabase();
+
+        setAddToIntakeListener();
+    }
+
+    /**
+     * Change to AddToIntakeDiaryActivity
+     */
+    private void goToAddToIntakePage() {
+        Intent intent = new Intent(this, AddToIntakeDiaryActivity.class);
+        intent.putExtra("id", infoPage.id);
 
 
+        startActivity(intent);
+    }
 
-        loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getPosition() == 0)
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
 
-            /**
-             * method called to retrieve substances from database and update DrugList instance with drugs
-             * @param task task to ensure database is properly accessed and data retrieved
-             */
+            System.out.println("List selected");
+        }
+
+        else if (tab.getPosition() == 1)
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
+
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getPosition() == 2)
+        {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+
+            System.out.println("About selected");
+        }
+    }
+
+    private void setMenuTabs() {
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
+
+        list.select();
+    }
+
+    private void setTabListener() {
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> dList = task.getResult().getDocuments();
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
 
-                    DrugList.getInstance().updateDrugs(dList);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
 
-                }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
             }
         });
+    }
 
+    private void setDrugListListener() {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference userDoc = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
+        CollectionReference drugCollection = userDoc.collection("drugs");
+        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
+            drugCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                /**
+                 * method called to retrieve substances from database and update DrugList instance with drugs
+                 *
+                 * @param task task to ensure database is properly accessed and data retrieved
+                 */
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> dList = task.getResult().getDocuments();
+
+                        DrugList.getInstance().updateDrugs(dList);
+
+                    }
+                }
+            });
+        }
+    }
+
+    private void setViewDetails() {
         substanceNameView = findViewById(R.id.substanceNameView);
         substanceTypeView = findViewById(R.id.substanceTypeView);
         amountView = findViewById(R.id.amountView);
 
+        addToIntakeButton = findViewById(R.id.addToDiaryButton);
+    }
+
+    private void setUpFirestoreDatabase() {
         database = FirebaseFirestore.getInstance();
         intent = getIntent();
 
         infoPage = (InfoPage) intent.getSerializableExtra("substance");
 
-        substanceNameView.setText(infoPage.substanceName);
-        substanceTypeView.setText("Type: " + infoPage.substanceType);
-        amountView.setText("Recommended amount per dose: " + infoPage.amount);
-
-        addToIntakeButton = findViewById(R.id.addToDiaryButton);
-
+        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
+            substanceNameView.setText(infoPage.substanceName);
+            substanceTypeView.setText("Type: " + infoPage.substanceType);
+            amountView.setText("Recommended amount per dose: " + infoPage.amount);
+        }
+    }
+    private void setAddToIntakeListener() {
 
         addToIntakeButton.setOnClickListener(new View.OnClickListener()
         {
@@ -99,13 +203,4 @@ public class SubstanceDetailActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void goToAddToIntakePage() {
-        Intent intent = new Intent(this, AddToIntakeDiaryActivity.class);
-        intent.putExtra("id", infoPage.id);
-
-
-        startActivity(intent);
-    }
-
 }

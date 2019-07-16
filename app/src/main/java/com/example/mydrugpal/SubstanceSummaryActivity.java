@@ -1,13 +1,10 @@
 package com.example.mydrugpal;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,13 +14,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
 
 import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.EditIntakeDiaryEntry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,17 +45,10 @@ import static com.google.firebase.Timestamp.now;
  * choosing start and end date on calendars. Substances consumed between
  * the two dates are shown in the summary list.
  *
- * @author Megan Brock, Richard Purcell, Alicia Wong
+ * @author Megan Brock, Richard Purcell, Alicia Wong, Ian Sifton
  */
 public class SubstanceSummaryActivity extends LogoutActivity
 {
-    /**
-     * A variable for printing to logcat. [RP]
-     * To find any of these tags enter "Debug Printing" in the logcat search field
-     * while the app is running.
-     */
-    private static final String TAG = "Debug Printing";
-
     /**
      * start date from calendar
      */
@@ -112,6 +102,26 @@ public class SubstanceSummaryActivity extends LogoutActivity
     public  SubstanceSummaryInformation summaryInformation;
 
     /**
+     * TabLayout that holds three tabs
+     */
+    public TabLayout layout;
+
+    /**
+     * Tab for substance list page
+     */
+    public TabLayout.Tab list;
+
+    /**
+     * Tab for about page
+     */
+    public TabLayout.Tab about;
+
+    /**
+     * Tab for diary (substance summary) page
+     */
+    public TabLayout.Tab diary;
+
+    /**
      * Finds references to UI elements. Adds listeners
      * to button onClick and calendar onSelectedDayChange
      * events.
@@ -128,109 +138,35 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
         summaryInformation = new SubstanceSummaryInformation();
 
-        startDate = new int[3];
-        endDate = new int[3];
+        setMenuTabs();
 
-        dateSelectButton = findViewById(R.id.selectDateRangeButton);
+        setTabListener();
 
-        startDateButton = findViewById(R.id.startDateButton);
-        endDateButton = findViewById(R.id.endDateButton);
-
-        startDatePicker = findViewById(R.id.startDatePicker);
-        endDatePicker = findViewById(R.id.endDatePicker);
+        setDateInformation();
 
         scrollView = findViewById(R.id.scrollView);
         scrollViewLayout = findViewById(R.id.scrollViewLayout);
 
-        viewSubstanceButton = findViewById(R.id.viewSubstanceButton);
+        setListeners();
 
-        dateSelectButton.setOnClickListener(new View.OnClickListener()
-        {
-            /**
-             * On click method for when dates are selected
-             * @param v view of activity
-             */
-            public void onClick(View v)
-            {
-                toggleButtons();
-            }
-        });
+        setVisibility();
 
-        startDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDatePicker(startDatePicker, endDatePicker);
-            }
-        });
-
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDatePicker(endDatePicker, startDatePicker);
-            }
-        });
-
-        startDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
-                changeStartDate(year, month, dayOfMonth);
-                startDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
-            }
-        });
-
-        endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
-                changeEndDate(year, month, dayOfMonth);
-                endDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
-            }
-        });
-
-        startDateButton.setVisibility(View.INVISIBLE);
-        endDateButton.setVisibility(View.INVISIBLE);
-
-        startDatePicker.setVisibility(View.INVISIBLE);
-        endDatePicker.setVisibility(View.INVISIBLE);
-
-        scrollView.setVisibility(View.VISIBLE);
-
-
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        DocumentReference userDocument = database.collection("Users").
-                                                document(CurrentUser.getInstance().GetEmail());
-        CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
-        Query diaryByDate = userIntakeDiary.orderBy("dateTime");
-        diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-            /**
-             * method called to retrieve users from database and update UserList instance with users
-             * @param task task to ensure database is properly accessed and data retrieved
-             */
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
-
-                    summaryInformation.updateSubstanceList(diaryList);
-                }
-            }
-        });
+        setUpFireStoreDatabase();
 
         initializeDates();
 
-        viewSubstanceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToDetailPage();
-            }
-        });
+//        viewSubstanceButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                goToDetailPage();
+//            }
+//        });
 
         //Calendar needed for LogIntakeNotification alarm [RP]
         Calendar c = Calendar.getInstance();
 
         //Starts LogIntakeNotification system [RP]
         startAlarm(c);
-        Log.d(TAG, "Alarm has been launched");
     }
 
     /**
@@ -240,7 +176,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
      * @param c  A calendar instance.
      */
     private void startAlarm(Calendar c) {
-        Log.d(TAG, "Hello from startAlarm");
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, LogIntakeNotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
@@ -369,6 +304,7 @@ public class SubstanceSummaryActivity extends LogoutActivity
             sd = SubstanceSummaryInformation.parseDate(startDate);
             ed = SubstanceSummaryInformation.parseDate(endDate);
 
+
             if(sd.after(ed)){
                 ed = sd;
             }
@@ -381,8 +317,12 @@ public class SubstanceSummaryActivity extends LogoutActivity
                         @Override
                         public void onClick(View v) {
                             String text = ((TextView)v).getText().toString();
-                            int number = Character.getNumericValue(text.charAt(0));
+                            int index = text.indexOf('.');
+                            String textNumber = text.substring(0, index);
+                            int number = Integer.valueOf(textNumber);
+                            System.out.println(number-1);
                             String id = summaryInformation.getSubstanceList().get(number-1).getId();
+                            System.out.println(id + summaryInformation.getSubstanceList().get(number-1));
                             goToEditEntryPage(id);
                         }
                     });
@@ -393,24 +333,31 @@ public class SubstanceSummaryActivity extends LogoutActivity
                             summaryInformation.getSubstanceList().get(i).getDose() + ")");
 
                     scrollViewLayout.addView(tv);
-
                 }
 
             }
         }
+
     }
 
-    private void goToDetailPage(){
-        Intent intent = new Intent(this, SubstanceListActivity.class);
-        startActivity(intent);
-    }
-
+    /**
+     * Changes page to edit intake diary entry.
+     * @param id
+     */
     private void goToEditEntryPage(String id) {
         Intent intent = new Intent(SubstanceSummaryActivity.this, EditIntakeDiaryEntry.class);
         intent.putExtra("id", id);
         startActivity(intent);
     }
 
+    /**
+     * Compares current date to two dates. Returns true if
+     * either date is current.
+     * @param current the current date.
+     * @param start the selected start date.
+     * @param end the selected end date.
+     * @return true if current equals start or end, or false otherwise.
+     */
     private boolean sameDay(Date current, Date start, Date end){
         if(current.getYear() == start.getYear() && current.getMonth() == start.getMonth()
                 && current.getDate() == start.getDate()){
@@ -429,5 +376,159 @@ public class SubstanceSummaryActivity extends LogoutActivity
     @Override
     protected int getLayoutResourceId(){
         return R.layout.activity_substance_summary;
+    }
+
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getPosition() == 0)
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
+
+            System.out.println("List selected");
+        }
+
+        else if (tab.getPosition() == 1)
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
+
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getPosition() == 2)
+        {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+
+            System.out.println("About selected");
+        }
+    }
+
+    private void setMenuTabs() {
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
+
+        diary.select();
+    }
+
+    private void setTabListener() {
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // no action here, needs override definition
+            }
+        });
+    }
+
+    private void setDateInformation() {
+        startDate = new int[3];
+        endDate = new int[3];
+
+        dateSelectButton = findViewById(R.id.selectDateRangeButton);
+
+        startDateButton = findViewById(R.id.startDateButton);
+        endDateButton = findViewById(R.id.endDateButton);
+
+        startDatePicker = findViewById(R.id.startDatePicker);
+        endDatePicker = findViewById(R.id.endDatePicker);
+    }
+
+    private void setListeners() {
+        dateSelectButton.setOnClickListener(new View.OnClickListener()
+        {
+            /**
+             * On click method for when dates are selected
+             * @param v view of activity
+             */
+            public void onClick(View v)
+            {
+                toggleButtons();
+            }
+        });
+
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(startDatePicker, endDatePicker);
+            }
+        });
+
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(endDatePicker, startDatePicker);
+            }
+        });
+
+        startDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
+                changeStartDate(year, month, dayOfMonth);
+                startDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
+            }
+        });
+
+        endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int month, int dayOfMonth) {
+                changeEndDate(year, month, dayOfMonth);
+                endDateButton.setText(month+1 + " " + dayOfMonth + " " + year);
+            }
+        });
+    }
+
+    private void setVisibility() {
+        startDateButton.setVisibility(View.INVISIBLE);
+        endDateButton.setVisibility(View.INVISIBLE);
+
+        startDatePicker.setVisibility(View.INVISIBLE);
+        endDatePicker.setVisibility(View.INVISIBLE);
+
+        scrollView.setVisibility(View.VISIBLE);
+    }
+
+    private void setUpFireStoreDatabase() {
+
+        if (CurrentUser.getInstance() != null && CurrentUser.getInstance().GetEmail() != null && CurrentUser.getInstance().GetEmail() != "") {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference userDocument = database.collection("Users").
+                    document(CurrentUser.getInstance().GetEmail());
+            CollectionReference userIntakeDiary = userDocument.collection("IntakeDiary");
+            Query diaryByDate = userIntakeDiary.orderBy("dateTime");
+            diaryByDate.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                /**
+                 * method called to retrieve users from database and update UserList instance with users
+                 *
+                 * @param task task to ensure database is properly accessed and data retrieved
+                 */
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> diaryList = task.getResult().getDocuments();
+
+                        summaryInformation.updateSubstanceList(diaryList);
+                    }
+                }
+            });
+        }
     }
 }

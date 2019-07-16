@@ -13,7 +13,7 @@ import java.util.Date;
  * Additional information for substance summary class. Holds
  * substance list.
  *
- * @author Megan Brock, Alicia Wong.
+ * @author Megan Brock, Alicia Wong, Ian Sifton.
  */
 public class SubstanceSummaryInformation {
     private List<IntakeDiaryItem> substanceList;

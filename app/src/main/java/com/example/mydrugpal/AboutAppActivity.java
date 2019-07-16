@@ -1,8 +1,12 @@
 package com.example.mydrugpal;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 
+import com.example.mydrugpal.model.CurrentUser;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -14,6 +18,25 @@ import com.google.android.youtube.player.YouTubePlayerView;
  */
 
 public class AboutAppActivity extends YouTubeBaseActivity {
+    /**
+     * TabLayout that holds three tabs
+     */
+    public TabLayout layout;
+
+    /**
+     * Tab for substance list page
+     */
+    public TabLayout.Tab list;
+
+    /**
+     * Tab for about page
+     */
+    public TabLayout.Tab about;
+
+    /**
+     * Tab for diary (substance summary) page
+     */
+    public TabLayout.Tab diary;
 
     /**
      * method that creates the about page displayed and initializes video
@@ -31,6 +54,42 @@ public class AboutAppActivity extends YouTubeBaseActivity {
         final YouTubePlayerView youtubePlayerView = findViewById(R.id.youtubePlayerView);
         playVideo(youtubePlayerView);
 
+        initializeMenu();
+    }
+
+    private void initializeMenu()
+    {
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
+
+        if (CurrentUser.getInstance() == null ||
+                CurrentUser.getInstance().GetEmail() == null || CurrentUser.getInstance().GetEmail().equals(""))
+        {
+            layout.setVisibility(View.INVISIBLE);
+        }
+
+        else {
+            about.select();
+
+            layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    changeTab(tab);
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    // no action here, needs override definition
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                    // no action here, needs override definition
+                }
+            });
+        }
     }
 
     private void playVideo(final YouTubePlayerView youTubePlayerView) {
@@ -89,4 +148,35 @@ public class AboutAppActivity extends YouTubeBaseActivity {
         return playerStateChangeListener;
     }
 
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getPosition() == 0)
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
+
+            System.out.println("List selected");
+        }
+
+        else if (tab.getPosition() == 1)
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
+
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getPosition() == 2)
+        {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+
+            System.out.println("About selected");
+        }
+    }
 }

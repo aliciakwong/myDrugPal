@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.InfoPage;
 import com.example.mydrugpal.viewholder.SubstanceViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -23,7 +25,7 @@ import com.google.firebase.firestore.Query;
  *  Main detail page class which displays the RecyclerView list of substances
  *  and the add substance button
  *
- * @author Emma Travers, Richard Purcell, Ian Sifton
+ * @author Emma Travers, Richard Purcell, Ian Sifton, Megan Brock
  *
  */
 public class SubstanceListActivity extends LogoutActivity {
@@ -34,13 +36,17 @@ public class SubstanceListActivity extends LogoutActivity {
     private FirebaseFirestore database;
     private FirestoreRecyclerAdapter adapter;
 
+    public TabLayout layout;
+    public TabLayout.Tab list;
+    public TabLayout.Tab diary;
+    public TabLayout.Tab about;
+
     /**
      * Method which sets the content view for this page and creates an OnClickListener method
      * which allows the user to travel to the Add Substance page when they want to add a
      * substance
      *
      * @param savedInstanceState
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,29 +55,14 @@ public class SubstanceListActivity extends LogoutActivity {
 
         getLayoutInflater().inflate(R.layout.activity_detailpage, contentFrameLayout);
 
-        recyclerView = findViewById(R.id.substanceList);
-        addSubstanceButton = findViewById(R.id.addSubstance);
-        database = FirebaseFirestore.getInstance();
+        setUpMenuTabs();
 
-        adapter = setUpAdapter(database);
-        setUpRecyclerView(recyclerView,adapter);
+        setTabListener();
 
-        /**
-         *
-         * Method which sets an OnClickListener button so that the User can travel to the
-         * Add Substance page so that they can create and add a new susbtance to the FireStore
-         * database
-         */
-        addSubstanceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SubstanceListActivity.this, AddCustomSubstanceActivity.class);
-                startActivity(intent);
-            }
-        });
+        setRecyclerView();
 
+        setSubstanceButtonListener();
     }
-
 
     /**
      * Method which sets up the RecyclerView for the page
@@ -88,7 +79,6 @@ public class SubstanceListActivity extends LogoutActivity {
         rv.setAdapter(adapter);
     }
 
-
     /**
      * Method which sets up the FireStore Recycler adapter, which builds the FireStore Recycler options
      * and sets an OnBindViewHolder and onCreateViewHolder method
@@ -98,7 +88,7 @@ public class SubstanceListActivity extends LogoutActivity {
      */
     private FirestoreRecyclerAdapter setUpAdapter(FirebaseFirestore db)
     {
-        Query query = db.collection("substances").orderBy("substanceName").limit(50);
+        Query query = db.collection("Users").document(CurrentUser.getInstance().GetEmail()).collection("drugs").orderBy("substanceName");
         FirestoreRecyclerOptions<InfoPage> options = new FirestoreRecyclerOptions.Builder<InfoPage>()
                 .setQuery(query,InfoPage.class)
                 .build();
@@ -175,13 +165,110 @@ public class SubstanceListActivity extends LogoutActivity {
     }
 
     /**
+     * Returns to summary page when back button is pressed
+     */
+    @Override
+    public void onBackPressed()
+    {
+        goToSubstanceSummary();
+    }
+
+    /**
      * required as an extension of logout superclass
      * @return layoutResourceId
      */
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_detailpage;
-
     }
 
+    /**
+     * Change activity to SubstanceSummaryActivity
+     */
+    public void goToSubstanceSummary() {
+        Intent intent = new Intent(SubstanceListActivity.this, SubstanceSummaryActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Change activity to AddCustomSubstanceActivity
+     */
+    public void goToAddSubstance() {
+        Intent intent = new Intent(SubstanceListActivity.this, AddCustomSubstanceActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Called when a menu tab is pressed. Changes the activity to
+     * the one matching the tab.
+     * @param tab A menu tab. Should be list, summary, or about.
+     */
+    private void changeTab(TabLayout.Tab tab)
+    {
+        if (tab.getText().toString().equalsIgnoreCase("List"))
+        {
+            Intent intent = new Intent(this, SubstanceListActivity.class);
+            startActivity(intent);
+
+            System.out.println("List selected");
+        }
+
+        else if (tab.getText().toString().equalsIgnoreCase("Summary"))
+        {
+            Intent intent = new Intent(this, SubstanceSummaryActivity.class);
+            startActivity(intent);
+
+            System.out.println("Summary selected");
+        }
+
+        else if (tab.getText().toString().equalsIgnoreCase("About"))
+        {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+
+            System.out.println("About selected");
+        }
+    }
+
+    private void setUpMenuTabs() {
+        layout = findViewById(R.id.menuTabLayout);
+        list = layout.getTabAt(0);
+        diary = layout.getTabAt(1);
+        about = layout.getTabAt(2);
+
+        list.select();
+    }
+
+    private void setTabListener() {
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTab(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
+    private void setRecyclerView() {
+        recyclerView = findViewById(R.id.substanceList);
+        addSubstanceButton = findViewById(R.id.addSubstance);
+        database = FirebaseFirestore.getInstance();
+
+        adapter = setUpAdapter(database);
+        setUpRecyclerView(recyclerView,adapter);
+    }
+
+    private void setSubstanceButtonListener() {
+        addSubstanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAddSubstance();
+            }
+        });
+    }
 }

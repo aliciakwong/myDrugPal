@@ -1,5 +1,6 @@
 package com.example.mydrugpal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,8 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mydrugpal.model.CurrentUser;
+import com.example.mydrugpal.model.DrugList;
+import com.example.mydrugpal.model.SubstanceList;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 /**
  * The controller class for the registration page
@@ -45,16 +56,13 @@ public class RegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        editFName = findViewById((R.id.editText_fName));
-        editLName = findViewById((R.id.editText_lName));
-        editEmail = findViewById((R.id.editText_Email));
-        editPass = findViewById((R.id.editText_Password));
+        findReferences();
 
-        registerButton = findViewById(R.id.register_button);
-        clearButton = findViewById(R.id.clear_button);
+        setListeners();
+    }
 
-        messageText = findViewById(R.id.textView_Message);
-
+    private void setListeners()
+    {
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             /**
@@ -66,26 +74,9 @@ public class RegistrationActivity extends AppCompatActivity
              */
             public void onClick(View v)
             {
-                Profile p = new Profile(editFName.getText().toString(),
-                        editLName.getText().toString(),
-                        editEmail.getText().toString(),
-                        editPass.getText().toString());
-
-                if (p.NoNullOrEmptyFields())
-                {
-                    FirebaseFirestore database = FirebaseFirestore.getInstance();
-                    DocumentReference ref = database.collection("Users").document(p.GetEmail());
-                    ref.set(p);
-
-                    messageText.setText("Profile successfully created!");
-                    messageText.setTextColor(Color.parseColor("#49af48"));
-                }
-
-                else
-                {
-                    messageText.setText("Profile could not be created!");
-                    messageText.setTextColor(Color.parseColor("#c44040"));
-                }
+                createProfile();
+                setSubstanceListListener(editEmail.getText().toString());
+                gotoLogin();
             }
         });
 
@@ -97,6 +88,43 @@ public class RegistrationActivity extends AppCompatActivity
                 gotoLogin();
             }
         });
+    }
+
+    private void createProfile()
+    {
+        Profile p = new Profile(editFName.getText().toString(),
+                editLName.getText().toString(),
+                editEmail.getText().toString(),
+                editPass.getText().toString());
+
+        if (p.NoNullOrEmptyFields())
+        {
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            DocumentReference ref = database.collection("Users").document(p.GetEmail());
+            ref.set(p);
+
+            messageText.setText("Profile successfully created!");
+            messageText.setTextColor(Color.parseColor("#49af48"));
+        }
+
+        else
+        {
+            messageText.setText("Profile could not be created!");
+            messageText.setTextColor(Color.parseColor("#c44040"));
+        }
+    }
+
+    private void findReferences()
+    {
+        editFName = findViewById((R.id.editText_fName));
+        editLName = findViewById((R.id.editText_lName));
+        editEmail = findViewById((R.id.editText_Email));
+        editPass = findViewById((R.id.editText_Password));
+
+        registerButton = findViewById(R.id.register_button);
+        clearButton = findViewById(R.id.clear_button);
+
+        messageText = findViewById(R.id.textView_Message);
     }
 
     private void clearFields()
@@ -112,5 +140,30 @@ public class RegistrationActivity extends AppCompatActivity
     private void gotoLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    private void setSubstanceListListener(final String email) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference loginCollection = database.collection("substances");
+        if (email != null && email != "") {
+            loginCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                /**
+                 * method called to retrieve substances from database and update SubstanceList instance with drugs
+                 *
+                 * @param task task to ensure database is properly accessed and data retrieved
+                 */
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> sList = task.getResult().getDocuments();
+
+                        SubstanceList.getInstance().updateSubstances(sList);
+                        SubstanceList.getInstance().addToDrugs(email);
+
+                    }
+                }
+            });
+        }
     }
 }
