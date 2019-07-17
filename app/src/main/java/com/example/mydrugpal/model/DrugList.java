@@ -41,8 +41,11 @@ public class DrugList {
     }
 
     /**
-     * method updates drugs hashMap to contain updated list from database
-     * @param updatedList list of documentSnapshots from database
+     * method updates drugs hashMap to contain updated list from database.
+     * The id of the database entry is used as the key in the hashmap. The substance name, type
+     * and amount are taken from the snapshot and placed into a list. The list is the corresponding
+     * value in the map to the entry id.
+     * @param updatedList list of documentSnapshots from drugs database
      * @see <a href="https://dzone.com/articles/hashmap-%E2%80%93-single-key-and"></a>
      */
 
@@ -50,28 +53,21 @@ public class DrugList {
         drugs = new HashMap<String, List<String>>();
 
         for(DocumentSnapshot d: updatedList){
-            System.out.println("updating");
             List<String> fields = new ArrayList<>();
             String id = d.getId();
             String substanceType = d.get("substanceType").toString();
-            System.out.println(substanceType + "4");
             String substanceName = d.get("substanceName").toString();
-            System.out.println(substanceType + "5");
             String amount = d.get("amount").toString();
-            System.out.println(amount + "6");
             fields.add(substanceType);
             fields.add(substanceName);
             fields.add(amount);
-            for(int i=0; i < fields.size();i++) {
-                System.out.println(fields.get(i));
-            }
             drugs.put(id,fields);
         }
 
     }
 
     /**
-     * method returns users in the drugList instance
+     * method returns drugs in the drugList instance
      * @return HashMap of the drugs and associated information
      */
     public Map<String, List<String>> getDrugs() {
