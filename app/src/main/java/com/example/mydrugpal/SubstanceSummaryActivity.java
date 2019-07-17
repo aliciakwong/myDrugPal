@@ -1,6 +1,9 @@
 package com.example.mydrugpal;
 
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import com.example.mydrugpal.model.CurrentUser;
 import com.example.mydrugpal.model.EditIntakeDiaryEntry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,8 +28,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import android.app.AlarmManager;
+
+import org.w3c.dom.Document;
+
+import static com.google.firebase.Timestamp.now;
 
 /**
  * Activity for the substance summary diary page. Contains buttons for
@@ -141,6 +154,33 @@ public class SubstanceSummaryActivity extends LogoutActivity
         setUpFireStoreDatabase();
 
         initializeDates();
+
+//        viewSubstanceButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                goToDetailPage();
+//            }
+//        });
+
+        //Calendar needed for LogIntakeNotification alarm [RP]
+        Calendar c = Calendar.getInstance();
+
+        //Starts LogIntakeNotification system [RP]
+        startAlarm(c);
+    }
+
+    /**
+     * A method to start the LogIntakeNotification system.  [RP]
+     * To increase the time between notifications change alarmManager.setRepeating...
+     * i.e. to alert every 2 minutes set intervalMillis 1000*60*2
+     * @param c  A calendar instance.
+     */
+    private void startAlarm(Calendar c) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, LogIntakeNotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 1000*10*1, pendingIntent);
     }
 
 

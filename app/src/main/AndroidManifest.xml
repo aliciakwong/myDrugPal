@@ -36,6 +36,8 @@
         <activity android:name=".SubstanceSummaryActivity" >
         </activity>
         <activity android:name=".model.EditIntakeDiaryEntry"></activity>
+
+        <receiver android:name=".LogIntakeNotificationReceiver" />
     </application>
 
 </manifest>
