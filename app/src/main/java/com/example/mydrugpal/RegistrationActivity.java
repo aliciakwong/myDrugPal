@@ -93,7 +93,7 @@ public class RegistrationActivity extends AppCompatActivity
                 editEmail.getText().toString(),
                 editPass.getText().toString());
 
-        if (p.NoNullOrEmptyFields())
+        if (p.NoNullOrEmptyFields() && matchFirestoreRules(p.email, p.firstName, p.lastName))
         {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
             DocumentReference ref = database.collection("Users").document(p.GetEmail());
@@ -163,5 +163,26 @@ public class RegistrationActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    private boolean matchFirestoreRules(String email, String firstName, String lastName) {
+        return (emailMatches(email) && nameMatches(firstName, lastName));
+    }
+
+    private boolean emailMatches(String email) {
+        if (email.matches(".*@.*"))
+            return true;
+        else
+            return false;
+    }
+
+    private boolean nameMatches(String firstName, String lastName) {
+        if ((firstName.length() >= 2 && firstName.length() <= 48) &&
+            (lastName.length() >= 2 && lastName.length() <= 48)) {
+            return true;
+        }
+        else
+            return false;
+
     }
 }
