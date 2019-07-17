@@ -169,12 +169,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
         startAlarm(c);
     }
 
-    /**
-     * A method to start the LogIntakeNotification system.  [RP]
-     * To increase the time between notifications change alarmManager.setRepeating...
-     * i.e. to alert every 2 minutes set intervalMillis 1000*60*2
-     * @param c  A calendar instance.
-     */
     private void startAlarm(Calendar c) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, LogIntakeNotificationReceiver.class);
@@ -344,11 +338,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
         return R.layout.activity_substance_summary;
     }
 
-    /**
-     * Called when a menu tab is pressed. Changes the activity to
-     * the one matching the tab.
-     * @param tab A menu tab. Should be list, summary, or about.
-     */
     private void changeTab(TabLayout.Tab tab)
     {
         if (tab.getPosition() == 0)

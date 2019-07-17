@@ -16,6 +16,7 @@ public class LogIntakeNotificationReceiverUnitTests {
     /**
      * tests that the Timstamp check returns true
      * Method returns true if the input time is less than the current time
+     * @author Richard Purcell, Ian Sifton
      */
     @Test
     public void lastEntry_greaterThanTwelve()
@@ -35,11 +36,7 @@ public class LogIntakeNotificationReceiverUnitTests {
 
         assertTrue(check);
     }
-
-    /**
-     * A method for comparing the current date with the dates of substance entries.
-     * Currently does not work.
-     */
+    
     private boolean hasIntakeToday(Timestamp lastEntry) {
         boolean intakeEntryRequired = false;
         Date date = new Date();

@@ -24,25 +24,20 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class handles the receiving parts of notifications. [RP]
+ * This class handles the receiving parts of notifications.
  * On Receiving a notification from a channel it builds a notification object and displays it.
- * This class is based on: https://codinginflow.com/tutorials/android/alarmmanager
- * NOTE: This class has been added to the manifest.
- * NOTE: The imports need the dependency: implementation "com.android.support:support-compat:28.0.0"
+ * @see <a href =  "https://codinginflow.com/tutorials/android/alarmmanager"/>
+ * @author Richard Purcell, Ian Sifton
  */
 public class LogIntakeNotificationReceiver extends BroadcastReceiver {
-    /**
-     * A variable for printing to logcat. [RP]
-     * To find any of these tags enter "Debug Printing" in the logcat search field
-     * while the app is running.
-     */
+
     private static final String TAG = "Debug Printing";
 
     /**
      * When the alarm goes off a notification is sent.
      * This method builds everything else that is needed.
-     * @param context
-     * @param intent
+     * @param context the current context
+     * @param intent the current intent
      */
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -54,8 +49,8 @@ public class LogIntakeNotificationReceiver extends BroadcastReceiver {
     /**
      * This method runs the notification if hasIntakeToday returns true
      *
-     * @param context
-     * @param intent
+     * @param context the current context
+     * @param intent the current intent
      */
     public void runNotification(Context context, Intent intent) {
         LogIntakeNotificationHelper notificationHelper = new LogIntakeNotificationHelper(context);
@@ -63,11 +58,6 @@ public class LogIntakeNotificationReceiver extends BroadcastReceiver {
         notificationHelper.getManager().notify(1, nb.build());
     }
 
-
-    /**
-     * A method for comparing the current date with the dates of substance entries.
-     * Currently does not work.
-     */
     private boolean hasIntakeToday(Timestamp lastEntry) {
         boolean intakeEntryRequired = false;
         Date date = new Date();
