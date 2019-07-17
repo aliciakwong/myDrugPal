@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * Edit intake diary entry activity
- * @author Emma Travers, Ian Sifton
+ * @author Emma Travers, Ian Sifton, Jocelyn MacDonald, Alicia Wong
  */
 public class EditIntakeDiaryEntry extends AppCompatActivity {
 
@@ -32,19 +32,17 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
     private String substanceId;
     private EditText amount;
 
-    private String entryId;
-
-
     private EditText entryName;
     private EditText entryType;
     private EditText entryAmount;
 
     private Button updateEntryButton;
     private Button deleteEntryButton;
-    private Intent intent;
-    private InfoPage infoPage;
+    private DocumentReference userRef;
+
 
     private static final String TAG = "Intake Entry";
+
 
     /**
      * OnCreate method which sets up the content for the edit entry page
@@ -61,90 +59,75 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         updateEntryButton = findViewById(R.id.button_saveEntryEdit);
         deleteEntryButton = findViewById(R.id.button_entryDelete);
 
-       // entryId = SubstanceSummaryActivity.summaryInformation.getSubstanceList().get(i).getId();
-                //getIntent().getStringExtra("id");
-
         substanceId = getIntent().getStringExtra("id");
 
+        setPageText(findIntakeEntry());
 
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        DocumentReference userRef;
 
-        // IF ELSE statement is utilized to properly run Espresso test for EditIntakeDiaryEntry activity
-        // If the CurrentUser is a null object, the app sets up a new profile and points to a specific intake-entry reference
-        if (CurrentUser.getInstance().GetEmail() != null) {
-            userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
-
-        } else {
-            //Profile p = new Profile("name", "lastname", "Email", "password");
-            //CurrentUser.getInstance().setUser(p);
-            //userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
-            userRef = database.collection("Users").document("Email");
-            substanceId = "6JEJHsp31twgIA9og3vn";
-        }
-
-        CollectionReference ref = userRef.collection("IntakeDiary");
-        final DocumentReference userEntry = ref.document(substanceId);
-
-        setPageText(userEntry);
-
-        /**
-         * OnClickListener method on updateEntry button which will update the Firestore database
-         * document with the new information in the corresponding text fields, then sets the intent
-         * to the substance summary page in order to return the user to the previous page
-         */
         updateEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * on the click on updateEntry button which will update the intake entry with the new
+             * information in the corresponding text fields, then sets the intent to the substance
+             * summary page in order to return the user to the previous page.
+             * @param v the EditIntakeDiaryEntry page
+             */
             public void onClick(View v) {
-                update(userEntry);
+                update();
+                goToSubstanceSummary();
             }
         });
 
-        /**
-         * OnClickListener method on deleteEntry button which will delete this intake diary entry
-         * from the Firestore database, then sets the intent to the substance summary page in order
-         * to return the user to the previous page
-         */
         deleteEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * on the click of deleteEntry button this will delete this intake diary entry, then
+             * sets the intent to the substance summary page in order to return the user to the
+             * previous page.
+             * @param v the EditIntakeDiaryEntry page
+             */
             public void onClick(View v) {
-                delete(userEntry);
+                delete();
+                goToSubstanceSummary();
             }
-
         });
-
     }
 
-
     /**
-     * Takes the DocumentReference to update the Firestore database with the newly entered information in the page's form
-     *
-     * @param userEntry for the user's intake diary entry
+     * Updates the Firestore database with the newly entered information on the page.
      */
-    public void update(DocumentReference userEntry) {
+    public void update() {
+        DocumentReference intakeEntry = findIntakeEntry();
+
         entryName = findViewById(R.id.editTextSubstanceName);
         entryType = findViewById(R.id.editTextSubstanceType);
         entryAmount = findViewById(R.id.editTextSubstanceAmount);
 
-
-
-        userEntry.update(
+        intakeEntry.update(
                 "substanceName", entryName.getText().toString(),
                 "type", entryType.getText().toString(),
                 "dose", entryAmount.getText().toString()
         );
-
-        Intent intent = new Intent(EditIntakeDiaryEntry.this, SubstanceSummaryActivity.class);
-        startActivity(intent);
     }
 
     /**
-     * Takes the DocumentReference to delete the entry in the Firestore database
-     *
-     * @param userEntry for the user's intake diary entry
+     * finds the specific intake diary entry to edit within the users intake diary, which is found
+     * via the substanceId
+     * @return returns the DocumentReference corresponding to the intake diary entry to be edited
      */
-    public void delete(DocumentReference userEntry) {
-        userEntry.delete()
+    public DocumentReference findIntakeEntry() {
+        DocumentReference userRef = getUserRef();
+        CollectionReference intakeDiaryRef = userRef.collection("IntakeDiary");
+        DocumentReference entry = intakeDiaryRef.document(substanceId);
+        return entry;
+    }
+
+    /**
+     * deletes the specific intake diary entry
+     */
+    public void delete() {
+        DocumentReference intakeEntry = findIntakeEntry();
+        intakeEntry.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -157,22 +140,21 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
                         Log.w(TAG, "Error deleting document", e);
                     }
                 });
+    }
 
+    /**
+     * changes the activity page from the edit page back to the substance summary page.
+     */
+    public void goToSubstanceSummary() {
         Intent intent = new Intent(EditIntakeDiaryEntry.this, SubstanceSummaryActivity.class);
         startActivity(intent);
     }
 
-
     /**
-     * Sets the content for the page based on the intake diary entr info taken from the parameter
-     *
+     * Sets the content for the page based on previous intake diary entry information
      * @param userEntry document reference for the particular intake diary entry
      */
     public void setPageText(DocumentReference userEntry) {
-        //String name = GetIntakeEntryData.getSubstanceName(substanceId);
-        String type = GetIntakeEntryData.getType(substanceId);
-        String dose = GetIntakeEntryData.getAmount(substanceId);
-
         userEntry.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -185,10 +167,26 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    /**
+     * finds the DocumentReference for the user. Utilized to properly run Espresso test for
+     * EditIntakeDiaryEntry activity. If the CurrentUser is a null object, the app sets up a new
+     * profile and points to a specific intake-entry reference.
+     * @return the DocumentReference of the user
+     */
+    public DocumentReference getUserRef() {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference userRef;
 
+        if (CurrentUser.getInstance().GetEmail() != null) {
+            userRef = database.collection("Users").document(CurrentUser.getInstance().GetEmail());
 
-
+        } else {
+            userRef = database.collection("Users").document("Email");
+            substanceId = "6JEJHsp31twgIA9og3vn";
+        }
+        return userRef;
     }
 }
 
