@@ -46,7 +46,7 @@ public class SubstanceListActivity extends LogoutActivity {
      * which allows the user to travel to the Add Substance page when they want to add a
      * substance
      *
-     * @param savedInstanceState
+     * @param savedInstanceState saved instance state of the app
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +64,7 @@ public class SubstanceListActivity extends LogoutActivity {
         setSubstanceButtonListener();
     }
 
-    /**
-     * Method which sets up the RecyclerView for the page
-     *
-     * @param rv (RecyclerView object)
-     * @param adapter
-     *
-     */
+
     private void setUpRecyclerView(RecyclerView rv, FirestoreRecyclerAdapter adapter)
     {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
@@ -79,13 +73,6 @@ public class SubstanceListActivity extends LogoutActivity {
         rv.setAdapter(adapter);
     }
 
-    /**
-     * Method which sets up the FireStore Recycler adapter, which builds the FireStore Recycler options
-     * and sets an OnBindViewHolder and onCreateViewHolder method
-     *
-     * @param db (FireStore database)
-     * @return adapter FirestoreRecyclerAdapter
-     */
     private FirestoreRecyclerAdapter setUpAdapter(FirebaseFirestore db)
     {
         Query query = db.collection("Users").document(CurrentUser.getInstance().GetEmail()).collection("drugs").orderBy("substanceName");
@@ -98,9 +85,9 @@ public class SubstanceListActivity extends LogoutActivity {
             /**
              * nested method which connects each database item to the current view of the page
              *
-             * @param holder (SubstanceViewHolder)
-             * @param position (integer)
-             * @param model (InfoPage)
+             * @param holder the substance view holder page
+             * @param position position in the recycler view
+             * @param model the info page corresponding to the specific substance
              *
              */
             @Override
@@ -121,8 +108,8 @@ public class SubstanceListActivity extends LogoutActivity {
             /**
              * nested method which creates a view from the substance_entry xml file
              *
-             * @param group (ViewGroup)
-             * @param recyclerViewNum (integer)
+             * @param group the ViewGroup
+             * @param recyclerViewNum the number of the drug within the recycler view
              * @return SubstanceViewHolder view holder for substances
              *
              */
@@ -132,13 +119,10 @@ public class SubstanceListActivity extends LogoutActivity {
                 View view = LayoutInflater.from(group.getContext())
                         .inflate(R.layout.substance_entry,group,false);
                 return new SubstanceViewHolder(view);
-
-
             }
         };
 
         return adapter;
-
     }
 
 
@@ -175,7 +159,7 @@ public class SubstanceListActivity extends LogoutActivity {
 
     /**
      * required as an extension of logout superclass
-     * @return layoutResourceId
+     * @return layoutResourceId returns the specific detail page
      */
     @Override
     protected int getLayoutResourceId() {
@@ -198,11 +182,6 @@ public class SubstanceListActivity extends LogoutActivity {
         startActivity(intent);
     }
 
-    /**
-     * Called when a menu tab is pressed. Changes the activity to
-     * the one matching the tab.
-     * @param tab A menu tab. Should be list, summary, or about.
-     */
     private void changeTab(TabLayout.Tab tab)
     {
         if (tab.getText().toString().equalsIgnoreCase("List"))

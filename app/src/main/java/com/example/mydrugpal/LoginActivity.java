@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         aboutAppButton.setOnClickListener(new View.OnClickListener(){
             /**
-             * listener for go to AboutAPP button click
+             * listener for go to AboutApp button click
              * @param view current application view
              */
             public void onClick(View view){

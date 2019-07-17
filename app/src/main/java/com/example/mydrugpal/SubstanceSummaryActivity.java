@@ -143,9 +143,7 @@ public class SubstanceSummaryActivity extends LogoutActivity
         initializeDates();
     }
 
-    /**
-     * Toggles the start and end date buttons.
-     */
+
     private void toggleButtons()
     {
         if (startDateButton.getVisibility() == View.VISIBLE ||
@@ -172,13 +170,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
         }
     }
 
-    /**
-     * Opens one calendar while closing the other. Calendars are used for
-     * choosing start and end of date period.
-     *
-     * @param d1 The calendar to open
-     * @param d2 The calendar to close
-     */
     private void openDatePicker(DatePicker d1, DatePicker d2)
     {
         if (d1.getVisibility() == View.VISIBLE)
@@ -202,12 +193,7 @@ public class SubstanceSummaryActivity extends LogoutActivity
         }
     }
 
-    /**
-     * Changes the start date.
-     * @param y Year
-     * @param m Month
-     * @param d Day of month
-     */
+
     private void changeStartDate(int y, int m, int d)
     {
         startDate = new int[3];
@@ -219,12 +205,7 @@ public class SubstanceSummaryActivity extends LogoutActivity
         updateSubstanceList();
     }
 
-    /**
-     * Changes the end date.
-     * @param y Year
-     * @param m Month
-     * @param d Day of month
-     */
+
     private void changeEndDate(int y, int m, int d)
     {
         endDate = new int[3];
@@ -236,18 +217,13 @@ public class SubstanceSummaryActivity extends LogoutActivity
         updateSubstanceList();
     }
 
-    /**
-     * Used to set the start and end date to today by default.
-     */
+
     private void initializeDates()
     {
         changeStartDate(1, 1, 1);
         changeEndDate(1, 1, 1);
     }
 
-    /**
-     * Update the substance list after changing date range.
-     */
     private void updateSubstanceList()
     {
         scrollViewLayout.removeAllViews();
@@ -300,24 +276,14 @@ public class SubstanceSummaryActivity extends LogoutActivity
 
     }
 
-    /**
-     * Changes page to edit intake diary entry.
-     * @param id
-     */
+
     private void goToEditEntryPage(String id) {
         Intent intent = new Intent(SubstanceSummaryActivity.this, EditIntakeDiaryEntry.class);
         intent.putExtra("id", id);
         startActivity(intent);
     }
 
-    /**
-     * Compares current date to two dates. Returns true if
-     * either date is current.
-     * @param current the current date.
-     * @param start the selected start date.
-     * @param end the selected end date.
-     * @return true if current equals start or end, or false otherwise.
-     */
+
     private boolean sameDay(Date current, Date start, Date end){
         if(current.getYear() == start.getYear() && current.getMonth() == start.getMonth()
                 && current.getDate() == start.getDate()){

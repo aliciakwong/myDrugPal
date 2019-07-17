@@ -8,9 +8,24 @@ import java.io.Serializable;
  */
 public class Profile implements Serializable
 {
+    /**
+     * The first name of the user
+     */
     public String firstName;
+
+    /**
+     * The last name of the user
+     */
     public String lastName;
+
+    /**
+     * The email of the user
+     */
     public String email;
+
+    /**
+     * The password of the user
+     */
     public String password;
 
     /**

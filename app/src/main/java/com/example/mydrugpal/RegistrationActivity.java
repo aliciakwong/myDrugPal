@@ -64,10 +64,7 @@ public class RegistrationActivity extends AppCompatActivity
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             /**
-             * on the click of the register button a new profile is created using the text inputted
-             * to the text fields on the registration screen and the information is added to the Users
-             * collection contained on firestore. The outcome of the addition to firestore outputs an
-             * appropriate message telling the user if registration was succeessful or not
+             * on the click of the register button a new profile is created
              * @param v the registrationActivity page
              */
             public void onClick(View v)
@@ -78,10 +75,13 @@ public class RegistrationActivity extends AppCompatActivity
 
         clearButton.setOnClickListener(new View.OnClickListener()
         {
+            /**
+             * on the click of the clear button all fields will be cleared and will be returned to login
+             * @param v the registrationActivity page
+             */
             public void onClick(View v)
             {
                 clearFields();
-                gotoLogin();
             }
         });
     }

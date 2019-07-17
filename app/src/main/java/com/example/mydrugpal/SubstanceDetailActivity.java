@@ -23,8 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.mydrugpal.model.InfoPage;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.List;
 
 
@@ -53,10 +51,10 @@ public class SubstanceDetailActivity extends AppCompatActivity {
 
     /**
      * Method which sets the content view for this page (from the substance_detail xml file),
-     * gets the instance of the FireStire database, and creates an InfoPage object to get the
+     * gets the instance of the FireStore database, and creates an InfoPage object to get the
      * details of the substance, and uses that data to set the text on the page
      *
-     * @param savedInstanceState (Bundle)
+     * @param savedInstanceState the saved instance state of the app
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +75,6 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         setAddToIntakeListener();
     }
 
-    /**
-     * Change to AddToIntakeDiaryActivity
-     */
     private void goToAddToIntakePage() {
         Intent intent = new Intent(this, AddToIntakeDiaryActivity.class);
         intent.putExtra("id", infoPage.id);
@@ -88,11 +83,6 @@ public class SubstanceDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * Called when a menu tab is pressed. Changes the activity to
-     * the one matching the tab.
-     * @param tab A menu tab. Should be list, summary, or about.
-     */
     private void changeTab(TabLayout.Tab tab)
     {
         if (tab.getPosition() == 0)

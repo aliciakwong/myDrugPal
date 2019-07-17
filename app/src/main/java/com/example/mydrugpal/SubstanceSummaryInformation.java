@@ -18,10 +18,17 @@ import java.util.Date;
 public class SubstanceSummaryInformation {
     private List<IntakeDiaryItem> substanceList;
 
+    /**
+     * constructor that sets substanceList to be an empty array list
+     */
     public SubstanceSummaryInformation() {
         substanceList = new ArrayList<>();
     }
 
+    /**
+     * method to get the substance list
+     * @return returns the substanceList as a list containing IntakeDiaryItem objects
+     */
     List<IntakeDiaryItem> getSubstanceList() {
         return substanceList;
     }

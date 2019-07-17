@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class InfoPage implements Serializable {
 
     /**
-     * id from database
+     * id of the document in the users drug database
      */
     public String id;
     /**
@@ -23,23 +23,20 @@ public class InfoPage implements Serializable {
      */
     public String substanceType;
     /**
-     * amount of the substance logged
+     * the amount of the substance logged or the recommended amount (amount logged if
+     * it is for an intake entry, recommended dose if it is being placed in the users drug list)
      */
     public String amount;
 
+    public InfoPage(){}
     /**
-     * default empty constructor of object
-     */
-    public InfoPage() {
-
-    }
-
-    /**
-     * Method which takes in the name and main info od a substance
+     * Constructor which takes in the name, type, and amount of a substance
      *
      * @param  substanceName name of substance
      * @param substanceType type of substance
-     * @param amount the amount of the substance logged or the recommended amount
+     * @param amount the amount of the substance logged or the recommended amount (amount logged if
+     *               it is for an intake entry, recommended dose if it is being placed in the users
+     *               drug list)
      *
      */
     public InfoPage(String substanceName, String substanceType, String amount) {
@@ -50,9 +47,7 @@ public class InfoPage implements Serializable {
 
     /**
      * Method which returns the substance name as a String
-     *
      * @return String with substance name
-     *
      */
     @Override
     public String toString() {

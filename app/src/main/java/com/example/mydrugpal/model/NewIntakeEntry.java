@@ -6,15 +6,30 @@ import java.io.Serializable;
 
 
 /**
- *holds the data for a new entry to the intake diary. This is not the same as IntakeDiaryItem, this
+ * holds the data for a new entry to the intake diary. This is not the same as IntakeDiaryItem, this
  * handles adding to the database, and generating the timestamp and id, while IntakeDiaryItem is used
  * to pull the already inputted data from firestore
  * @author Jocelyn MacDonald, Ian Sifton, Richard Purcell
  */
 public class NewIntakeEntry implements Serializable {
+    /**
+     * name of the substance
+     */
     public String substanceName;
+
+    /**
+     * type of the substance
+     */
     public String type;
+
+    /**
+     * the number of doses taken relative to the recommended amount per dose
+     */
     public String dose;
+
+    /**
+     * date of the intake diary when it was created
+     */
     public Timestamp dateTime;
 
     /**
@@ -56,7 +71,7 @@ public class NewIntakeEntry implements Serializable {
     public Timestamp getTime() {return dateTime;}
 
     /**
-     *
+     * Tests if any of the fields are null
      * @return returns a boolean. Returns true if all the fields are not null. Otherwise returns false
      */
     public boolean NoNullOrEmptyFields()

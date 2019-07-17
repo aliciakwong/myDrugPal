@@ -13,7 +13,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 /**
- * activity with info about the app and the dev team
+ * activity with info about the app
  * @author Alicia Wong, Richard Purcell
  */
 
@@ -41,6 +41,7 @@ public class AboutAppActivity extends YouTubeBaseActivity {
     /**
      * method that creates the about page displayed and initializes video
      * @param savedInstanceState the state of the application
+     * @see <a href= "https://media.giphy.com/media/26DnYbbcv2EupNje8/giphy.gif"/> for the moira gif
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,15 +116,25 @@ public class AboutAppActivity extends YouTubeBaseActivity {
 
     private YouTubePlayer.PlayerStateChangeListener setPlayerStateChangeListener(final YouTubePlayer youTubePlayer){
         YouTubePlayer.PlayerStateChangeListener playerStateChangeListener = new YouTubePlayer.PlayerStateChangeListener(){
+            /**
+             *
+             */
             @Override
             public void onLoading() {
             }
 
+            /**
+             * default onLoaded method
+             * @param s default input string
+             */
             @Override
             public void onLoaded(String s) {
 
             }
 
+            /**
+             * default method for when an ad starts on the video
+             */
             @Override
             public void onAdStarted() {
 
@@ -133,12 +144,20 @@ public class AboutAppActivity extends YouTubeBaseActivity {
             public void onVideoStarted() {
                 youTubePlayer.setFullscreen(true);
             }
+
+            /**
+             * default method for when the video ends
+             * @see <a href= "https://www.youtube.com/watch?v=nzCyyT7j5Do"/> for the drugs owl vine
+             */
             @Override
             public void onVideoEnded() {
                 youTubePlayer.cueVideo("nzCyyT7j5Do");
                 youTubePlayer.play();
             }
 
+            /**
+             * default method for when an error occurs with the youtube video
+             */
             @Override
             public void onError(YouTubePlayer.ErrorReason errorReason) {
 
@@ -158,8 +177,6 @@ public class AboutAppActivity extends YouTubeBaseActivity {
         {
             Intent intent = new Intent(this, SubstanceListActivity.class);
             startActivity(intent);
-
-            System.out.println("List selected");
         }
 
         else if (tab.getPosition() == 1)
@@ -167,15 +184,12 @@ public class AboutAppActivity extends YouTubeBaseActivity {
             Intent intent = new Intent(this, SubstanceSummaryActivity.class);
             startActivity(intent);
 
-            System.out.println("Summary selected");
         }
 
         else if (tab.getPosition() == 2)
         {
             Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
-
-            System.out.println("About selected");
         }
     }
 }
