@@ -1,8 +1,5 @@
 package com.example.mydrugpal;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,15 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.mydrugpal.model.CurrentUser;
-import com.example.mydrugpal.model.DrugList;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mydrugpal.model.SubstanceList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -75,8 +73,6 @@ public class RegistrationActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 createProfile();
-                setSubstanceListListener(editEmail.getText().toString());
-                gotoLogin();
             }
         });
 
@@ -105,6 +101,8 @@ public class RegistrationActivity extends AppCompatActivity
 
             messageText.setText("Profile successfully created!");
             messageText.setTextColor(Color.parseColor("#49af48"));
+            setSubstanceListListener(editEmail.getText().toString());
+            gotoLogin();
         }
 
         else
