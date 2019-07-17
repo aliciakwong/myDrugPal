@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Singleton implementation of DrugList that holds current drugs from database
+ * Singleton implementation of SubstanceList that holds drugs in the main substance database
  * @author Jocelyn MacDonald, Alicia Wong
  */
 public class SubstanceList {
@@ -23,10 +23,10 @@ public class SubstanceList {
     }
 
     /**
-     * Method to get the one static instance of druglist.
-     * If drugList is not created yet, it will create the one instance
+     * Method to get the one static instance of substanceList.
+     * If substanceList is not created yet, it will create the one instance
      *
-     * @return single static instance of DrugList object
+     * @return single static instance of substanceList object
      *
      * @see <a href="https://sourcemaking.com/design_patterns/singleton/java/2"></a>
      *
@@ -70,13 +70,18 @@ public class SubstanceList {
     }
 
     /**
-     * method returns users in the drugList instance
+     * method returns users in the substanceList instance
      * @return HashMap of the drugs and associated information
      */
     public Map<String, List<String>> getSubstances() {
         return drugs;
     }
 
+
+    /**
+     * takes the substances within the substance list and adds them to the users personal drug list
+     * @param email the email of the user
+     */
     public void addToDrugs(String email) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference loginCollection = database.collection("Users");

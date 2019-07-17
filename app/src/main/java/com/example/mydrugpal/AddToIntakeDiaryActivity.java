@@ -31,7 +31,7 @@ public class AddToIntakeDiaryActivity extends AppCompatActivity {
     /**
      * Called when AddToIntakeDiaryActivity is used
      *
-     *  Finds references to text fields and buttons. Adds listener to add button.
+     * Finds references to text fields and buttons. Adds listener to add button.
      *
      * @param savedInstanceState saved state of the app instance
      */

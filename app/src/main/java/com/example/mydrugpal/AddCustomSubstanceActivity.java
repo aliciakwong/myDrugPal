@@ -32,7 +32,7 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
     /**
      * Called when AddCustomSubstanceActivity is used
      *
-     *  Finds references to text fields and buttons. Adds listener to add button.
+     * Finds references to text fields and buttons. Adds listener to add button.
      *
      * @param savedInstanceState saved state of the app instance
      */
@@ -97,8 +97,8 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
     }
 
     /**
-     * makes an IntakeEntryObject, the data contained within this object is then added to the intakeDiary
-     * contained on firestore
+     * makes an IntakeEntryObject, the data contained within this object is then added to the
+     * intakeDiary contained on firestore
      */
     public void addToIntake() {
         NewIntakeEntry entry = new NewIntakeEntry(substanceName.getText().toString(),
@@ -112,8 +112,6 @@ public class AddCustomSubstanceActivity extends AppCompatActivity {
             CollectionReference ref = userRef.collection("IntakeDiary");
 
             ref.document().set(entry);
-
-
         }
     }
 

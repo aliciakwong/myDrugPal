@@ -10,7 +10,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * JUnit Tests for logout page business logic
+ * espresso Tests for logout function
  * @author Emma Travers, Alicia Wong
  */
 public class LogoutInstrumentedTest {

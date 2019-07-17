@@ -38,7 +38,6 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
     private Button updateEntryButton;
     private Button deleteEntryButton;
-    private DocumentReference userRef;
 
 
     private static final String TAG = "Intake Entry";
