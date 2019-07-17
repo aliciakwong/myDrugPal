@@ -99,7 +99,6 @@ public class AboutAppActivity extends YouTubeBaseActivity {
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         final YouTubePlayer youTubePlayer, boolean b) {
                         youTubePlayer.cueVideo("nzCyyT7j5Do");
-
                         setPlayerStateChangeListener(youTubePlayer);
 
                         youTubePlayer.setPlayerStateChangeListener(setPlayerStateChangeListener(youTubePlayer));
@@ -132,7 +131,7 @@ public class AboutAppActivity extends YouTubeBaseActivity {
 
             @Override
             public void onVideoStarted() {
-
+                youTubePlayer.setFullscreen(true);
             }
             @Override
             public void onVideoEnded() {
