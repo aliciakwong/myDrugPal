@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mydrugpal.model.SubstanceList;
+import com.example.mydrugpal.model.UserList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -93,7 +94,8 @@ public class RegistrationActivity extends AppCompatActivity
                 editEmail.getText().toString(),
                 editPass.getText().toString());
 
-        if (p.NoNullOrEmptyFields())
+        if (p.NoNullOrEmptyFields()&& p.validEmail(editEmail.getText().toString())
+                && UserList.getInstance().notDuplicateEmail(editEmail.getText().toString()))
         {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
             DocumentReference ref = database.collection("Users").document(p.GetEmail());
@@ -104,7 +106,15 @@ public class RegistrationActivity extends AppCompatActivity
             setSubstanceListListener(editEmail.getText().toString());
             gotoLogin();
         }
-
+        else if(!p.validEmail(editEmail.getText().toString()))
+        {
+            messageText.setText("Profile could not be created. Enter a valid email!");
+            messageText.setTextColor(Color.parseColor("#c44040"));
+        }
+        else if(!UserList.getInstance().notDuplicateEmail(editEmail.getText().toString())) {
+            messageText.setText("Email is already in use. Use another email");
+            messageText.setTextColor(Color.parseColor("#c44040"));
+        }
         else
         {
             messageText.setText("Profile could not be created!");

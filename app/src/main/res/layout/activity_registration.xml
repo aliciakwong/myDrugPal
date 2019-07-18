@@ -135,13 +135,13 @@
 
     <TextView
         android:id="@+id/textView_Message"
-        android:layout_width="178dp"
-        android:layout_height="29dp"
+        android:layout_width="174dp"
+        android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/tableLayout2"
         app:layout_constraintEnd_toEndOf="@+id/tableLayout2"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toStartOf="@+id/tableLayout2"
         app:layout_constraintTop_toTopOf="@+id/tableLayout2"
-        app:layout_constraintVertical_bias="0.802" />
+        app:layout_constraintVertical_bias="0.732" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

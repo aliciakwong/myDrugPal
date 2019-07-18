@@ -1,5 +1,11 @@
 package com.example.mydrugpal;
+import com.google.firebase.firestore.CollectionReference;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * Profile object for each user
@@ -134,4 +140,15 @@ public class Profile implements Serializable
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * tests if an email is a valid email by looking for the "@" character
+     * @param email the email being tested
+     * @return a boolean that is true if an '@' is found and false otherwise
+     */
+    public boolean validEmail(String email) {
+        boolean valid = email.matches(".*@.*");
+        return valid;
+    }
+
 }
