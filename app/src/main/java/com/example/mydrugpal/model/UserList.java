@@ -1,10 +1,12 @@
 package com.example.mydrugpal.model;
 
 import com.example.mydrugpal.Profile;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Singleton implementation of UserList that holds current users from database
@@ -65,6 +67,21 @@ public class UserList {
         return users;
     }
 
-
+    /**
+     * checks if email is already an id for an existing document
+     * @param email the email being tested
+     * @return returns true if the email is not already an id of an existing document, false otherwise
+     */
+    public boolean notDuplicateEmail(String email) {
+        boolean notDup = true;
+        for (Map.Entry<String, Profile> entry : users.entrySet()) {
+            String id = entry.getKey();
+            if(id.equals(email)) {
+                notDup = false;
+                break;
+            }
+        }
+        return notDup;
+    }
 
 }

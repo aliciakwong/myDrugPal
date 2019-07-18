@@ -36,7 +36,7 @@ public class LogIntakeNotificationReceiverUnitTests {
 
         assertTrue(check);
     }
-    
+
     private boolean hasIntakeToday(Timestamp lastEntry) {
         boolean intakeEntryRequired = false;
         Date date = new Date();
