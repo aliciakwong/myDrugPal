@@ -109,7 +109,7 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
         intakeEntry.update(
                 "substanceName", entryName.getText().toString(),
-                getResources().getStringArray(R.array.type_array)[index].toLowerCase(),
+                "type", getResources().getStringArray(R.array.type_array)[(int) substanceTypeSpinner.getSelectedItemId()],
                 "dose", entryAmount.getText().toString()
         );
     }
@@ -164,8 +164,8 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    substanceName.setText(document.getString("substanceName"));
 
+                    substanceName.setText(document.getString("substanceName"));
                     String type = document.getString("type");
                     String[] array = getResources().getStringArray(R.array.type_array);
                     int n = array.length;
