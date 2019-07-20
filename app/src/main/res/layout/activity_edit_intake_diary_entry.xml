@@ -6,141 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".model.EditIntakeDiaryEntry">
 
-    <TextView
-        android:id="@+id/EntryEditorTitle"
-        android:layout_width="221dp"
-        android:layout_height="78dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginLeft="95dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="Edit Entry"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSubstanceName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewSubstanceType"
-        android:layout_width="302dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="10dp"
-        android:text="Substance Type"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSubstanceType"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSubstanceName" />
+        <TextView
+            android:id="@+id/EntryEditorTitle"
+            android:layout_width="221dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="95dp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="95dp"
+            android:layout_marginRight="95dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Edit Entry"
+            android:textSize="30sp" />
 
-    <EditText
-        android:id="@+id/editTextSubstanceName"
-        android:layout_width="303dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSubstanceType"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSubstanceName" />
+        <TextView
+            android:id="@+id/textViewSubstanceName"
+            android:layout_width="306dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="13dp"
+            android:text="Substance Name" />
 
-    <TextView
-        android:id="@+id/textViewSubstanceName"
-        android:layout_width="306dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="13dp"
-        android:text="Substance Name"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSubstanceName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EntryEditorTitle" />
+        <EditText
+            android:id="@+id/editTextSubstanceName"
+            android:layout_width="303dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
 
-    <EditText
-        android:id="@+id/editTextSubstanceType"
-        android:layout_width="303dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="61dp"
-        android:layout_marginLeft="61dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Type"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSubstanceAmount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSubstanceType" />
+        <TextView
+            android:id="@+id/textViewSubstanceType"
+            android:layout_width="302dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="48dp"
+            android:text="Substance Type" />
 
-    <TextView
-        android:id="@+id/textViewSubstanceAmount"
-        android:layout_width="300dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="9dp"
-        android:text="Substance Amount"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSubstanceAmount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSubstanceType" />
+        <Spinner
+            android:id="@+id/spinnerSubstanceType"
+            android:layout_width="302dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="30dp"
+            android:entries="@array/type_array" />
 
-    <EditText
-        android:id="@+id/editTextSubstanceAmount"
-        android:layout_width="301dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="11dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSubstanceAmount" />
+        <TextView
+            android:id="@+id/textViewSubstanceAmount"
+            android:layout_width="300dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="9dp"
+            android:text="Substance Amount" />
+
+        <EditText
+            android:id="@+id/editTextSubstanceAmount"
+            android:layout_width="301dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="11dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="0" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="394dp"
         android:layout_height="52dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSubstanceAmount">
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/button_saveEntryEdit"
@@ -156,4 +120,5 @@
             android:layout_weight="1"
             android:text="DELETE" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EditIntakeDiaryEntry extends AppCompatActivity {
 
     private EditText substanceName;
-    private EditText substanceType;
     private String substanceId;
     private EditText amount;
+
+    private Spinner substanceTypeSpinner;
 
     private EditText entryName;
     private EditText entryType;
@@ -38,6 +40,7 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
 
     private Button updateEntryButton;
     private Button deleteEntryButton;
+    private DocumentReference userRef;
 
 
     private static final String TAG = "Intake Entry";
@@ -53,7 +56,7 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         setContentView(R.layout.activity_edit_intake_diary_entry);
 
         substanceName = findViewById(R.id.editTextSubstanceName);
-        substanceType = findViewById(R.id.editTextSubstanceType);
+        substanceTypeSpinner = findViewById(R.id.spinnerSubstanceType);
         amount = findViewById(R.id.editTextSubstanceAmount);
         updateEntryButton = findViewById(R.id.button_saveEntryEdit);
         deleteEntryButton = findViewById(R.id.button_entryDelete);
@@ -99,12 +102,14 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
         DocumentReference intakeEntry = findIntakeEntry();
 
         entryName = findViewById(R.id.editTextSubstanceName);
-        entryType = findViewById(R.id.editTextSubstanceType);
+        substanceTypeSpinner = findViewById(R.id.spinnerSubstanceType);
         entryAmount = findViewById(R.id.editTextSubstanceAmount);
+
+        int index = ((int) substanceTypeSpinner.getSelectedItemId());
 
         intakeEntry.update(
                 "substanceName", entryName.getText().toString(),
-                "type", entryType.getText().toString(),
+                "type", getResources().getStringArray(R.array.type_array)[(int) substanceTypeSpinner.getSelectedItemId()],
                 "dose", entryAmount.getText().toString()
         );
     }
@@ -161,7 +166,16 @@ public class EditIntakeDiaryEntry extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
 
                     substanceName.setText(document.getString("substanceName"));
-                    substanceType.setText(document.getString("type"));
+                    String type = document.getString("type");
+                    String[] array = getResources().getStringArray(R.array.type_array);
+                    int n = array.length;
+
+                    for (int i = 0; i < n; i++) {
+                        if (array[i].equalsIgnoreCase(type)) {
+                            substanceTypeSpinner.setSelection(i);
+                        }
+                    }
+
                     amount.setText(document.getString("dose"));
                 }
             }
