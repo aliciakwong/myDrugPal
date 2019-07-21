@@ -345,7 +345,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
             Intent intent = new Intent(this, SubstanceListActivity.class);
             startActivity(intent);
 
-            System.out.println("List selected");
         }
 
         else if (tab.getPosition() == 1)
@@ -353,7 +352,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
             Intent intent = new Intent(this, SubstanceSummaryActivity.class);
             startActivity(intent);
 
-            System.out.println("Summary selected");
         }
 
         else if (tab.getPosition() == 2)
@@ -361,7 +359,6 @@ public class SubstanceSummaryActivity extends LogoutActivity
             Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
 
-            System.out.println("About selected");
         }
     }
 
